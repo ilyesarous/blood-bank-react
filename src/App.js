@@ -1,7 +1,8 @@
 import { Box, Stack } from "@mui/material";
-import Body from "./components/Body";
-import Navbar from "./components/Navbar";
+// import Body from "./components/welcomePage/Body";
+import Navbar from "./components/welcomePage/Navbar";
 import './App.css'
+import BloodPage from "./components/bloodPage/BloodPage";
 
 function App() {
 
@@ -9,7 +10,8 @@ function App() {
     <Box >
       <Navbar />
       <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Body/>
+        {/* <Body/> */}
+        <BloodPage/>
       </Stack>
     </Box>
   );

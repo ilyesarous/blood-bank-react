@@ -1,6 +1,6 @@
 import { Home, OpenWith, Person, PowerSettingsNew } from "@mui/icons-material";
 import { AppBar, Box, IconButton, Typography } from "@mui/material";
-import { Icons, StyledToolBar, Text } from "../theme/styles";
+import { Icons, StyledToolBar, Text } from "../../theme/styles";
 
 const Navbar = () => {
   return (

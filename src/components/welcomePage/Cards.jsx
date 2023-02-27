@@ -5,7 +5,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { Icons, ShowCards } from "../theme/styles";
+import { Icons, ShowCards } from "../../theme/styles";
 
 const Cards = () => {
 
@@ -16,7 +16,7 @@ const Cards = () => {
           <CardContent>
             <Icons sx={{justifyContent: "space-between"}}>
               <Typography variant="h6">Word of the Day</Typography>
-              <Bloodtype sx={{ color: "#1293b8", margin: 1 }} />
+              <Bloodtype color="primary" sx={{ margin: 1 }} />
             </Icons>
           </CardContent>
         </CardActionArea>
@@ -26,7 +26,7 @@ const Cards = () => {
           <CardContent>
             <Icons sx={{justifyContent: "space-between"}}>
               <Typography variant="h6">Patien</Typography>
-              <People sx={{ color: "#1293b8", margin: 1 }} />
+              <People color="primary" sx={{ margin: 1 }} />
             </Icons>
           </CardContent>
         </CardActionArea>
