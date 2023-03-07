@@ -21,25 +21,22 @@ import { styled } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { bloodActions } from "../store/BloodSlice";
+import { updateActions } from "../store/updateBloodSlice";
 const StyleModal = styled(Modal)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
 }));
 
-const Sidebar = () => {
-
-  let i = 0
+const UpdateBar = () => {
+  let i = 0;
 
   const [bloodGrp, setBloodGrp] = useState("");
   const [bloodType, setBloodType] = useState("");
   const [givenTo, setGivenTo] = useState([]);
   const [receivedFrom, setRecievedFrom] = useState([]);
-  const [allTypes, setAllTypes] = useState([]);
 
-  const isOpen = useSelector((state) => state.blood.show);
-  const verif = useSelector((state) => state.blood.alert);
+  const [allTypes, setAllTypes] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
@@ -54,8 +51,6 @@ const Sidebar = () => {
       ch = ch + givenTo[i] + ",";
     }
     ch = ch.substring(1)
-    if(ch==="")
-      ch = "-"
   }
   if(receivedFrom.length > 0){
     for (let i = 0; i < receivedFrom.length; i++) {
@@ -65,13 +60,12 @@ const Sidebar = () => {
     if(ch1==="")
       ch1 = "-"
   }
-
-  const bloods = [bloodGrp, bloodType, ch, ch1];
+  const codeBlood = useSelector((state) => state.updateBlood.code);
+  const bloods = [codeBlood, bloodGrp, bloodType, ch, ch1];
 
   const handleBloodGrpChange = (event) => {
     setBloodGrp(event.target.value);
   };
-
   const handleBloodTypeChange = (event) => {
     if (event.target.value === "positive") {
       setBloodType(bloodGrp + "+");
@@ -100,40 +94,38 @@ const Sidebar = () => {
     console.log("receivedFrom: ", receivedFrom);
   };
 
- 
+  const isOpen = useSelector((state) => state.updateBlood.showUpdate);
 
   const dispatch = useDispatch();
   const showHandler = () => {
-    dispatch(bloodActions.showCard());
+    dispatch(updateActions.showCardUpdate());
     setBloodGrp("");
     setBloodType("");
     setGivenTo("");
     setRecievedFrom("");
   };
-  
 
-  const addHandler = (e) => {
+  const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(bloodActions.addBlood(bloods));
-
+    dispatch(updateActions.updateBlood(bloods));
+ 
     console.log("liste des blood: ", bloods);
-    if(!verif)
-      dispatch(bloodActions.showCard());
+ 
+    dispatch(updateActions.showCardUpdate());
     setBloodGrp("");
     setBloodType("");
     setGivenTo("");
     setRecievedFrom("");
+ 
   };
   const cancelHandler = () => {
-    dispatch(bloodActions.showCard());
+    dispatch(updateActions.showCardUpdate());
 
     setBloodGrp("");
     setBloodType("");
     setGivenTo("");
     setRecievedFrom("");
   };
-
-  
 
   return (
     <Box flex={2} p={2}>
@@ -150,10 +142,14 @@ const Sidebar = () => {
             borderRadius: 5,
             paddingLeft: 3,
             paddingRight: 2,
+            
           }}
         >
-          <form onSubmit={addHandler}>
+          <form onSubmit={updateHandler}>
             <List>
+              <ListItem sx={{display:"flex", justifyContent:"center"}}>
+                <Typography variant="h6">Code Blood: {codeBlood}</Typography>
+              </ListItem>
               <ListItem sx={{ display: "flex", width: "100%" }}>
                 <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
                   <InputLabel>Blood Group</InputLabel>
@@ -171,8 +167,8 @@ const Sidebar = () => {
                     </FormHelperText>
                   )}
                 </FormControl>
-                </ListItem>
-                <ListItem>
+              </ListItem>
+              <ListItem>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                   <FormLabel id="demo-row-radio-buttons-group-label">
                     Blood Type
@@ -182,7 +178,7 @@ const Sidebar = () => {
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
                     onClick={handleBloodTypeChange}
-                    sx={{display: "flex", gap: 5}}
+                    sx={{ display: "flex", gap: 5 }}
                   >
                     <FormControlLabel
                       value="positive"
@@ -200,7 +196,7 @@ const Sidebar = () => {
                       Blood type is required
                     </FormHelperText>
                   )}
-                  {!alert&& (
+                  {!alert && (
                     <FormHelperText error={alert}>
                       Already exists
                     </FormHelperText>
@@ -267,7 +263,7 @@ const Sidebar = () => {
                   type="submit"
                   disabled={bloodGrp === "" || bloodType === ""}
                 >
-                  Add
+                  Update
                 </Button>
               </ListItem>
             </List>
@@ -278,4 +274,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default UpdateBar;

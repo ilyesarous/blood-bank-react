@@ -1,10 +1,26 @@
-import { AddCircleOutline, SearchOutlined } from "@mui/icons-material";
-import { Button, InputBase, styled, Toolbar, Typography } from "@mui/material";
+import {
+  AddCircleOutline,
+  SearchOutlined,
+  UpdateOutlined,
+} from "@mui/icons-material";
+import {
+  Alert,
+  Box,
+  Button,
+  InputBase,
+  Stack,
+  styled,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { bloodActions } from "../store/BloodSlice";
+import { updateActions } from "../store/updateBloodSlice";
 
 const SearchToolBar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
-  width: "100%"
+  width: "100%",
 });
 const Search = styled("div")(({ theme }) => ({
   backgroundColor: "white",
@@ -18,18 +34,47 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const SearchBar = () => {
+  const dispatch = useDispatch();
+
+  const showSideBarHandler = () => {
+    dispatch(bloodActions.showCard());
+  };
+  const isOpen = useSelector((state) => state.updateBlood.showUpdate);
+  const selected = useSelector((state) => state.updateBlood.selected);
+  const showUpdateBarHandler = () => {
+    dispatch(updateActions.showCardUpdate())
+    console.log(isOpen);
+  }
   return (
-    <SearchToolBar>
-        <Button variant="outlined" sx={{display: "flex", gap: "10px", border: " solod 1.5px"}}>
+    <Box>
+      <SearchToolBar>
+        <Stack flexDirection={"row"} gap={2}>
+          <Button
+            onClick={showSideBarHandler}
+            variant="outlined"
+            sx={{ display: "flex", gap: "10px", border: " solod 1.5px" }}
+          >
             <Typography>Add</Typography>
-            <AddCircleOutline/>
-        </Button>
+            <AddCircleOutline />
+          </Button>
+          <Button
+            onClick={showUpdateBarHandler}
+            variant="outlined"
+            sx={{ display: "flex", gap: "10px", border: " solod 1.5px" }}
+          >
+            <Typography>Update</Typography>
+            <UpdateOutlined />
+          </Button>
+          {selected && <Alert severity="warning">you need to select a blood</Alert>}
+        </Stack>
+
         <Search>
-          <InputBase placeholder="Search..." sx={{flex: 2}}/>
-          <SearchOutlined color="secondary"/>
+          <InputBase placeholder="Search..." sx={{ flex: 2 }} />
+          <SearchOutlined color="secondary" />
         </Search>
-    </SearchToolBar>
-);
+      </SearchToolBar>
+    </Box>
+  );
 };
 
 export default SearchBar;
