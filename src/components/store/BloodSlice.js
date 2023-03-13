@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   bloods: [],
   show: false,
   alert: false,
+  count: 0,
+  group: "",
+  rhesus: "",
+  receive: "",
+  given: "",
 };
 
 const bloodSlice = createSlice({
@@ -14,29 +18,33 @@ const bloodSlice = createSlice({
     showCard(state) {
       state.show = !state.show;
     },
-
     addBlood(state, action) {
-      const newBlood = action.payload;
-      axios
-        .post("http://localhost:9005/blood-bank/blood", {
-          bloodGrp: newBlood[0],
-          bloodType: newBlood[1],
-          givenTo: newBlood[2],
-          receivedFrom: newBlood[3],
-          userCreate: newBlood[4],
-        })
-        .then((res) => {
-          if (res.data === "") {
-            console.log("can't add!");
-            state.alert = true
-          } else {
-            console.log("added");
-            state.alert = false
-          }
-        });
+      state.bloods = [...state.bloods, action.payload];
+    },
+    setAlert(state) {
+      if (state.alert === true) state.alert = false;
+      else state.alert = true;
+    },
+    setCount(state) {
+      state.count++;
     },
     getChecked(state) {
       state.checked = !state.checked;
+    },
+    getRhesus(state,action){
+      state.rhesus = action.payload
+    },
+    getReceive(state,action){
+      state.receive = action.payload.toString()
+      console.log("receive: ", state.receive);
+    },
+    getGiven(state,action){
+      state.given = action.payload.toString()
+      console.log(state.given);
+    },
+    getGroup(state,action){
+      state.group = action.payload
+      // console.log(state.group);
     }
   },
 });

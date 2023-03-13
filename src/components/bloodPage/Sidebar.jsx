@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bloodActions } from "../store/BloodSlice";
 const StyleModal = styled(Modal)(({ theme }) => ({
@@ -29,57 +29,58 @@ const StyleModal = styled(Modal)(({ theme }) => ({
 }));
 
 const Sidebar = () => {
-
-  let i = 0
+  let i = 0;
 
   const [bloodGrp, setBloodGrp] = useState("");
-  const [bloodType, setBloodType] = useState("");
+  const [rhesus, setRhesus] = useState("");
   const [givenTo, setGivenTo] = useState([]);
   const [receivedFrom, setRecievedFrom] = useState([]);
   const [allTypes, setAllTypes] = useState([]);
 
   const isOpen = useSelector((state) => state.blood.show);
   const verif = useSelector((state) => state.blood.alert);
-
-  useEffect(() => {
+  const count = useSelector((state) => state.blood.count);
+  const getTypes = useCallback(() => {
     axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
       setAllTypes(res.data);
     });
-  }, []);
+  }, [count]);
+
+  useEffect(() => {
+    getTypes();
+  }, [getTypes]);
 
   let ch = "-";
   let ch1 = "-";
-  if(givenTo.length > 0){
+  if (givenTo.length > 0) {
     for (let i = 0; i < givenTo.length; i++) {
       ch = ch + givenTo[i] + ",";
     }
-    ch = ch.substring(1)
-    if(ch==="")
-      ch = "-"
+    ch = ch.substring(1);
+    if (ch === "") ch = "-";
   }
-  if(receivedFrom.length > 0){
+  if (receivedFrom.length > 0) {
     for (let i = 0; i < receivedFrom.length; i++) {
       ch1 = ch1 + receivedFrom[i] + ",";
     }
-    ch1 = ch1.substring(1)
-    if(ch1==="")
-      ch1 = "-"
+    ch1 = ch1.substring(1);
+    if (ch1 === "") ch1 = "-";
   }
 
-  const bloods = [bloodGrp, bloodType, ch, ch1];
+  const bloods = [bloodGrp, rhesus, ch, ch1];
 
   const handleBloodGrpChange = (event) => {
     setBloodGrp(event.target.value);
   };
 
-  const handleBloodTypeChange = (event) => {
+  const handleRhesusChange = (event) => {
     if (event.target.value === "positive") {
-      setBloodType(bloodGrp + "+");
+      setRhesus("+");
     } else {
-      setBloodType(bloodGrp + "-");
+      setRhesus("-");
     }
 
-    console.log("bloodType: ", bloodType);
+    console.log("rhesus: ", rhesus);
   };
 
   const handleGivenTo = (event) => {
@@ -100,40 +101,53 @@ const Sidebar = () => {
     console.log("receivedFrom: ", receivedFrom);
   };
 
- 
-
   const dispatch = useDispatch();
   const showHandler = () => {
     dispatch(bloodActions.showCard());
     setBloodGrp("");
-    setBloodType("");
+    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
   };
-  
+
+  const [res, setRes] = useState([]);
 
   const addHandler = (e) => {
     e.preventDefault();
-    dispatch(bloodActions.addBlood(bloods));
 
-    console.log("liste des blood: ", bloods);
-    if(!verif)
+    axios
+      .post("http://localhost:9005/blood-bank/blood", {
+        bloodGrp: bloods[0],
+        rhesus: bloods[1],
+        givenTo: bloods[2],
+        receivedFrom: bloods[3],
+      })
+      .then((res) => {
+        console.log("res.data", res);
+        setRes(res.data);
+        // dispatch(bloodActions.addBlood(bloods));
+        dispatch(bloodActions.setCount());
+      });
+
+    if (res !== "") {
       dispatch(bloodActions.showCard());
+      dispatch(bloodActions.setAlert());
+    }
+
     setBloodGrp("");
-    setBloodType("");
+    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
   };
+
   const cancelHandler = () => {
     dispatch(bloodActions.showCard());
 
     setBloodGrp("");
-    setBloodType("");
+    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
   };
-
-  
 
   return (
     <Box flex={2} p={2}>
@@ -154,6 +168,12 @@ const Sidebar = () => {
         >
           <form onSubmit={addHandler}>
             <List>
+              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Add
+                </Typography>
+              </ListItem>
+              
               <ListItem sx={{ display: "flex", width: "100%" }}>
                 <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
                   <InputLabel>Blood Group</InputLabel>
@@ -171,18 +191,18 @@ const Sidebar = () => {
                     </FormHelperText>
                   )}
                 </FormControl>
-                </ListItem>
-                <ListItem>
+              </ListItem>
+              <ListItem>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                   <FormLabel id="demo-row-radio-buttons-group-label">
-                    Blood Type
+                    Rhesus
                   </FormLabel>
                   <RadioGroup
                     row
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
-                    onClick={handleBloodTypeChange}
-                    sx={{display: "flex", gap: 5}}
+                    onClick={handleRhesusChange}
+                    sx={{ display: "flex", gap: 5 }}
                   >
                     <FormControlLabel
                       value="positive"
@@ -195,12 +215,12 @@ const Sidebar = () => {
                       label="-"
                     />
                   </RadioGroup>
-                  {bloodType === "" && (
-                    <FormHelperText error={bloodType === ""}>
+                  {rhesus === "" && (
+                    <FormHelperText error={rhesus === ""}>
                       Blood type is required
                     </FormHelperText>
                   )}
-                  {!alert&& (
+                  {!alert && (
                     <FormHelperText error={alert}>
                       Already exists
                     </FormHelperText>
@@ -265,7 +285,7 @@ const Sidebar = () => {
                 <Button
                   variant="outlined"
                   type="submit"
-                  disabled={bloodGrp === "" || bloodType === ""}
+                  disabled={bloodGrp === "" || rhesus === ""}
                 >
                   Add
                 </Button>

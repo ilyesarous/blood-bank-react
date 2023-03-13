@@ -19,8 +19,9 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { bloodActions } from "../store/BloodSlice";
 import { updateActions } from "../store/updateBloodSlice";
 const StyleModal = styled(Modal)(({ theme }) => ({
   display: "flex",
@@ -32,17 +33,20 @@ const UpdateBar = () => {
   let i = 0;
 
   const [bloodGrp, setBloodGrp] = useState("");
-  const [bloodType, setBloodType] = useState("");
   const [givenTo, setGivenTo] = useState([]);
+  const [rhesus, setRhesus] = useState("")
   const [receivedFrom, setRecievedFrom] = useState([]);
 
   const [allTypes, setAllTypes] = useState([]);
-
-  useEffect(() => {
+  const count = useSelector(state=>state.blood.count)
+  const getTypes = useCallback(() => {
     axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
       setAllTypes(res.data);
     });
-  }, []);
+   },[count])
+  useEffect(() => {
+    getTypes()
+  }, [getTypes]);
 
   let ch = "-";
   let ch1 = "-";
@@ -61,19 +65,19 @@ const UpdateBar = () => {
       ch1 = "-"
   }
   const codeBlood = useSelector((state) => state.updateBlood.code);
-  const bloods = [codeBlood, bloodGrp, bloodType, ch, ch1];
+  const bloods = [codeBlood, bloodGrp, rhesus, ch, ch1];
 
   const handleBloodGrpChange = (event) => {
     setBloodGrp(event.target.value);
   };
-  const handleBloodTypeChange = (event) => {
+  const handleRhesusChange = (event) => {
     if (event.target.value === "positive") {
-      setBloodType(bloodGrp + "+");
+      setRhesus("+");
     } else {
-      setBloodType(bloodGrp + "-");
+      setRhesus("-");
     }
 
-    console.log("bloodType: ", bloodType);
+    console.log("rhesus: ", rhesus);
   };
 
   const handleGivenTo = (event) => {
@@ -100,7 +104,7 @@ const UpdateBar = () => {
   const showHandler = () => {
     dispatch(updateActions.showCardUpdate());
     setBloodGrp("");
-    setBloodType("");
+    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
   };
@@ -108,12 +112,12 @@ const UpdateBar = () => {
   const updateHandler = (e) => {
     e.preventDefault();
     dispatch(updateActions.updateBlood(bloods));
- 
+    dispatch(bloodActions.setCount())
     console.log("liste des blood: ", bloods);
  
     dispatch(updateActions.showCardUpdate());
     setBloodGrp("");
-    setBloodType("");
+    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
  
@@ -122,7 +126,7 @@ const UpdateBar = () => {
     dispatch(updateActions.showCardUpdate());
 
     setBloodGrp("");
-    setBloodType("");
+    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
   };
@@ -148,7 +152,10 @@ const UpdateBar = () => {
           <form onSubmit={updateHandler}>
             <List>
               <ListItem sx={{display:"flex", justifyContent:"center"}}>
-                <Typography variant="h6">Code Blood: {codeBlood}</Typography>
+                <Typography variant="h4" sx={{fontWeight: "bold"}}>Update</Typography>
+              </ListItem>
+              <ListItem sx={{display:"flex", justifyContent:"center"}}>
+                <Typography variant="h6" color={"#6B728E"}>Code Blood: {codeBlood}</Typography>
               </ListItem>
               <ListItem sx={{ display: "flex", width: "100%" }}>
                 <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
@@ -177,7 +184,7 @@ const UpdateBar = () => {
                     row
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
-                    onClick={handleBloodTypeChange}
+                    onClick={handleRhesusChange}
                     sx={{ display: "flex", gap: 5 }}
                   >
                     <FormControlLabel
@@ -191,8 +198,8 @@ const UpdateBar = () => {
                       label="-"
                     />
                   </RadioGroup>
-                  {bloodType === "" && (
-                    <FormHelperText error={bloodType === ""}>
+                  {rhesus === "" && (
+                    <FormHelperText error={rhesus === ""}>
                       Blood type is required
                     </FormHelperText>
                   )}
@@ -261,7 +268,7 @@ const UpdateBar = () => {
                 <Button
                   variant="outlined"
                   type="submit"
-                  disabled={bloodGrp === "" || bloodType === ""}
+                  disabled={bloodGrp === "" || rhesus === ""}
                 >
                   Update
                 </Button>

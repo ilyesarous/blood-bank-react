@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch  } from "react-redux";
+import { useDispatch, useSelector  } from "react-redux";
 import { updateActions } from "../store/updateBloodSlice";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -25,8 +25,8 @@ const columns = [
   { id: "codeBlood", label: "Blood code", align: "center", height: "20px" },
   { id: "bloodGrp", label: "Blood group", align: "center", height: "20px" },
   {
-    id: "bloodType",
-    label: "Blood type",
+    id: "rhesus",
+    label: "Rhesus",
     align: "center",
     height: "20px",
   },
@@ -48,24 +48,28 @@ const DataTable = () => {
   const dispatch = useDispatch();
   const [bloods, setBloods] = useState([]);
 
+  const bloodCount = useSelector(state => state.blood.count)
+  const group = useSelector(state => state.blood.group)
+  
+  const receive = useSelector(state => state.blood.receive)
+  const given = useSelector(state => state.blood.given)
 
   const getBloodDataHandler = useCallback(async () => {  
     try{
-      const blood = await fetch("http://localhost:9005/blood-bank/blood")
+      const blood = await fetch(`http://localhost:9005/blood-bank/blood?group=${group}&given=${given}&receive=${receive}`)
       if(!blood.ok)
         throw new Error("something went wrong!")  
       const data = await blood.json()
       setBloods(data)
     }catch(error){console.log(console.error)}
-  })
+  },[bloodCount])
   
   useEffect(() => {
+    // console.log("bloodList: ", bloodList);
     getBloodDataHandler()
   }, [getBloodDataHandler]);
 
-  
-
-  const changeActiveStateHandler = (id) => {
+  const changeActiveStateHandler = (id, e) => {
     console.log(id, ": ", typeof id);
     dispatch(updateActions.getCodeBlood(id))
     dispatch(updateActions.updateBloodStatus())
@@ -120,6 +124,7 @@ const DataTable = () => {
                           <FormControl>
                             <Checkbox
                               defaultChecked
+                              // checked={row.active === 1}
                               inputProps={{ "aria-label": "controlled" }}
                               onChange={(e) =>
                                 changeActiveStateHandler(row.codeBlood, e)

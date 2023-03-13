@@ -16,7 +16,7 @@ const updateSlice = createSlice({
       axios.put(`http://localhost:9005/blood-bank/blood/${state.code}`, {
         codeBlood: newBlood[0],
         bloodGrp: newBlood[1],
-        bloodType: newBlood[2],
+        rhesus: newBlood[2],
         givenTo: newBlood[3],
         receivedFrom: newBlood[4],
       });
