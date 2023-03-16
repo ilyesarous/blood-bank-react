@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
-import DataTable from "./DataTable";
-import SearchBar from "./SearchBar";
-import Sidebar from "./Sidebar";
-import UpdateBar from "./UpdateBar";
+import DataTable from "../bloodPage/DataTable";
+import SearchBar from "../bloodPage/SearchBar";
+import Sidebar from "../bloodPage/Sidebar";
+import UpdateBar from "../bloodPage/UpdateBar";
 
 const BloodPage = () => {
   return (

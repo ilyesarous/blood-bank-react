@@ -1,29 +1,26 @@
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import Body from "./components/welcomePage/Body";
 import Navbar from "./components/welcomePage/Navbar";
 import "./App.css";
-import BloodPage from "./components/bloodPage/BloodPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import BloodPage from "./components/Pages/BloodPage";
+import { Route, Routes } from "react-router-dom";
 import Formulaire from "./components/formulaire/Formulaire";
-import Patient from "./components/patientPage/Patient";
+import Patient from "./components/Pages/Patient";
 
 function App() {
   return (
     <Box>
       <Navbar />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        {/* <Body/> */}
-        {/* <BloodPage/> */}
-        <Formulaire/>
-        {/* <Patient/> */}
-      </Stack>
-      {/* <BrowserRouter>
+    
         <Routes>
-          <Route path="/" element={<Body />}>
-            <Route path="/blood"  element={<BloodPage/>}/>
+          <Route path="/">
+            <Route index element={<Body/>}></Route>
+            <Route path="/blood" element={<BloodPage/>}/>
+            <Route path="/patients" element={<Patient/>}/>
+            <Route path="/form" element={<Formulaire/>}/>
           </Route>
         </Routes>
-      </BrowserRouter> */}
+        
     </Box>
   );
 }

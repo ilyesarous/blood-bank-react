@@ -1,34 +1,33 @@
 import { Bloodtype, People } from "@mui/icons-material";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import { Icons, ShowCards } from "../../theme/styles";
 
 const Cards = () => {
-
   return (
-    <ShowCards >
-      <Card sx={{width: {sm: "100%",md: "17%"}}}>
+    <ShowCards>
+      <Card sx={{ width: { sm: "100%", md: "17%" } }}>
         <CardActionArea sx={{ padding: 1 }}>
-          <CardContent>
-            <Icons sx={{justifyContent: "space-between"}}>
-              <Typography variant="h6">Word of the Day</Typography>
-              <Bloodtype color="primary" sx={{ margin: 1 }} />
-            </Icons>
-          </CardContent>
+          <Link to="/blood" style={{textDecoration: 'none'}}>
+            <CardContent>
+              <Icons sx={{ justifyContent: "space-between" }}>
+                <Typography variant="h6" color="primary">Blood</Typography>
+                <Bloodtype color="primary" sx={{ margin: 1 }} />
+              </Icons>
+            </CardContent>
+          </Link>
         </CardActionArea>
       </Card>
-      <Card sx={{width: {sm: "100%",md: "17%"}}}>
+      <Card sx={{ width: { sm: "100%", md: "17%" } }}>
         <CardActionArea sx={{ padding: 1 }}>
-          <CardContent>
-            <Icons sx={{justifyContent: "space-between"}}>
-              <Typography variant="h6">Patien</Typography>
-              <People color="primary" sx={{ margin: 1 }} />
-            </Icons>
-          </CardContent>
+          <Link to="/patients" style={{textDecoration: 'none'}}>
+            <CardContent>
+              <Icons sx={{ justifyContent: "space-between" }}>
+                <Typography variant="h6" color="primary" >Patien</Typography>
+                <People color="primary" sx={{ margin: 1 }} />
+              </Icons>
+            </CardContent>
+          </Link>
         </CardActionArea>
       </Card>
     </ShowCards>

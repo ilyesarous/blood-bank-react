@@ -7,7 +7,8 @@ import {
   Input,
   InputLabel,
   Stack,
-  // styled,
+  styled,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -17,6 +18,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { AjoutActions } from "../store/Ajoutredux";
 import { ModifActions } from "../store/Modifredux";
 import { GetActions } from "../store/getdata";
+
+const SearchToolBar = styled(Toolbar)({
+  display: "flex",
+  justifyContent: "space-between",
+  width: "100%",
+});
 
 // const Search = styled("div")(({ theme }) => ({
 //   backgroundColor: "white",
@@ -69,12 +76,13 @@ const SearchBar = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Stack alignItems={"center"}>
+      <SearchToolBar>
         <Stack flexDirection={"row"} gap={3} margin={2} height={48}>
           <Button
             onClick={toggleCounterHandler}
             variant="outlined"
-            sx={{ display: "flex", gap: "3px" }}
+            sx={{ display: "flex", gap:  "10px", border: " solod 1.5px" }}
           >
             <Typography>Add</Typography>
             <AddCircleOutline sx={{ color: "#1293b8" }} />
@@ -93,88 +101,89 @@ const SearchBar = () => {
           )}
         </Stack>
 
-      <Stack flexDirection={"row"} sx={{ justifyContent: "right" }}>
-        <FormControl
-          variant="standard"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "right",
-          }}
-        >
-          <Stack
-            flexDirection={"row"}
-            sx={{
-              justifyContent: "space-around",
-              alignItems: "center",
-            }}
-          >
-            <InputLabel>Search by code...</InputLabel>
-            <Input
-              value={CodePatient}
-              onChange={handleCode}
-              placeholder="Search......"
-            />
-            <IconButton onClick={Codepa}>
-              <SearchOutlined color="secondary" />
-            </IconButton>
-          </Stack>
-        </FormControl>
-        <FormControl
-          variant="standard"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "right",
-          }}
-        >
-          <Stack
-            flexDirection={"row"}
+        <Stack flexDirection={"row"} sx={{ justifyContent: "right" }}>
+          <FormControl
+            variant="standard"
             sx={{
               display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "right",
             }}
           >
-            <InputLabel>Search by name...</InputLabel>
-            <Input
-              value={lastNameAr}
-              onChange={handleLastnamear}
-              placeholder="Search......"
-            />
-            <IconButton onClick={lastName}>
-              <SearchOutlined color="secondary" />
-            </IconButton>
-          </Stack>
-        </FormControl>
-        <FormControl
-          variant="standard"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "right",
-          }}
-        >
-          <Stack
-            flexDirection={"row"}
+            <Stack
+              flexDirection={"row"}
+              sx={{
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <InputLabel>Search by code...</InputLabel>
+              <Input
+                value={CodePatient}
+                onChange={handleCode}
+                placeholder="Search......"
+              />
+              <IconButton onClick={Codepa}>
+                <SearchOutlined color="secondary" />
+              </IconButton>
+            </Stack>
+          </FormControl>
+          <FormControl
+            variant="standard"
             sx={{
-              justifyContent: "space-around",
-              alignItems: "center",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "right",
             }}
           >
-            <InputLabel>Search by Num tel...</InputLabel>
-            <Input
-              value={PhoneNumber}
-              onChange={handlePhoneNumber}
-              placeholder="Search......"
-            />
-            <IconButton onClick={PhoneNum}>
-              <SearchOutlined color="secondary" />
-            </IconButton>
-          </Stack>
-        </FormControl>
-      </Stack>
-    </Box>
+            <Stack
+              flexDirection={"row"}
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <InputLabel>Search by name...</InputLabel>
+              <Input
+                value={lastNameAr}
+                onChange={handleLastnamear}
+                placeholder="Search......"
+              />
+              <IconButton onClick={lastName}>
+                <SearchOutlined color="secondary" />
+              </IconButton>
+            </Stack>
+          </FormControl>
+          <FormControl
+            variant="standard"
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "right",
+            }}
+          >
+            <Stack
+              flexDirection={"row"}
+              sx={{
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <InputLabel>Search by Num tel...</InputLabel>
+              <Input
+                value={PhoneNumber}
+                onChange={handlePhoneNumber}
+                placeholder="Search......"
+              />
+              <IconButton onClick={PhoneNum}>
+                <SearchOutlined color="secondary" />
+              </IconButton>
+            </Stack>
+          </FormControl>
+        </Stack>
+      </SearchToolBar>
+    </Stack>
   );
 };
 
