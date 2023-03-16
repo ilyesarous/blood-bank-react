@@ -19,9 +19,8 @@ import {
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { bloodActions } from "../store/BloodSlice";
-import { searchActions } from "../store/Search";
-import { updateActions } from "../store/updateBloodSlice";
+import { bloodActions } from "./BloodStore/BloodSlice";
+import { updateActions } from "./BloodStore/updateBloodSlice";
 import { Icons } from "../../theme/styles";
 
 const SearchToolBar = styled(Toolbar)({
@@ -105,7 +104,7 @@ const SearchBar = () => {
   return (
     <Stack alignItems={"center"}>
       <SearchToolBar>
-        <Stack flexDirection={"row"} gap={2}>
+        <Stack flexDirection={"row"} gap={3} margin={2} height={48}>
           <Button
             onClick={showSideBarHandler}
             variant="outlined"

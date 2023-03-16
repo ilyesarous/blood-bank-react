@@ -2,7 +2,7 @@ import { Home, OpenWith, Person, PowerSettingsNew } from "@mui/icons-material";
 import { AppBar, Box, IconButton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Icons, StyledToolBar, Text } from "../../theme/styles";
-import { fullScreenActions } from "../store/FullScreen";
+import { fullScreenActions } from "../bloodPage/BloodStore/FullScreen";
 
 const Navbar = () => {
   const dispatch = useDispatch();

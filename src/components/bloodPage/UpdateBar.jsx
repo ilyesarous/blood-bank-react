@@ -21,8 +21,8 @@ import { styled } from "@mui/system";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { bloodActions } from "../store/BloodSlice";
-import { updateActions } from "../store/updateBloodSlice";
+import { bloodActions } from "./BloodStore/BloodSlice";
+import { updateActions } from "./BloodStore/updateBloodSlice";
 const StyleModal = styled(Modal)(({ theme }) => ({
   display: "flex",
   alignItems: "center",

@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector  } from "react-redux";
-import { updateActions } from "../store/updateBloodSlice";
+import { updateActions } from "./BloodStore/updateBloodSlice";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
