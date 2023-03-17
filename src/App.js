@@ -6,6 +6,7 @@ import BloodPage from "./components/Pages/BloodPage";
 import { Route, Routes } from "react-router-dom";
 import Formulaire from "./components/formulaire/Formulaire";
 import Patient from "./components/Pages/Patient";
+import DonnationPage from "./components/Pages/DonnationPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route index element={<Body/>}></Route>
             <Route path="/blood" element={<BloodPage/>}/>
             <Route path="/patients" element={<Patient/>}/>
+            <Route path="/patients/donnation" element={<DonnationPage/>}/>
             <Route path="/form" element={<Formulaire/>}/>
           </Route>
         </Routes>

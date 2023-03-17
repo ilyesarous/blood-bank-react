@@ -1,5 +1,8 @@
 import {
   Box,
+  FormControl,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -13,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { ModifActions } from "./store/Modifredux";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -22,106 +26,93 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const columns = [
   {
+    id: "",
+    align: "center",
+  },
+  {
     id: "code",
     label: "Code ",
     align: "center",
-    
   },
   {
     id: "lastNameAr",
     label: "Last Name ",
     align: "center",
-    
   },
   {
     id: "firstNameAr",
     label: "First Name",
     align: "center",
-    
   },
   {
     id: "fatherNameAr",
     label: "Father  ",
     align: "center",
-    
   },
   {
     id: "grandFatherNameAr",
     label: "Grand Father",
     align: "center",
-    
   },
   {
     id: "fullNameAr",
     label: "Full Name",
     align: "center",
-    
   },
   {
     id: "lastNameEng",
     label: "Last Name",
     align: "center",
-    
   },
   {
     id: "firstNameEng",
     label: "First Name",
     align: "center",
-    
   },
   {
     id: "fatherNameEng",
     label: "Father ",
     align: "center",
-    
   },
   {
     id: "grandFatherNameEng",
     label: "Grand Father",
     align: "center",
-    
   },
   {
     id: "fullNameEng",
     label: "Full Name",
     align: "center",
-    
   },
   {
     id: "phoneNumber",
     label: "Phone Number",
     align: "center",
-    
   },
   {
     id: "adress",
     label: "Adress",
     align: "center",
-    
   },
   {
     id: "email",
     label: "Email",
     align: "center",
-    
   },
   {
     id: "bloodCode",
     label: "Blood",
     align: "center",
-    
   },
   {
     id: "birthDate",
     label: "BirthDate",
     align: "center",
-    
   },
   {
     id: "gender",
     label: "Gender",
     align: "center",
-    
   },
 ];
 
@@ -190,8 +181,8 @@ const Tableadd = () => {
 
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-      <Box sx={{ width: "100%", overflow: "hidden"}}>
-        <TableContainer  sx={{ maxHeight: 440}}>
+      <Box sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer sx={{ maxHeight: 600 }}>
           <Table size="small" stickyHeader={true} aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -226,12 +217,21 @@ const Tableadd = () => {
                           sx={{
                             border: ".5px solid #EEEEEE",
                             borderCollapse: "collapse",
-                            minWidth: "150px"
+                            minWidth: "150px",
                           }}
                           key={column.id}
                           align={column.align}
-                          >
-                          {row[column.id]}
+                        >
+                          {column.id === "" ? (
+                            <FormControl size="small">
+                              <Select sx={{height:"20px"}}>
+                                <MenuItem><Link to="/patient/history" style={{textDecoration: 'none', color:"black"}}>History</Link></MenuItem>
+                                <MenuItem><Link to="/form" style={{textDecoration: 'none', color:"black"}}>Donation</Link></MenuItem>
+                              </Select>
+                            </FormControl>
+                          ) : (
+                            row[column.id]
+                          )}
                         </TableCell>
                       );
                     })}

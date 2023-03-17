@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Formulaire = () => {
   const questions = [
@@ -53,28 +54,32 @@ const Formulaire = () => {
     setResponse(tab);
   };
   const [alert, setAlert] = useState(false);
-  const submitHandler = (event) => {
+  const [link, setLink] = useState("")
+  const submitHandler = () => {
     const check = (value) => {
       return value === "no";
     };
     const a = response.find(check);
     if (a) {
       setAlert(true);
+      setLink("")
     } else {
       setAlert(false);
+      setLink("/patients/donnation")
+      console.log(link);
     }
     console.log(response);
-    setResponse([])
+    setResponse([]);
   };
 
   return (
     <Stack sx={{ width: "100%", paddingLeft: 10, paddingRight: 10 }}>
       <List>
-        <ListItem sx={{ justifyContent: "center", height:50 }}>
-          <ListItem sx={{justifyContent: "right", flex:1}}>
+        <ListItem sx={{ justifyContent: "center", height: 50 }}>
+          <ListItem sx={{ justifyContent: "right", flex: 1 }}>
             <Typography variant="h4">Questionair</Typography>
           </ListItem>
-          <ListItem sx={{justifyContent: "right", flex:.75}}>
+          <ListItem sx={{ justifyContent: "right", flex: 0.75 }}>
             {alert && (
               <Alert severity="error">This person can not donnate!</Alert>
             )}
@@ -97,9 +102,11 @@ const Formulaire = () => {
         ))}
         <Divider sx={{ marginTop: 3 }} />
         <ListItem sx={{ justifyContent: "right" }}>
-          <Button variant="outlined" onClick={submitHandler}>
-            submit
-          </Button>
+            <Link to={link}>
+              <Button variant="outlined" onClick={submitHandler}>
+                submit
+              </Button>
+            </Link>
         </ListItem>
       </List>
     </Stack>
