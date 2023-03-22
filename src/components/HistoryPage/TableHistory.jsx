@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import {
-    Checkbox,
-    FormControl,
     Stack,
     Table,
     TableBody,
@@ -27,31 +25,31 @@ const columns = [
         id: "codePatient",
         label: "code patient",
         align: "center",
-        height: "20px",
+        // height: "20px",
     },
     {
         id: "observation",
         label: "Observation",
         align: "center",
-        height: "20px",
+        // height: "20px",
     },
     {
         id: "userCreate",
         label: "User",
         align: "center",
-        height: "20px",
+        // height: "20px",
     },
     {
         id: "dateCreate",
         label: "Creation Date",
         align: "center",
-        height: "20px",
+        // height: "20px",
     },
     {
         id: "state",
         label: "state",
         align: "center",
-        height: "20px",
+        // height: "20px",
     },
 ];
 
@@ -63,7 +61,7 @@ const TableHistory = () => {
     const get = useDispatch();
     const getDonnationsHandler = useCallback(async () => {
         try {
-            const blood = await fetch(`http://localhost:9005/blood-bank/historique/${'pat10'}`);
+            const blood = await fetch(`http://localhost:9005/blood-bank/historique/${codepatient}`);
             if (!blood.ok) throw new Error("something went wrong!");
             const data = await blood.json();
             setDeoonations(data);

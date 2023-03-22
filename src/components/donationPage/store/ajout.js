@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Action } from "@remix-run/router";
 import Axios from 'axios';
 const url = "http://localhost:9005/blood-bank/donation"
 
