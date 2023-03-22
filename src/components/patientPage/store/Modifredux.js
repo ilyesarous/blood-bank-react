@@ -20,6 +20,7 @@ const ModifSlice = createSlice({
         modif(state, action) {
             const codepatient = action.payload
             state.codeP = codepatient 
+          
         },
      
         modifPat(state, action) {

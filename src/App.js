@@ -7,21 +7,23 @@ import { Route, Routes } from "react-router-dom";
 import Formulaire from "./components/formulaire/Formulaire";
 import Patient from "./components/Pages/Patient";
 import DonnationPage from "./components/Pages/DonnationPage";
+import HistoryPage from "./components/Pages/HistoryPage";
 
 function App() {
   return (
     <Box>
       <Navbar />
-    
-        <Routes>
+      <HistoryPage/>
+        {/* <Routes>
           <Route path="/">
             <Route index element={<Body/>}></Route>
             <Route path="/blood" element={<BloodPage/>}/>
             <Route path="/patients" element={<Patient/>}/>
             <Route path="/patients/donnation" element={<DonnationPage/>}/>
+            <Route path="/patients/history" element={<HistoryPage/>}/>
             <Route path="/form" element={<Formulaire/>}/>
           </Route>
-        </Routes>
+        </Routes> */}
         
     </Box>
   );

@@ -11,6 +11,8 @@ import {
   TableRow,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { modifActions } from "./store/modif";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -21,6 +23,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const columns = [
   { id: "code", label: "Code", align: "center", height: "20px" },
   // { id: "dateCreate", label: "dateCreate", align: "center", height: "20px" },
+  {
+    id: "codePatient",
+    label: "code patient",
+    align: "center",
+    height: "20px",
+  },
   {
     id: "fullName",
     label: "Full name",
@@ -78,7 +86,10 @@ const columns = [
 ];
 
 const TableDonnation = () => {
+
+  const counteur = useSelector(state => state.modifDonation.counteur)
   const [donnations, setDeoonations] = useState([]);
+  const get=useDispatch();
 
   const getDonnationsHandler = useCallback(async () => {
     try {
@@ -89,7 +100,30 @@ const TableDonnation = () => {
     } catch (error) {
       console.log(console.error);
     }
-  }, []);
+  }, [counteur]);
+
+  const getlesvaleur = (Donation) => {
+    const d = [
+      Donation.code,
+      Donation.codePatient,
+      Donation.fullName,
+      Donation.age,
+      Donation.phoneNumber,
+      Donation.typeIdentity,
+      Donation.numIdentity,
+      Donation.sexe,
+      Donation.adress,
+      Donation.etat,
+      
+    ];
+    get(modifActions.getDateCreation(Donation.date_creation));
+    get(modifActions.getCode(Donation.code))
+   get(modifActions.getLastName(Donation.fullName));
+   get(modifActions.getType(Donation.typeIdentity));
+   get(modifActions.getNumerotype(Donation.numIdentity));
+   get(modifActions.getDonateur(d));
+    
+  };
 
   useEffect(() => {
     getDonnationsHandler();
@@ -119,6 +153,7 @@ const TableDonnation = () => {
             {donnations.map((row) => {
               return (
                 <StyledTableRow
+                  onClick={() => getlesvaleur(row)}
                   hover
                   tabIndex={-1}
                   key={row.code}

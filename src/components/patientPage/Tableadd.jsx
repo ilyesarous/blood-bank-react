@@ -17,6 +17,8 @@ import React from "react";
 import { ModifActions } from "./store/Modifredux";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import { AjoutActions } from "../donationPage/store/ajout";
+import { GetDonateurActions } from "../HistoryPage/store/getDonateur";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -119,13 +121,14 @@ const columns = [
 const Tableadd = () => {
   // const Lastname = useSelector(state=>state.geet.lastNameAr)
   const lastName = useSelector((state) => state.geet.lastNamear);
-  console.log("el name", lastName);
+  
   const CodePatient = useSelector((state) => state.geet.Code);
-  console.log("le code ", CodePatient);
+  
   const PhoneNumber = useSelector((state) => state.geet.Numero);
-  console.log("le numero", PhoneNumber);
+ 
 
   const get = useDispatch();
+  const don = useDispatch();
 
   const [patients, setPatient] = useState([]);
   const [page, setPage] = useState(0);
@@ -146,11 +149,21 @@ const Tableadd = () => {
       Patient.fullNameEng,
       Patient.bloodCode,
       Patient.gender,
+      Patient.adress,
+      Patient.phoneNumber
     ];
 
     get(ModifActions.modifPat(p));
     get(ModifActions.modifBirth(Patient.birthDate));
     get(ModifActions.modif(Patient.code));
+    get(AjoutActions.getcode(Patient.code));
+    get(AjoutActions.getAdre(Patient.adress));
+    get(AjoutActions.getName(Patient.lastNameAr));
+    get(AjoutActions.getSexe(Patient.gender));
+    get(AjoutActions.getPhone(Patient.phoneNumber));
+    get(AjoutActions.add(p));
+    get(GetDonateurActions.CodePat(Patient.code));
+    
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
