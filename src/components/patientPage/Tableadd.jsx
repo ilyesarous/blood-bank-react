@@ -238,7 +238,7 @@ const Tableadd = () => {
                           {column.id === "" ? (
                             <FormControl size="small">
                               <Select sx={{height:"20px"}}>
-                                <MenuItem><Link to="/patient/history" style={{textDecoration: 'none', color:"black"}}>History</Link></MenuItem>
+                                <MenuItem><Link to="/patients/history" style={{textDecoration: 'none', color:"black"}}>History</Link></MenuItem>
                                 <MenuItem><Link to="/form" style={{textDecoration: 'none', color:"black"}}>Donation</Link></MenuItem>
                               </Select>
                             </FormControl>

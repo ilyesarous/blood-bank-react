@@ -13,8 +13,8 @@ function App() {
   return (
     <Box>
       <Navbar />
-      <HistoryPage/>
-        {/* <Routes>
+      {/* <HistoryPage/> */}
+        <Routes>
           <Route path="/">
             <Route index element={<Body/>}></Route>
             <Route path="/blood" element={<BloodPage/>}/>
@@ -23,7 +23,7 @@ function App() {
             <Route path="/patients/history" element={<HistoryPage/>}/>
             <Route path="/form" element={<Formulaire/>}/>
           </Route>
-        </Routes> */}
+        </Routes>
         
     </Box>
   );

@@ -63,7 +63,7 @@ const TableHistory = () => {
     const get = useDispatch();
     const getDonnationsHandler = useCallback(async () => {
         try {
-            const blood = await fetch(`http://localhost:9005/blood-bank/historique`);
+            const blood = await fetch(`http://localhost:9005/blood-bank/historique/${'pat10'}`);
             if (!blood.ok) throw new Error("something went wrong!");
             const data = await blood.json();
             setDeoonations(data);
