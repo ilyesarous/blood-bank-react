@@ -14,7 +14,7 @@ const GetSlice = createSlice({
     }}
     )
 
-const GetDonateurReducer = GetSlice.reducer
+const GetDonateurHisReducer = GetSlice.reducer
 export const GetDonateurActions = GetSlice.actions
 
-export default GetDonateurReducer
+export default GetDonateurHisReducer

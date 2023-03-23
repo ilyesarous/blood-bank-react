@@ -46,31 +46,55 @@ const Formulaire = () => {
     },
   ];
   let i = 1;
+  let z = 9;
+  let v=0;
+
+  const [result, setResultat] = useState("");
 
   const [response, setResponse] = useState([]);
   const changeHandler = (event) => {
+    setResultat(event.target.value);
+    console.log("el valeur", result);
     console.log(event.target.value);
     const tab = [...response, event.target.value];
     setResponse(tab);
   };
+  let y = response.length
+  response.forEach(respons => {
+
+    if(respons === "no"){
+      v++;
+    }
+  });
+  console.log("el v", v);
+
+  console.log("el y", y);
   const [alert, setAlert] = useState(false);
   const [link, setLink] = useState("")
   const submitHandler = () => {
     const check = (value) => {
       return value === "no";
+
     };
     const a = response.find(check);
-    if (a) {
-      setAlert(true);
-      setLink("")
-    } else {
+    console.log("el a", a);
+    z+=v
+    console.log("el z", z);
+    if (a && y<9 && z<y ) {
       setAlert(false);
+      setLink("")
+      
+    } else {
+      setAlert(true);
       setLink("/patients/donnation")
+      
       console.log(link);
     }
     console.log(response);
-    setResponse([]);
+    // window.location.reload()
+
   };
+
 
   return (
     <Stack sx={{ width: "100%", paddingLeft: 10, paddingRight: 10 }}>
@@ -102,11 +126,11 @@ const Formulaire = () => {
         ))}
         <Divider sx={{ marginTop: 3 }} />
         <ListItem sx={{ justifyContent: "right" }}>
-            <Link to={link}>
-              <Button variant="outlined" onClick={submitHandler}>
-                submit
-              </Button>
-            </Link>
+          <Link to={link}>
+            <Button variant="outlined" onClick={submitHandler}>
+              submit
+            </Button>
+          </Link>
         </ListItem>
       </List>
     </Stack>

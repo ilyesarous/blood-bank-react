@@ -44,14 +44,14 @@ import {
               <Typography>Add</Typography>
               <AddCircleOutline />
             </Button>
-            <Button
+            {/* <Button
               
               variant="outlined"
               sx={{ display: "flex", gap: "10px", border: " solod 1.5px" }}
             >
               <Typography>Update</Typography>
               <UpdateOutlined />
-            </Button>
+            </Button> */}
           
           </Stack>
   

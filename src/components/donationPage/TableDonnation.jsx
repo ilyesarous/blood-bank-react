@@ -48,6 +48,12 @@ const columns = [
     height: "20px",
   },
   {
+    id: "userCreate",
+    label: "user create",
+    align: "center",
+    height: "20px",
+  },
+  {
     id: "date_creation",
     label: "Creation Date",
     align: "center",
@@ -87,20 +93,29 @@ const columns = [
 
 const TableDonnation = () => {
 
-  const counteur = useSelector(state => state.modifDonation.counteur)
+  const TypeIdentity = useSelector((state) => state.getDonation.typeIdentity);
+  
+  const Identity = useSelector((state) => state.getDonation.NumIdentity);
+  const count = useSelector((state) => state.getDonation.counteur);
+
+  console.log("eaa",TypeIdentity);
+  console.log("el nnnn",Identity);
   const [donnations, setDeoonations] = useState([]);
   const get=useDispatch();
 
   const getDonnationsHandler = useCallback(async () => {
     try {
-      const blood = await fetch(`http://localhost:9005/blood-bank/donation`);
+      const blood = await fetch(`http://localhost:9005/blood-bank/donation?typeIdentity=${TypeIdentity}&numIdentity=${Identity}`)
       if (!blood.ok) throw new Error("something went wrong!");
       const data = await blood.json();
       setDeoonations(data);
     } catch (error) {
       console.log(console.error);
     }
-  }, [counteur]);
+  }, [count]);
+  useEffect(() => {
+    getDonnationsHandler();
+  }, [getDonnationsHandler]);
 
   const getlesvaleur = (Donation) => {
     const d = [
@@ -125,9 +140,7 @@ const TableDonnation = () => {
     
   };
 
-  useEffect(() => {
-    getDonnationsHandler();
-  }, [getDonnationsHandler]);
+  
 
   return (
     <Stack>

@@ -8,7 +8,8 @@ import GetReducer from "./components/patientPage/store/getdata";
 import ModifReducer from "./components/patientPage/store/Modifredux";
 import AjoutReducerr from "./components/donationPage/store/ajout";
 import ModifReducerr from "./components/donationPage/store/modif";
-import GetDonateurReducer from "./components/HistoryPage/store/getDonateur";
+import GetDonateurHisReducer from "./components/HistoryPage/store/getDonateur";
+import GetReducerr from "./components/donationPage/store/get";
 
 const store = configureStore({
     reducer: {
@@ -19,7 +20,8 @@ const store = configureStore({
         ajout: AjoutReducer,
         ajoutDonation:AjoutReducerr,
         modifDonation:ModifReducerr,
-        getDonateur:GetDonateurReducer,
+        getDonation:GetReducerr,
+        getDonateur:GetDonateurHisReducer,
         geet: GetReducer,
         modif: ModifReducer
     }

@@ -156,6 +156,8 @@ const Tableadd = () => {
     get(ModifActions.modifPat(p));
     get(ModifActions.modifBirth(Patient.birthDate));
     get(ModifActions.modif(Patient.code));
+    get(ModifActions.modifLastName(Patient.lastNameAr));
+    get(ModifActions.modifPhone(Patient.phoneNumber));
     get(AjoutActions.getcode(Patient.code));
     get(AjoutActions.getAdre(Patient.adress));
     get(AjoutActions.getName(Patient.lastNameAr));

@@ -17,9 +17,11 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Icons } from "../../theme/styles";
 import { AjoutActions } from "./store/ajout";
+import { GetActions } from "./store/get";
 import { modifActions } from "./store/modif";
 
 const SearchToolBar = styled(Toolbar)({
@@ -30,9 +32,24 @@ const SearchToolBar = styled(Toolbar)({
 
 
 const SearchBar = () => {
+  const [TypeIdentity, setTypeIdentity] = useState("");
+  const [NumIdentity, setNumIdentity] = useState("");
+  
 
   const ajout = useDispatch();
+  const get = useDispatch();
   let i = 0;
+
+  const handletypeIdentity = (e) => {
+    setTypeIdentity(e.target.value);
+  };
+  
+  const handlenumIdentity = (e) => {
+    setNumIdentity(e.target.value);
+  };
+  
+  
+
 
   const toggleAjoutDonationHandler =() =>{
     ajout(AjoutActions.Showme());
@@ -40,6 +57,14 @@ const SearchBar = () => {
   };
   const toggleModifDonationHandler =() =>{
     ajout(modifActions.Showme());
+    
+  };
+  const searchHandler = () => {
+    get(GetActions.getType(TypeIdentity));
+    get(GetActions.getNum(NumIdentity));
+
+    setTypeIdentity("")
+    setNumIdentity("")
     
   };
 
@@ -75,7 +100,8 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel id="demo-select-small">Numero Identity...</InputLabel>
-            <Input  required />
+            <Input value={NumIdentity}
+                onChange={handlenumIdentity} required />
           </FormControl>
           <FormControl
             variant="standard"
@@ -83,7 +109,8 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel>Type Identity...</InputLabel>
-            <Input  required />
+            <Input value={TypeIdentity}
+                onChange={handletypeIdentity} required />
           </FormControl>
           <Icons>
             <IconButton
@@ -91,7 +118,7 @@ const SearchBar = () => {
               color="inherit"
               aria-label="search"
               sx={{ mr: 2, border: ".5px solid #1D95BB" }}
-              // onClick={searchHandler}
+              onClick={searchHandler}
             >
               <SearchOutlined color="primary" />
             </IconButton>

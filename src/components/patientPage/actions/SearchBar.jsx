@@ -142,6 +142,7 @@ const SearchBar = () => {
                 display: "flex",
                 justifyContent: "space-around",
                 alignItems: "center",
+                // border: "  1px solid  #808080" 
               }}
             >
               <InputLabel>Search by name...</InputLabel>

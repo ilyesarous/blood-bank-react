@@ -24,13 +24,16 @@ const StyleModal = styled(Modal)({
 
 const Modif = (props) => {
   const codeup = useSelector((state) => state.modif.codeP);
+  const LastName = useSelector((state) => state.modif.lastName);
+  const birdhday = useSelector((state) => state.modif.birdh);
+
   const cancel = useSelector((state) => state.modif.show);
   const up = useDispatch();
 
   const [Email, setEmail] = useState("");
   const [Adress, setAdress] = useState("");
   const [NumberPhone, setNumber] = useState("");
-
+  
   const tabPatientup = [codeup, Adress, Email, NumberPhone];
 
   const togglerHandler = (e) => {
@@ -68,7 +71,7 @@ const Modif = (props) => {
         onClose={toggleCancelHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Box width={400} height={400} bgcolor="white" padding={3} borderRadius={5}>
+        <Box width={500} bgcolor="white" padding={3} borderRadius={5}>
           <List>
             <form onSubmit={togglerHandler}>
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
@@ -98,6 +101,30 @@ const Modif = (props) => {
                   </Typography>
                 </FormControl>
               </ListItem>
+              <ListItem sx={{ display: "flex", justifyContent: "space-around" }}>
+                <FormControl
+                  variant="standard"
+                >
+                  <Typography>
+                    Last Name:
+                    <b>
+                      <u>{LastName}</u>
+                    </b>
+                  </Typography>
+                </FormControl>
+         
+                <FormControl
+                  variant="standard"
+                  // sx={{marginLeft:"10%"}}
+                >
+                  <Typography>
+                    Birdhay:
+                    <b>
+                      <u>{birdhday}</u>
+                    </b>
+                  </Typography>
+                </FormControl>
+              </ListItem>
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
@@ -113,23 +140,23 @@ const Modif = (props) => {
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>Adress:</InputLabel>
+                  <InputLabel>Adress....</InputLabel>
                   <Input
                     value={Adress}
                     onChange={handleAdress}
-                    placeholder="Adress..."
+                    
                   />
                 </FormControl>
               </ListItem>
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>Phone number:</InputLabel>
+                  <InputLabel>Phone number....</InputLabel>
 
                   <Input
                     value={NumberPhone}
                     onChange={handleNumber}
-                    placeholder="Number phone..."
+                    
                   />
                 </FormControl>
               </ListItem>
