@@ -4,21 +4,18 @@ import {
   UpdateOutlined,
 } from "@mui/icons-material";
 import {
-  Alert,
   Button,
   FormControl,
   IconButton,
   Input,
   InputLabel,
-  MenuItem,
-  Select,
   Stack,
   styled,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Icons } from "../../theme/styles";
 import { AjoutActions } from "./store/ajout";
 import { GetActions } from "./store/get";
@@ -38,7 +35,6 @@ const SearchBar = () => {
 
   const ajout = useDispatch();
   const get = useDispatch();
-  let i = 0;
 
   const handletypeIdentity = (e) => {
     setTypeIdentity(e.target.value);
@@ -62,7 +58,7 @@ const SearchBar = () => {
   const searchHandler = () => {
     get(GetActions.getType(TypeIdentity));
     get(GetActions.getNum(NumIdentity));
-
+    get(GetActions.modifcounteur())
     setTypeIdentity("")
     setNumIdentity("")
     

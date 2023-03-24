@@ -65,6 +65,8 @@ const UpdateBar = () => {
       ch1 = "-"
   }
   const codeBlood = useSelector((state) => state.updateBlood.code);
+  const bloodGrpStore = useSelector((state) => state.updateBlood.bloodGrp);
+
   const bloods = [codeBlood, bloodGrp, rhesus, ch, ch1];
 
   const handleBloodGrpChange = (event) => {
@@ -167,6 +169,7 @@ const UpdateBar = () => {
                     name="bloodGrp"
                     required
                     error={bloodGrp === ""}
+                    placeholder={bloodGrpStore}
                   />
                   {bloodGrp === "" && (
                     <FormHelperText error={bloodGrp === ""}>

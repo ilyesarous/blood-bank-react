@@ -128,7 +128,6 @@ const Tableadd = () => {
  
 
   const get = useDispatch();
-  const don = useDispatch();
 
   const [patients, setPatient] = useState([]);
   const [page, setPage] = useState(0);

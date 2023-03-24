@@ -6,6 +6,8 @@ const initialState = {
   showUpdate: false,
   selected: false,
   code: 0,
+  bloodGrp : "",
+  rhesus : ""
 };
 const updateSlice = createSlice({
   name: "updateBlood",
@@ -36,7 +38,13 @@ const updateSlice = createSlice({
       }
     },
     getCodeBlood(state, action) {
-      state.code = action.payload;
+      state.code = action.payload
+    },
+    getBloodGrp(state, action) {
+      state.bloodGrp = action.payload
+    },
+    getRhesus(state, action) {
+      state.rhesus = action.payload
     },
   },
 });
