@@ -55,7 +55,7 @@ const Formulaire = () => {
     }
     console.log(response);
   };
-  const [link, setLink] = useState("")
+  const [link, setLink] = useState("/patients/donnation")
 
   
 
@@ -67,7 +67,7 @@ const Formulaire = () => {
       
     } else {
       setAlert(false);
-      setLink("/patients/donnation");
+      setLink("");
     }
 
   };
