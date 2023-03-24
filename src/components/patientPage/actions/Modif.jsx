@@ -134,7 +134,7 @@ const Modif = (props) => {
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
 
-                  <InputLabel>{email}</InputLabel>
+                  <InputLabel>Email...</InputLabel>
                   <Input
                     value={Email}
                     onChange={handleEmail}
@@ -145,7 +145,7 @@ const Modif = (props) => {
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>{adress}</InputLabel>
+                  <InputLabel>Adress....</InputLabel>
                   <Input
                     value={Adress}
                     onChange={handleAdress}
@@ -156,7 +156,7 @@ const Modif = (props) => {
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>{Num}</InputLabel>
+                  <InputLabel>Phone Number...</InputLabel>
 
                   <Input
                     value={NumberPhone}

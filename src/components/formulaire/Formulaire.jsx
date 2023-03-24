@@ -115,11 +115,7 @@ const Formulaire = () => {
   const [link, setLink] = useState("")
 
 
-
-
-
-
-
+  
   const [alert, setAlert] = useState(false);
 
   const submitHandler = () => {
