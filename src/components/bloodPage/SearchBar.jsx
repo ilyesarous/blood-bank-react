@@ -8,6 +8,7 @@ import {
   Button,
   FormControl,
   IconButton,
+  Input,
   InputLabel,
   MenuItem,
   Select,
@@ -67,15 +68,12 @@ const SearchBar = () => {
   const handleBloodGrpChange = (event) => {
     setBloodGrp(event.target.value);
   };
- 
 
   const handleGivenTo = (event) => {
     setGivenTo(event.target.value);
-    
   };
   const handleReceivedFrom = (event) => {
     setRecievedFrom(event.target.value);
-    
   };
 
   const dispatch = useDispatch();
@@ -91,14 +89,14 @@ const SearchBar = () => {
   };
 
   const searchHandler = () => {
-    dispatch(bloodActions.getGroup(bloodGrp))
-    dispatch(bloodActions.getGiven(givenTo)) 
-    dispatch(bloodActions.getReceive(receivedFrom))
-    dispatch(bloodActions.setCount())
+    dispatch(bloodActions.getGroup(bloodGrp));
+    dispatch(bloodActions.getGiven(givenTo));
+    dispatch(bloodActions.getReceive(receivedFrom));
+    dispatch(bloodActions.setCount());
 
-    setGivenTo("")
-    setRecievedFrom("")
-    setBloodGrp("")
+    setGivenTo("");
+    setRecievedFrom("");
+    setBloodGrp("");
   };
 
   return (
@@ -133,21 +131,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel id="demo-select-small">Received From</InputLabel>
-            <Select
-              label="Received From"
-              onChange={handleReceivedFrom}
-              value={receivedFrom}
-              name="receivedFrom"
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {types.map((type) => (
-                <MenuItem key={i++} value={type}>
-                  {type}
-                </MenuItem>
-              ))}
-            </Select>
+            <Input onChange={handleReceivedFrom} />
           </FormControl>
           <FormControl
             variant="standard"
@@ -155,21 +139,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel>Given To</InputLabel>
-            <Select
-              label="Given To"
-              onChange={handleGivenTo}
-              value={givenTo}
-              name="givenTo"
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {types.map((type) => (
-                <MenuItem key={i++} value={type}>
-                  {type}
-                </MenuItem>
-              ))}
-            </Select>
+            <Input onChange={handleGivenTo} />
           </FormControl>
           <FormControl
             variant="standard"
@@ -177,21 +147,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel>Blood Group</InputLabel>
-            <Select
-              label="Blood Group"
-              onChange={handleBloodGrpChange}
-              value={bloodGrp}
-              name="groups"
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {groups.map((group) => (
-                <MenuItem key={i++} value={group}>
-                  {group}
-                </MenuItem>
-              ))}
-            </Select>
+            <Input onChange={handleBloodGrpChange}/>
           </FormControl>
           <Icons>
             <IconButton
@@ -205,10 +161,7 @@ const SearchBar = () => {
             </IconButton>
           </Icons>
         </Stack>
-        {/* <Search>
-          <InputBase placeholder="Search..." sx={{ flex: 2 }} />
-          <SearchOutlined color="secondary" />
-        </Search> */}
+        
       </SearchToolBar>
     </Stack>
   );
