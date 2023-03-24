@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Axios from 'axios';
 
 
 const initialGetState = { typeIdentity:"",NumIdentity:"",counteur: 1 }

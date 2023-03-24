@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector  } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "./BloodStore/updateBloodSlice";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -48,39 +48,44 @@ const DataTable = () => {
   const dispatch = useDispatch();
   const [bloods, setBloods] = useState([]);
 
-  const bloodCount = useSelector(state => state.blood.count)
-  const group = useSelector(state => state.blood.group)
-  
-  const receive = useSelector(state => state.blood.receive)
-  const given = useSelector(state => state.blood.given)
+  const bloodCount = useSelector((state) => state.blood.count);
+  const group = useSelector((state) => state.blood.group);
 
-  const getBloodDataHandler = useCallback(async () => {  
-    try{
-      const blood = await fetch(`http://localhost:9005/blood-bank/blood?group=${group}&given=${given}&receive=${receive}`)
-      if(!blood.ok)
-        throw new Error("something went wrong!")  
-      const data = await blood.json()
-      setBloods(data)
-    }catch(error){console.log(console.error)}
-  },[bloodCount])
-  
+  const receive = useSelector((state) => state.blood.receive);
+  const given = useSelector((state) => state.blood.given);
+
+  const getBloodDataHandler = useCallback(async () => {
+    try {
+      const blood = await fetch(
+        `http://localhost:9005/blood-bank/blood?group=${group}&given=${given}&receive=${receive}`
+      );
+      if (!blood.ok) throw new Error("something went wrong!");
+      const data = await blood.json();
+      setBloods(data);
+    } catch (error) {
+      console.log(console.error);
+    }
+  }, [bloodCount]);
+
   useEffect(() => {
     // console.log("bloodList: ", bloodList);
-    getBloodDataHandler()
+    getBloodDataHandler();
   }, [getBloodDataHandler]);
 
   const changeActiveStateHandler = (id, e) => {
     console.log(id, ": ", typeof id);
-    dispatch(updateActions.getCodeBlood(id))
-    dispatch(updateActions.updateBloodStatus())
+    dispatch(updateActions.getCodeBlood(id));
+    dispatch(updateActions.updateBloodStatus());
   };
 
-  const getBloodCode = (id) => {
-    dispatch(updateActions.getCodeBlood(id));
+  const getBloodCode = (row) => {
+    dispatch(updateActions.getCodeBlood(row.codeBlood));
+    dispatch(updateActions.getBloodGrp(row.bloodGrp));
+    dispatch(updateActions.getRhesus(row.rhesus));
   };
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-      <TableContainer>
+      <TableContainer sx={{ maxHeight: 600 }}>
         <Table size="small" stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -106,7 +111,7 @@ const DataTable = () => {
                   role="checkbox"
                   tabIndex={-1}
                   key={row.codeBlood}
-                  onClick={() => getBloodCode(row.codeBlood)}
+                  onClick={() => getBloodCode(row)}
                   sx={{ ":focus": { backgroundColor: "#EEEEEE" } }}
                 >
                   {columns.map((column) => {
