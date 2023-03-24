@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Axios from 'axios';
 
 
-const initialModifState = { patient: [],birdh:[], codeP:"",lastName:"",phone:"" , counteur: 0, select: false ,show: false }
+const initialModifState = { patient: [],birdh:[], codeP:"",lastName:"",phone:"",adresse:"",email:"" , counteur: 0, select: false ,show: false }
 // {} najem na3mel patient. w ken 3malt [] na3mel patient [i]
 const ModifSlice = createSlice({
     name: "update",
@@ -40,6 +40,14 @@ const ModifSlice = createSlice({
             const bir  = action.payload
             state.phone = bir 
         },
+        modifEmail(state, action) {
+            const bir  = action.payload
+            state.email = bir 
+        },
+        modifAdress(state, action) {
+            const bir  = action.payload
+            state.adresse = bir 
+        },
         modifCounteur(state) {
             state.counteur++
         },
@@ -54,6 +62,7 @@ const ModifSlice = createSlice({
             const pat=action.payload
             const b=state.birdh.map(x =>x)
             const a = state.patient.map(s => s)
+           
 
             Axios.put(`http://localhost:9005/blood-bank/patient/${state.codeP}`, {
                 code:a[0],

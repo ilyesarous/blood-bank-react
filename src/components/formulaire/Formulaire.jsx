@@ -80,7 +80,7 @@ const Formulaire = () => {
     console.log("el a", a);
     z+=v
     console.log("el z", z);
-    if (a && y<9 && z<y ) {
+    if ( z<y ) {
       setAlert(false);
       setLink("")
       
