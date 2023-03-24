@@ -68,7 +68,6 @@ const DataTable = () => {
   }, [bloodCount]);
 
   useEffect(() => {
-    // console.log("bloodList: ", bloodList);
     getBloodDataHandler();
   }, [getBloodDataHandler]);
 

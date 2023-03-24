@@ -10,8 +10,6 @@ import {
   IconButton,
   Input,
   InputLabel,
-  MenuItem,
-  Select,
   Stack,
   styled,
   Toolbar,
@@ -29,37 +27,26 @@ const SearchToolBar = styled(Toolbar)({
   justifyContent: "space-between",
   width: "100%",
 });
-// const Search = styled("div")(({ theme }) => ({
-//   backgroundColor: "white",
-//   padding: "0 10px",
-//   width: "30%",
-//   border: "1.5px solid #1D95BB",
-//   display: "flex",
-//   justifyContent: "space-between",
-//   alignItems: "center",
-//   borderRadius: theme.shape.borderRadius,
-// }));
 
 const SearchBar = () => {
-  const [types, setTypes] = useState([]);
-  const [groups, setGroups] = useState([]);
-  const count = useSelector((state) => state.blood.count);
-  let i = 0;
-  const getTypes = useCallback(() => {
-    axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
-      setTypes(res.data);
-    });
-  }, [count]);
-  const getGroups = useCallback(() => {
-    axios.get("http://localhost:9005/blood-bank/blood/groups").then((res) => {
-      setGroups(res.data);
-    });
-  }, [count]);
+  // const [types, setTypes] = useState([]);
+  // const [groups, setGroups] = useState([]);
+  // const count = useSelector((state) => state.blood.count);
+  // const getTypes = useCallback(() => {
+  //   axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
+  //     setTypes(res.data);
+  //   });
+  // }, [count]);
+  // const getGroups = useCallback(() => {
+  //   axios.get("http://localhost:9005/blood-bank/blood/groups").then((res) => {
+  //     setGroups(res.data);
+  //   });
+  // }, [count]);
 
-  useEffect(() => {
-    getGroups();
-    getTypes();
-  }, [getGroups, getTypes]);
+  // useEffect(() => {
+  //   getGroups();
+  //   getTypes();
+  // }, [getGroups, getTypes]);
 
   const [bloodGrp, setBloodGrp] = useState("");
   const [givenTo, setGivenTo] = useState("");
