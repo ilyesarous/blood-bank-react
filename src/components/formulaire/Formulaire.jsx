@@ -45,53 +45,30 @@ const Formulaire = () => {
       quest: "have you been pregnant in the last 6 months ?",
     },
   ];
-  let i = 1;
-  let z = 9;
-  let v=0;
+  let i = 1;  
 
-  const [result, setResultat] = useState("");
+  let response = []
 
-  const [response, setResponse] = useState([]);
   const changeHandler = (event) => {
-    setResultat(event.target.value);
-    console.log("el valeur", result);
-    console.log(event.target.value);
-    const tab = [...response, event.target.value];
-    setResponse(tab);
-  };
-  let y = response.length
-  response.forEach(respons => {
-
-    if(respons === "no"){
-      v++;
-    }
-  });
-  console.log("el v", v);
-
-  console.log("el y", y);
-  const [alert, setAlert] = useState(false);
-  const [link, setLink] = useState("")
-  const submitHandler = () => {
-    const check = (value) => {
-      return value === "no";
-
-    };
-    const a = response.find(check);
-    console.log("el a", a);
-    z+=v
-    console.log("el z", z);
-    if (a && y<9 && z<y ) {
-      setAlert(false);
-      setLink("")
-      
-    } else {
-      setAlert(true);
-      setLink("/patients/donnation")
-      
-      console.log(link);
+    if (event.target.value === "yes") {
+      response.push(event.target.value)
     }
     console.log(response);
-    // window.location.reload()
+  };
+  const [link, setLink] = useState("")
+
+  
+
+  const [alert, setAlert] = useState(false);
+  const submitHandler = () => {
+  
+    if (response.length !== 9) {
+      setAlert(true);
+      
+    } else {
+      setAlert(false);
+      setLink("/patients/donnation");
+    }
 
   };
 
