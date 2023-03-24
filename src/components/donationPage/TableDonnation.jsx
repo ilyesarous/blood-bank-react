@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import {
+  Checkbox,
+  FormControl,
   Stack,
   Table,
   TableBody,
@@ -90,21 +92,20 @@ const columns = [
 ];
 
 const TableDonnation = () => {
-  const TypeIdentity = useSelector((state) => state.getDonation.typeIdentity);
 
+  const TypeIdentity = useSelector((state) => state.getDonation.typeIdentity);
+  
   const Identity = useSelector((state) => state.getDonation.NumIdentity);
   const count = useSelector((state) => state.getDonation.counteur);
 
-  console.log("eaa", TypeIdentity);
-  console.log("el nnnn", Identity);
+  console.log("eaa",TypeIdentity);
+  console.log("el nnnn",Identity);
   const [donnations, setDeoonations] = useState([]);
-  const get = useDispatch();
+  const get=useDispatch();
 
   const getDonnationsHandler = useCallback(async () => {
     try {
-      const blood = await fetch(
-        `http://localhost:9005/blood-bank/donation?typeIdentity=${TypeIdentity}&numIdentity=${Identity}`
-      );
+      const blood = await fetch(`http://localhost:9005/blood-bank/donation?typeIdentity=${TypeIdentity}&numIdentity=${Identity}`)
       if (!blood.ok) throw new Error("something went wrong!");
       const data = await blood.json();
       setDeoonations(data);
@@ -128,14 +129,18 @@ const TableDonnation = () => {
       Donation.sexe,
       Donation.adress,
       Donation.etat,
+      
     ];
     get(modifActions.getDateCreation(Donation.date_creation));
-    get(modifActions.getCode(Donation.code));
-    get(modifActions.getLastName(Donation.fullName));
-    get(modifActions.getType(Donation.typeIdentity));
-    get(modifActions.getNumerotype(Donation.numIdentity));
-    get(modifActions.getDonateur(d));
+    get(modifActions.getCode(Donation.code))
+   get(modifActions.getLastName(Donation.fullName));
+   get(modifActions.getType(Donation.typeIdentity));
+   get(modifActions.getNumerotype(Donation.numIdentity));
+   get(modifActions.getDonateur(d));
+    
   };
+
+  
 
   return (
     <Stack>

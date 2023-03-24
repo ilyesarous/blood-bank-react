@@ -128,6 +128,7 @@ const Tableadd = () => {
  
 
   const get = useDispatch();
+  const don = useDispatch();
 
   const [patients, setPatient] = useState([]);
   const [page, setPage] = useState(0);
@@ -149,7 +150,9 @@ const Tableadd = () => {
       Patient.bloodCode,
       Patient.gender,
       Patient.adress,
-      Patient.phoneNumber
+      Patient.phoneNumber,
+      Patient.email,
+      Patient.adress
     ];
 
     get(ModifActions.modifPat(p));
@@ -157,6 +160,10 @@ const Tableadd = () => {
     get(ModifActions.modif(Patient.code));
     get(ModifActions.modifLastName(Patient.lastNameAr));
     get(ModifActions.modifPhone(Patient.phoneNumber));
+    get(ModifActions.modifEmail(Patient.email));
+    get(ModifActions.modifAdress(Patient.adress));
+
+
     get(AjoutActions.getcode(Patient.code));
     get(AjoutActions.getAdre(Patient.adress));
     get(AjoutActions.getName(Patient.lastNameAr));

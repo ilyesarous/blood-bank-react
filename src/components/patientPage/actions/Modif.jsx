@@ -26,8 +26,13 @@ const Modif = (props) => {
   const codeup = useSelector((state) => state.modif.codeP);
   const LastName = useSelector((state) => state.modif.lastName);
   const birdhday = useSelector((state) => state.modif.birdh);
+  const Num = useSelector(state => state.modif.phone);
+  const adress = useSelector(state => state.modif.adresse);
+  const email = useSelector(state => state.modif.email);
 
   const cancel = useSelector((state) => state.modif.show);
+
+
   const up = useDispatch();
 
   const [Email, setEmail] = useState("");
@@ -115,7 +120,7 @@ const Modif = (props) => {
          
                 <FormControl
                   variant="standard"
-                  // sx={{marginLeft:"10%"}}
+                  
                 >
                   <Typography>
                     Birdhay:
@@ -128,35 +133,35 @@ const Modif = (props) => {
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  {/* gap bech n5ali espace bin el labes w el input */}
-                  <InputLabel>Email....</InputLabel>
+
+                  <InputLabel>{email}</InputLabel>
                   <Input
                     value={Email}
                     onChange={handleEmail}
-                    placeholder="Email..."
+                    placeholder={email}
                   />
                 </FormControl>
               </ListItem>
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>Adress....</InputLabel>
+                  <InputLabel>{adress}</InputLabel>
                   <Input
                     value={Adress}
                     onChange={handleAdress}
-                    
+                    placeholder={adress}
                   />
                 </FormControl>
               </ListItem>
 
               <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
                 <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>Phone number....</InputLabel>
+                  <InputLabel>{Num}</InputLabel>
 
                   <Input
                     value={NumberPhone}
                     onChange={handleNumber}
-                    
+                    placeholder={Num}
                   />
                 </FormControl>
               </ListItem>
