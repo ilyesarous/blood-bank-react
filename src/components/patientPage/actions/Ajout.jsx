@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, Input, InputLabel, List, ListItem, MenuItem, Modal, Select, styled, TextField } from "@mui/material";
 import React, { useState } from "react";
-import {  CancelOutlined } from "@mui/icons-material";
+import { CancelOutlined } from "@mui/icons-material";
 import Stack from '@mui/material/Stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from "@mui/material";
@@ -19,7 +19,7 @@ const Ajout = () => {
 
     const ajt = useSelector(state => state.ajout.show)
     console.log(ajt);
-    
+
     const aj = useDispatch();
     const [lastNameAr, setlastnamear] = useState("")
     const [firstnamear, setFirstnamear] = useState("")
@@ -65,7 +65,7 @@ const Ajout = () => {
         setNumber("")
         setBlood("")
         setBirthday(null)
-        
+
     }
 
 
@@ -83,57 +83,57 @@ const Ajout = () => {
     }
     const handleFathernamear = (e) => {
         setFathernamear(e.target.value)
-       
+
 
     }
     const handleGrandFathernamear = (e) => {
         setGrandFathernamear(e.target.value)
-       
+
 
     }
     const handleLastnamEng = (e) => {
         setLastnameEng(e.target.value)
-      
+
 
     }
     const handleFirstnameEng = (e) => {
         setFirstnameEng(e.target.value)
-       
+
 
     }
     const handleFathernameEng = (e) => {
         setFathernameEng(e.target.value)
-      
+
 
     }
     const handleGrandFathernameEng = (e) => {
         setGrandFathernameEng(e.target.value)
-       
+
 
     }
     const handleEmail = (e) => {
         setEmail(e.target.value)
-       
+
 
     }
     const handleAdress = (e) => {
         setAdress(e.target.value)
-      
+
 
     }
     const handleGender = (e) => {
         setGender(e.target.value)
-       
+
 
     }
     const handleNumber = (e) => {
         setNumber(e.target.value)
-        
+
 
     }
     const handleblood = (e) => {
         setBlood(e.target.value)
-        
+
 
     }
 
@@ -141,7 +141,7 @@ const Ajout = () => {
     const toggleCounterHandler = () => {
         aj(AjoutActions.Showme())
     };
-  
+
     return (
         <Box>
 
@@ -159,106 +159,119 @@ const Ajout = () => {
                     </Box>
                     <List>
                         <form onSubmit={togglerHandler}>
-                            <ListItem sx={{ display: "flex", margin: 2 }}>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex", }}>
-                                        <InputLabel >Last Name :</InputLabel>
+                            <ListItem sx={{ display: "flex" }}>
+
+                                <ListItem sx={{ display: "flex", }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Last Name...</InputLabel>
                                         <Input value={lastNameAr} onChange={handleLastnamear} placeholder="Last Name Ar..." required />
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >First Name:</InputLabel>
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >First Name...</InputLabel>
                                         <Input value={firstnamear} onChange={handleFirstnamear} placeholder="First Name Ar..." required />
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >Father name :</InputLabel>
+                                    </FormControl>
+                                </ListItem>
+
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Father name...</InputLabel>
                                         <Input value={fathernamear} onChange={handleFathernamear} placeholder="father Name Ar..." required />
+                                    </FormControl>
 
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
                             </ListItem>
                             <ListItem sx={{ display: "flex" }}>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }} >
-                                        <InputLabel >Grand Father : </InputLabel>
+
+                                <ListItem sx={{ display: "flex" }} >
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Grand Father... </InputLabel>
                                         <Input value={GrandFathernamear} onChange={handleGrandFathernamear} placeholder="Grand father Name Ar..." required />
 
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >Last Name eng :</InputLabel>
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Last Name eng...</InputLabel>
                                         <Input value={lastnameEng} onChange={handleLastnamEng} placeholder="last Name Eng..." required />
 
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >First Name eng :</InputLabel>
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >First Name eng...</InputLabel>
                                         <Input value={FirstnameEng} onChange={handleFirstnameEng} placeholder="First Name Eng..." required />
 
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
                             </ListItem>
                             <ListItem sx={{ display: "flex" }}>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >father Name eng :</InputLabel>
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >father Name eng...</InputLabel>
                                         <Input value={FathernameEng} onChange={handleFathernameEng} placeholder="father Name Eng..." required />
 
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >Grand Father Name eng:</InputLabel>
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Grand Father Name eng...</InputLabel>
                                         <Input value={GrandFathernameEng} onChange={handleGrandFathernameEng} placeholder="Grand father Name Eng..." required />
+                                    </FormControl>
+
+                                </ListItem>
 
 
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >Blood:</InputLabel>
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Blood...</InputLabel>
                                         <Input value={Blood} onChange={handleblood} placeholder="Blood..." />
 
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
                             </ListItem>
                             <ListItem sx={{ display: "flex" }}>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >Adress:</InputLabel>
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Adress...</InputLabel>
                                         <Input value={Adress} onChange={handleAdress} placeholder="Adress..." />
 
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >Email:</InputLabel>
+
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Email...</InputLabel>
                                         <Input value={Email} onChange={handleEmail} placeholder="Email....." />
+                                    </FormControl>
+
+                                </ListItem>
 
 
-                                    </ListItem>
-                                </FormControl>
-                                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                    <ListItem sx={{ display: "flex" }}>
-                                        <InputLabel >Phone number:</InputLabel>
+                                <ListItem sx={{ display: "flex" }}>
+                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                                        <InputLabel >Phone number...</InputLabel>
                                         <Input value={NumberPhone} onChange={handleNumber} placeholder="Phone number..." />
 
+                                    </FormControl>
+                                </ListItem>
 
-                                    </ListItem>
-                                </FormControl>
 
                             </ListItem>
                             <ListItem sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -278,7 +291,7 @@ const Ajout = () => {
 
 
                                 </Stack>
-                                <FormControl sx={{ m: 1, minWidth: 120 ,marginRight:"50%" }} size="small">
+                                <FormControl sx={{ m: 1, minWidth: 120, marginRight: "50%" }} size="small">
                                     <InputLabel id="demo-select-small">Gendre</InputLabel>
                                     <Select
                                         labelId="demo-select-small"
@@ -315,7 +328,7 @@ const Ajout = () => {
 
 
 
-           
+
 
 
 
