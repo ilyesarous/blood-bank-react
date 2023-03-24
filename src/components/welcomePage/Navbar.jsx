@@ -1,12 +1,13 @@
 import { Home, OpenWith, Person, PowerSettingsNew } from "@mui/icons-material";
 import { AppBar, Box, IconButton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Icons, StyledToolBar, Text } from "../../theme/styles";
 import { fullScreenActions } from "../bloodPage/BloodStore/FullScreen";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const fullScreen = useSelector(state => state.fullScreen.fullScreen)
+  const fullScreen = useSelector((state) => state.fullScreen.fullScreen);
   const fullScreenHandler = () => {
     dispatch(fullScreenActions.fullScreenMode());
     if (fullScreen) document.documentElement.requestFullscreen();
@@ -34,14 +35,16 @@ const Navbar = () => {
             >
               <OpenWith />
             </IconButton>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <Home />
-            </IconButton>
+            <Link to="/" style={{color:"white"}}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <Home />
+              </IconButton>
+            </Link>
             <Text>
               <Typography>name.clinisys</Typography>
               <Person />
