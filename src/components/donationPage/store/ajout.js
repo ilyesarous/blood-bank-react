@@ -9,7 +9,7 @@ const initialAjoutState = {
   lastname: "",
   phone: "",
   sexe: "",
-  show: false,
+  show: true,
 };
 const AjoutSlice = createSlice({
   name: "ajout",

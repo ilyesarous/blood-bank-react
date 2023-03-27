@@ -1,11 +1,12 @@
 import { Box, Button, FormControl, Input, InputLabel, List, ListItem, MenuItem, Modal, Select, styled, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CancelOutlined } from "@mui/icons-material";
 import Stack from '@mui/material/Stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from "@mui/material";
 import { AjoutActions } from "../store/Ajoutredux";
 import { ModifActions } from "../store/Modifredux";
+import axios from "axios";
 
 const StyleModal = styled(Modal)({
     display: "flex",
@@ -35,6 +36,9 @@ const Ajout = () => {
     const [NumberPhone, setNumber] = useState("")
     const [Blood, setBlood] = useState("")
     const [Birdhday, setBirthday] = useState(null)
+
+    const [types, setTypes] = useState([]);
+
     // const [Datacreation, setdatacreation] = useState("")
 
 
@@ -67,6 +71,15 @@ const Ajout = () => {
         setBirthday(null)
 
     }
+
+    const getTypes = useCallback(() => {
+        axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
+            setTypes(res.data);
+        });
+    }, []);
+    useEffect(() => {
+        getTypes();
+    }, [getTypes]);
 
 
 
@@ -236,10 +249,21 @@ const Ajout = () => {
 
 
                                 <ListItem sx={{ display: "flex" }}>
-                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                        <InputLabel >Blood...</InputLabel>
-                                        <Input value={Blood} onChange={handleblood} placeholder="Blood..." />
-
+                                    <FormControl
+                                        sx={{ m: 1, minWidth: 120, marginRight: "50%" }}
+                                        size="small"
+                                        variant="standard"
+                                    >
+                                        <InputLabel id="demo-select-small">Blood</InputLabel>
+                                        <Select
+                                            labelId="demo-select-small"
+                                            id="demo-select-small"
+                                            // value={State}
+                                            label="State"
+                                            // onChange={handleState}
+                                        >
+                                            {types.map(type => (<MenuItem value={type}>{type}</MenuItem>))}
+                                        </Select>
                                     </FormControl>
                                 </ListItem>
 

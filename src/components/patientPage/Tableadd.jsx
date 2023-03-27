@@ -165,7 +165,7 @@ const Tableadd = () => {
 
     get(AjoutActions.getcode(Patient.code));
     get(AjoutActions.getAdre(Patient.adress));
-    get(AjoutActions.getName(Patient.lastNameAr));
+    get(AjoutActions.getName(Patient.fullNameAr));
     get(AjoutActions.getSexe(Patient.gender));
     get(AjoutActions.getPhone(Patient.phoneNumber));
     get(AjoutActions.add(p));

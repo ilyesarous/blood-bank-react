@@ -38,7 +38,7 @@ const Ajout = (props) => {
   const [Age, setAge] = useState("");
   const [typeIdentity, setTypeIdentity] = useState("");
   const [NumIdentity, setNumIdentity] = useState("");
-  const [State, setState] = useState("");
+  const [State, setState] = useState("PENDING");
 
   const tabDonation = [typeIdentity, NumIdentity, Age, State];
   const handleAge = (e) => {
@@ -105,11 +105,15 @@ const Ajout = (props) => {
                 sx={{ display: "flex", justifyContent: "center", gap: 5 }}
               >
                 <InputLabel>
-                  Last Name:{" "}
+                  Full Name:{" "}
                   <b>
                     <u>{lastname}</u>
                   </b>
                 </InputLabel>
+                </ListItem>
+                <ListItem
+                sx={{ display: "flex", justifyContent: "center", gap: 5 }}
+              >
                 <InputLabel>
                   Adress:{" "}
                   <b>
@@ -149,7 +153,7 @@ const Ajout = (props) => {
                   />
                 </FormControl>
 
-                <FormControl
+                {/* <FormControl
                   sx={{ m: 1, minWidth: 120 }}
                   // size="small"
                   variant="standard"
@@ -169,7 +173,7 @@ const Ajout = (props) => {
                     <MenuItem value="REJECTED">REJECTED</MenuItem>
                     <MenuItem value="PENDING">PENDING</MenuItem>
                   </Select>
-                </FormControl>
+                </FormControl> */}
               </ListItem>
 
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
