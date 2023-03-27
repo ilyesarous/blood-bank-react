@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   FormControl,
+  Input,
+  InputBase,
   InputLabel,
   List,
   ListItem,
@@ -68,41 +70,42 @@ const Modif = (props) => {
           </Box>
           <List>
             <form onSubmit={togglerHandler}>
-              <ListItem sx={{ display: "flex", margin: 2 }}>
-                <FormControl variant="standard" sx={{ minWidth: 300 }}>
-                  <ListItem sx={{ display: "flex" }}>
+              <ListItem sx={{ display: "flex" }}>
+                {/* <FormControl variant="standard" sx={{ minWidth: 300 }}> */}
+                  {/* <ListItem sx={{ display: "flex" }}> */}
                     <InputLabel>
                       Last Name:
                       <b>
                         <u>{lastname}</u>
                       </b>
                     </InputLabel>
-                  </ListItem>
-                </FormControl>
+                    {/* <Typography variant="h7" color="gray"><u>{lastname}</u></Typography> */}
+                  {/* </ListItem> */}
+                {/* </FormControl> */}
               </ListItem>
-              <ListItem sx={{ display: "flex", margin: 2 }}>
-                <FormControl variant="standard" sx={{ minWidth: 300 }}>
-                  <ListItem sx={{ display: "flex" }}>
+              <ListItem sx={{ display: "flex" }}>
+                {/* <FormControl variant="standard" sx={{ minWidth: 300 }}> */}
+                  {/* <ListItem sx={{ display: "flex" }}> */}
                     <InputLabel>
                       type Identity :
                       <b>
                         <u>{typeIdentity}</u>
                       </b>
                     </InputLabel>
-                  </ListItem>
-                </FormControl>
+                  {/* </ListItem> */}
+                {/* </FormControl> */}
               </ListItem>
-              <ListItem sx={{ display: "flex", margin: 2 }}>
-                <FormControl variant="standard" sx={{ minWidth: 300 }}>
-                  <ListItem sx={{ display: "flex" }}>
+              <ListItem sx={{ display: "flex" }}>
+                {/* <FormControl variant="standard" sx={{ minWidth: 300 }}> */}
+                  {/* <ListItem sx={{ display: "flex" }}> */}
                     <InputLabel>
                       Numero Identity :
                       <b>
                         <u>{NumeroIdentity}</u>
                       </b>
                     </InputLabel>
-                  </ListItem>
-                </FormControl>
+                  {/* </ListItem> */}
+                {/* </FormControl> */}
               </ListItem>
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
                 <FormControl
