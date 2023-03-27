@@ -131,10 +131,10 @@ const TableDonnation = () => {
     ];
     get(modifActions.getDateCreation(Donation.date_creation));
     get(modifActions.getCode(Donation.code))
-   get(modifActions.getLastName(Donation.fullName));
-   get(modifActions.getType(Donation.typeIdentity));
-   get(modifActions.getNumerotype(Donation.numIdentity));
-   get(modifActions.getDonateur(d));
+    get(modifActions.getLastName(Donation.fullName));
+    get(modifActions.getType(Donation.typeIdentity));
+    get(modifActions.getNumerotype(Donation.numIdentity));
+    get(modifActions.getDonateur(d));
     
   };
 

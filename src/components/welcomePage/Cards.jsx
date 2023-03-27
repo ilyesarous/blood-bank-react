@@ -23,7 +23,7 @@ const Cards = () => {
           <Link to="/patients" style={{textDecoration: 'none'}}>
             <CardContent>
               <Icons sx={{ justifyContent: "space-between" }}>
-                <Typography variant="h6" color="primary" >Patien</Typography>
+                <Typography variant="h6" color="primary" >Patient</Typography>
                 <People color="primary" sx={{ margin: 1 }} />
               </Icons>
             </CardContent>
