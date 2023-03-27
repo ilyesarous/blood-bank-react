@@ -57,7 +57,7 @@ const Ajout = (props) => {
   const togglerHandler = (e) => {
     e.preventDefault();
     ajou(AjoutActions.addDonation(tabDonation));
-    ajou(GetActions.modifcounteur())
+    ajou(GetActions.modifcounteur());
     setTypeIdentity("");
     setNumIdentity("");
     setAge("");
@@ -83,96 +83,76 @@ const Ajout = (props) => {
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box bgcolor="white" p={3} borderRadius={5}>
-          <Box sx={{ display: "flex" }}>
-            <CancelOutlined
-              onClick={toggleAjoutDonationHandler}
-              sx={{ marginRight: "40%" }}
-            />
-            <Typography variant="h6" color="gray" textAlign="center">
-              ajout Donation
-            </Typography>
-          </Box>
           <List>
             <form onSubmit={togglerHandler}>
+              <ListItem sx={{ display: "flex", gap: 16 }}>
+                <CancelOutlined onClick={toggleAjoutDonationHandler} />
+                <Typography variant="h6" color="gray" textAlign="center">
+                  ajout Donation
+                </Typography>
+              </ListItem>
+
+              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                <InputLabel>
+                  Code:{" "}
+                  <b>
+                    <u>{code}</u>
+                  </b>
+                </InputLabel>
+              </ListItem>
+
               <ListItem
-                sx={{ display: "flex", margin: 2, justifyContent: "center" }}
+                sx={{ display: "flex", justifyContent: "center", gap: 5 }}
               >
+                <InputLabel>
+                  Last Name:{" "}
+                  <b>
+                    <u>{lastname}</u>
+                  </b>
+                </InputLabel>
+                <InputLabel>
+                  Adress:{" "}
+                  <b>
+                    <u>{adresse}</u>
+                  </b>
+                </InputLabel>
+              </ListItem>
+
+              <ListItem sx={{ display: "flex", gap: 5, margin: 2 }}>
+                <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                  <InputLabel>type Identity :</InputLabel>
+                  <Input
+                    value={typeIdentity}
+                    onChange={handleTypeIdentity}
+                    placeholder="type Identity..."
+                    required
+                  />
+                </FormControl>
+                <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                  <InputLabel>Numero Identity : </InputLabel>
+                  <Input
+                    value={NumIdentity}
+                    onChange={handleNumIdentity}
+                    placeholder="Numero Identity..."
+                    required
+                  />
+                </FormControl>
+              </ListItem>
+
+              <ListItem sx={{ display: "flex", gap: 4, margin: 2 }}>
+                <FormControl variant="standard" sx={{ manWidth: 100 }}>
+                  <InputLabel>age:</InputLabel>
+                  <Input
+                    value={Age}
+                    onChange={handleAge}
+                    placeholder="Age..."
+                  />
+                </FormControl>
+
                 <FormControl
+                  sx={{ m: 1, minWidth: 120 }}
+                  // size="small"
                   variant="standard"
-                  sx={{ minWidth: 100, justifyContent: "center" }}
-                >
-                  <ListItem sx={{ display: "flex" }}>
-                    <InputLabel>
-                      Code:
-                      <b>
-                        <u>{code}</u>
-                      </b>
-                    </InputLabel>
-                  </ListItem>
-                </FormControl>
-              </ListItem>
-              <ListItem sx={{ display: "flex", margin: 2 }}>
-                <FormControl variant="standard" sx={{ minWidth: 200 }}>
-                  <ListItem sx={{ display: "flex" }}>
-                    <InputLabel sx={{}}>
-                      Last Name:
-                      <b>
-                        <u>{lastname}</u>
-                      </b>
-                    </InputLabel>
-                  </ListItem>
-                </FormControl>
-                <FormControl variant="standard" sx={{ minWidth: 200 }}>
-                  <ListItem sx={{ display: "flex" }}>
-                    <InputLabel>
-                      Adress:{" "}
-                      <b>
-                        <u>{adresse}</u>
-                      </b>
-                    </InputLabel>
-                  </ListItem>
-                </FormControl>
-              </ListItem>
-              <ListItem sx={{ display: "flex" }}>
-                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                  <ListItem sx={{ display: "flex" }}>
-                    <InputLabel>type Identity :</InputLabel>
-                    <Input
-                      value={typeIdentity}
-                      onChange={handleTypeIdentity}
-                      placeholder="type Identity..."
-                      required
-                    />
-                  </ListItem>
-                </FormControl>
-                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                  <ListItem sx={{ display: "flex" }}>
-                    <InputLabel>Numero Identity : </InputLabel>
-                    <Input
-                      value={NumIdentity}
-                      onChange={handleNumIdentity}
-                      placeholder="Numero Identity..."
-                      required
-                    />
-                  </ListItem>
-                </FormControl>
-              </ListItem>
-
-              <ListItem sx={{ display: "flex" }}>
-                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                  <ListItem sx={{ display: "flex" }}>
-                    <InputLabel>age:</InputLabel>
-                    <Input
-                      value={Age}
-                      onChange={handleAge}
-                      placeholder="Age..."
-                    />
-                  </ListItem>
-                </FormControl>
-
-                <FormControl
-                  sx={{ m: 1, minWidth: 120, marginRight: "50%" }}
-                  size="small"
                 >
                   <InputLabel id="demo-select-small">State</InputLabel>
                   <Select
@@ -191,6 +171,7 @@ const Ajout = (props) => {
                   </Select>
                 </FormControl>
               </ListItem>
+
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
                 <Button onClick={toggleAjoutDonationHandler} variant="outlined">
                   <Typography>cancel</Typography>
