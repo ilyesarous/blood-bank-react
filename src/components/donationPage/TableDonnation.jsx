@@ -20,7 +20,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const columns = [
   { id: "code", label: "Code", align: "center", height: "20px" },
-  // { id: "dateCreate", label: "dateCreate", align: "center", height: "20px" },
   {
     id: "codePatient",
     label: "code patient",
@@ -76,6 +75,12 @@ const columns = [
     height: "20px",
   },
   {
+    id: "blood",
+    label: "Blood",
+    align: "center",
+    height: "20px",
+  },
+  {
     id: "adress",
     label: "Adress",
     align: "center",
@@ -96,8 +101,6 @@ const TableDonnation = () => {
   const numIdentity = useSelector((state) => state.getDonation.NumIdentity);
   const count = useSelector((state) => state.getDonation.counteur);
 
-  // console.log("eaa",TypeIdentity);
-  // console.log("el nnnn",Identity);
   const [donnations, setDeoonations] = useState([]);
   const get=useDispatch();
 
@@ -126,10 +129,9 @@ const TableDonnation = () => {
       Donation.numIdentity,
       Donation.sexe,
       Donation.adress,
+      Donation.Blood,
       Donation.etat,
-      
     ];
-    get(modifActions.getDateCreation(Donation.date_creation));
     get(modifActions.getCode(Donation.code))
     get(modifActions.getLastName(Donation.fullName));
     get(modifActions.getType(Donation.typeIdentity));

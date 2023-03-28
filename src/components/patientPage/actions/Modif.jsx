@@ -55,7 +55,7 @@ const Modif = (props) => {
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  console.log(Email);
+  // console.log(Email);
 
   const handleAdress = (e) => {
     setAdress(e.target.value);

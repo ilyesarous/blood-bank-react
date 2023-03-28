@@ -3,7 +3,6 @@ import {
   Button,
   FormControl,
   Input,
-  InputBase,
   InputLabel,
   List,
   ListItem,
@@ -31,20 +30,26 @@ const Modif = (props) => {
   const typeIdentity = useSelector((state) => state.modifDonation.type);
   const NumeroIdentity = useSelector((state) => state.modifDonation.numerotype);
   const [State, setState] = useState("");
+  const [blood, setBlood] = useState("");
 
   const mf = useDispatch();
 
-  const toggleAjoutDonationHandler = () => {
+  const showCardHandler = () => {
     mf(modifActions.Showme());
   };
 
+  const handleBlood = (e) => {
+    setBlood(e.target.value);
+  };
   const handleState = (e) => {
     setState(e.target.value);
   };
   const togglerHandler = (e) => {
     e.preventDefault();
-    mf(modifActions.updatDonateur(State));
-    mf(GetActions.modifcounteur())
+    mf(modifActions.getstate(State))
+    mf(modifActions.getBlood(blood));
+    mf(modifActions.updatDonateur())
+    mf(GetActions.modifcounteur());
     setState("");
     mf(modifActions.Showme());
   };
@@ -55,13 +60,13 @@ const Modif = (props) => {
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
         open={md}
-        onClose={toggleAjoutDonationHandler}
+        onClose={showCardHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box width="400px" bgcolor="white" p={3} borderRadius={5}>
           <Box sx={{ display: "flex" }}>
             <CancelOutlined
-              onClick={toggleAjoutDonationHandler}
+              onClick={showCardHandler}
               sx={{ marginRight: "25%" }}
             />
             <Typography variant="h6" color="gray" textAlign="center">
@@ -71,41 +76,26 @@ const Modif = (props) => {
           <List>
             <form onSubmit={togglerHandler}>
               <ListItem sx={{ display: "flex" }}>
-                {/* <FormControl variant="standard" sx={{ minWidth: 300 }}> */}
-                  {/* <ListItem sx={{ display: "flex" }}> */}
-                    <InputLabel>
-                      Last Name:
-                      <b>
-                        <u>{lastname}</u>
-                      </b>
-                    </InputLabel>
-                    {/* <Typography variant="h7" color="gray"><u>{lastname}</u></Typography> */}
-                  {/* </ListItem> */}
-                {/* </FormControl> */}
+                <InputLabel sx={{flex: 2}} >Last Name:</InputLabel>
+                <Typography flex={2} justifyContent={"center"}>
+                  <u>{lastname}</u>
+                </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                {/* <FormControl variant="standard" sx={{ minWidth: 300 }}> */}
-                  {/* <ListItem sx={{ display: "flex" }}> */}
-                    <InputLabel>
-                      type Identity :
-                      <b>
-                        <u>{typeIdentity}</u>
-                      </b>
-                    </InputLabel>
-                  {/* </ListItem> */}
-                {/* </FormControl> */}
+                <InputLabel sx={{flex: 2}}>type Identity :</InputLabel>
+                <Typography flex={2} justifyContent={"center"}>
+                  <u>{typeIdentity}</u>
+                </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                {/* <FormControl variant="standard" sx={{ minWidth: 300 }}> */}
-                  {/* <ListItem sx={{ display: "flex" }}> */}
-                    <InputLabel>
-                      Numero Identity :
-                      <b>
-                        <u>{NumeroIdentity}</u>
-                      </b>
-                    </InputLabel>
-                  {/* </ListItem> */}
-                {/* </FormControl> */}
+                <InputLabel sx={{flex: 2}}>Numero Identity :</InputLabel>
+                <Typography flex={2} justifyContent={"center"}>
+                  <u>{NumeroIdentity}</u>
+                </Typography>
+              </ListItem>
+              <ListItem sx={{ display: "flex" }}>
+                <InputLabel>Blood Group:</InputLabel>
+                <Input onChange={handleBlood} />
               </ListItem>
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
                 <FormControl
@@ -128,7 +118,7 @@ const Modif = (props) => {
               </ListItem>
 
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
-                <Button onClick={toggleAjoutDonationHandler} variant="outlined">
+                <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>
                 <Button type="submit" variant="outlined">

@@ -202,7 +202,7 @@ const Tableadd = () => {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 600 }}>
+        <TableContainer sx={{ maxHeight: "450px" }}>
           <Table size="small" stickyHeader={true} aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -246,7 +246,7 @@ const Tableadd = () => {
                             <FormControl size="small">
                               <Select sx={{height:"20px"}}>
                                 <MenuItem><Link to="/patients/history" style={{textDecoration: 'none', color:"black"}}>History</Link></MenuItem>
-                                <MenuItem><Link to="/form" style={{textDecoration: 'none', color:"black"}}>Donation</Link></MenuItem>
+                                <MenuItem><Link to="/patients/donnation" style={{textDecoration: 'none', color:"black"}}>Donation</Link></MenuItem>
                               </Select>
                             </FormControl>
                           ) : (

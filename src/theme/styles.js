@@ -1,4 +1,4 @@
-import { Box, styled, Toolbar } from "@mui/material";
+import { Box, Modal, styled, Toolbar } from "@mui/material";
 
 export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -30,4 +30,5 @@ export const ShowCards = styled(Box)(({theme}) => ({
     flexDirection: "row",
   },
 }))
+
 

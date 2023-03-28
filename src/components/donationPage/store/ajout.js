@@ -9,7 +9,7 @@ const initialAjoutState = {
   lastname: "",
   phone: "",
   sexe: "",
-  show: true,
+  show: false,
 };
 const AjoutSlice = createSlice({
   name: "ajout",
@@ -56,7 +56,8 @@ const AjoutSlice = createSlice({
         typeIdentity: pat[0],
         numIdentity: pat[1],
         adress: state.adre,
-        etat: pat[3],
+        etat: pat[4],
+        blood: pat[3],
         sexe: state.sexe,
         phoneNumber: state.phone,
       });

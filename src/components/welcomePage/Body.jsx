@@ -15,7 +15,7 @@ const Body = () => {
     <Box sx={{ flex: 1 }}>
       <PageName>
         <Typography variant="h5" color="lightgrey" component="div">
-          page name
+          Welcome Page
         </Typography>
         <Settings sx={{width: 40, height: 40, color: "lightgrey"}}/>
       </PageName>

@@ -125,7 +125,6 @@ const Sidebar = () => {
       .then((res) => {
         console.log("res.data", res);
         setRes(res.data);
-        // dispatch(bloodActions.addBlood(bloods));
         dispatch(bloodActions.setCount());
       });
 

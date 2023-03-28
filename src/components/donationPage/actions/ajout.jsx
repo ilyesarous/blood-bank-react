@@ -6,9 +6,7 @@ import {
   InputLabel,
   List,
   ListItem,
-  MenuItem,
   Modal,
-  Select,
   styled,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -32,6 +30,7 @@ const Ajout = (props) => {
   const lastname = useSelector((state) => state.ajoutDonation.lastname);
 
   const sh = useSelector((state) => state.ajoutDonation.show);
+  const count = useSelector((state) => state.getDonation.counteur);
 
   const ajou = useDispatch();
 
@@ -39,8 +38,8 @@ const Ajout = (props) => {
   const [typeIdentity, setTypeIdentity] = useState("");
   const [NumIdentity, setNumIdentity] = useState("");
   const [State, setState] = useState("PENDING");
+  const Blood = "-"
 
-  const tabDonation = [typeIdentity, NumIdentity, Age, State];
   const handleAge = (e) => {
     setAge(e.target.value);
   };
@@ -50,11 +49,12 @@ const Ajout = (props) => {
   const handleNumIdentity = (e) => {
     setNumIdentity(e.target.value);
   };
-  const handleState = (e) => {
-    setState(e.target.value);
-  };
+ 
 
-  const togglerHandler = (e) => {
+
+  const tabDonation = [typeIdentity, NumIdentity, Age, Blood, State];
+
+  const submitHandler = (e) => {
     e.preventDefault();
     ajou(AjoutActions.addDonation(tabDonation));
     ajou(GetActions.modifcounteur());
@@ -65,7 +65,7 @@ const Ajout = (props) => {
     ajou(AjoutActions.Showme());
   };
 
-  const toggleAjoutDonationHandler = () => {
+  const showCardHandler = () => {
     ajou(AjoutActions.Showme());
     setTypeIdentity("");
     setNumIdentity("");
@@ -79,47 +79,43 @@ const Ajout = (props) => {
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
         open={sh}
-        onClose={toggleAjoutDonationHandler}
+        onClose={showCardHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box bgcolor="white" p={3} borderRadius={5}>
           <List>
-            <form onSubmit={togglerHandler}>
+            <form onSubmit={submitHandler}>
               <ListItem sx={{ display: "flex", gap: 16 }}>
-                <CancelOutlined onClick={toggleAjoutDonationHandler} />
+                <CancelOutlined onClick={showCardHandler} />
                 <Typography variant="h6" color="gray" textAlign="center">
                   ajout Donation
                 </Typography>
               </ListItem>
 
-              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                <InputLabel>
-                  Code:{" "}
-                  <b>
-                    <u>{code}</u>
-                  </b>
-                </InputLabel>
+              <ListItem
+                sx={{ display: "flex", justifyContent: "center", gap: 2 }}
+              >
+                <InputLabel>Code:</InputLabel>
+                <Typography>
+                  <u>{code}</u>
+                </Typography>
               </ListItem>
 
               <ListItem
-                sx={{ display: "flex", justifyContent: "center", gap: 5 }}
+                sx={{ display: "flex", justifyContent: "center", gap: 2 }}
               >
-                <InputLabel>
-                  Full Name:{" "}
-                  <b>
-                    <u>{lastname}</u>
-                  </b>
-                </InputLabel>
-                </ListItem>
-                <ListItem
-                sx={{ display: "flex", justifyContent: "center", gap: 5 }}
+                <InputLabel>Full Name:</InputLabel>
+                <Typography>
+                  <u>{lastname}</u>
+                </Typography>
+              </ListItem>
+              <ListItem
+                sx={{ display: "flex", justifyContent: "center", gap: 2 }}
               >
-                <InputLabel>
-                  Adress:{" "}
-                  <b>
-                    <u>{adresse}</u>
-                  </b>
-                </InputLabel>
+                <InputLabel>Adress:</InputLabel>
+                <Typography>
+                  <u>{adresse}</u>
+                </Typography>
               </ListItem>
 
               <ListItem sx={{ display: "flex", gap: 5, margin: 2 }}>
@@ -128,7 +124,6 @@ const Ajout = (props) => {
                   <Input
                     value={typeIdentity}
                     onChange={handleTypeIdentity}
-                    placeholder="type Identity..."
                     required
                   />
                 </FormControl>
@@ -137,7 +132,6 @@ const Ajout = (props) => {
                   <Input
                     value={NumIdentity}
                     onChange={handleNumIdentity}
-                    placeholder="Numero Identity..."
                     required
                   />
                 </FormControl>
@@ -146,38 +140,12 @@ const Ajout = (props) => {
               <ListItem sx={{ display: "flex", gap: 4, margin: 2 }}>
                 <FormControl variant="standard" sx={{ manWidth: 100 }}>
                   <InputLabel>age:</InputLabel>
-                  <Input
-                    value={Age}
-                    onChange={handleAge}
-                    placeholder="Age..."
-                  />
+                  <Input value={Age} onChange={handleAge} />
                 </FormControl>
-
-                {/* <FormControl
-                  sx={{ m: 1, minWidth: 120 }}
-                  // size="small"
-                  variant="standard"
-                >
-                  <InputLabel id="demo-select-small">State</InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={State}
-                    label="State"
-                    onChange={handleState}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="SOLVED">SOLVED</MenuItem>
-                    <MenuItem value="REJECTED">REJECTED</MenuItem>
-                    <MenuItem value="PENDING">PENDING</MenuItem>
-                  </Select>
-                </FormControl> */}
               </ListItem>
 
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
-                <Button onClick={toggleAjoutDonationHandler} variant="outlined">
+                <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>
                 <Button type="submit" variant="outlined">

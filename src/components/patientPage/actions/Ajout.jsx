@@ -29,7 +29,7 @@ const StyleModal = styled(Modal)({
 
 const Ajout = () => {
   const ajt = useSelector((state) => state.ajout.show);
-  console.log(ajt);
+  // console.log(ajt);
 
   const aj = useDispatch();
   const [lastNameAr, setlastnamear] = useState("");
@@ -44,10 +44,10 @@ const Ajout = () => {
   const [Adress, setAdress] = useState("");
   const [Gendre, setGender] = useState("");
   const [NumberPhone, setNumber] = useState("");
-  const [Blood, setBlood] = useState("");
+  const [blood, setBlood] = useState("");
   const [Birdhday, setBirthday] = useState(null);
 
-    const [types, setTypes] = useState([]);
+  const [types, setTypes] = useState([]);
 
   // const [Datacreation, setdatacreation] = useState("")
 
@@ -65,10 +65,10 @@ const Ajout = () => {
     lastNameAr,
     lastnameEng,
     NumberPhone,
-    Blood,
+    blood,
   ];
 
-  console.log(tabPatient);
+  // console.log(tabPatient);
 
   const togglerHandler = (e) => {
     e.preventDefault();
@@ -77,33 +77,30 @@ const Ajout = () => {
     aj(ModifActions.modifCounteur());
     aj(AjoutActions.Showme());
 
-        setlastnamear("")
-        setFirstnamear("")
-        setFathernamear("")
-        setGrandFathernamear("")
-        setLastnameEng("")
-        setFirstnameEng("")
-        setFathernameEng("")
-        setGrandFathernameEng("")
-        setEmail("")
-        setAdress("")
-        setGender("")
-        setNumber("")
-        setBlood("")
-        setBirthday(null)
+    setlastnamear("");
+    setFirstnamear("");
+    setFathernamear("");
+    setGrandFathernamear("");
+    setLastnameEng("");
+    setFirstnameEng("");
+    setFathernameEng("");
+    setGrandFathernameEng("");
+    setEmail("");
+    setAdress("");
+    setGender("");
+    setNumber("");
+    setBlood("");
+    setBirthday(null);
+  };
 
-    }
-
-    const getTypes = useCallback(() => {
-        axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
-            setTypes(res.data);
-        });
-    }, []);
-    useEffect(() => {
-        getTypes();
-    }, [getTypes]);
-
-
+  const getTypes = useCallback(() => {
+    axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
+      setTypes(res.data);
+    });
+  }, []);
+  useEffect(() => {
+    getTypes();
+  }, [getTypes]);
 
   const handleBirdhday = (e) => {
     setBirthday(e.target.value);
@@ -145,7 +142,7 @@ const Ajout = () => {
   const handleNumber = (e) => {
     setNumber(e.target.value);
   };
-  const handleblood = (e) => {
+  const handleBlood = (e) => {
     setBlood(e.target.value);
   };
 
@@ -273,36 +270,40 @@ const Ajout = () => {
                   </FormControl>
                 </ListItem>
 
-                                <ListItem sx={{ display: "flex" }}>
-                                    <FormControl
-                                        sx={{ m: 1, minWidth: 120, marginRight: "50%" }}
-                                        size="small"
-                                        variant="standard"
-                                    >
-                                        <InputLabel id="demo-select-small">Blood</InputLabel>
-                                        <Select
-                                            labelId="demo-select-small"
-                                            id="demo-select-small"
-                                            // value={State}
-                                            label="State"
-                                            // onChange={handleState}
-                                        >
-                                            {types.map(type => (<MenuItem value={type}>{type}</MenuItem>))}
-                                        </Select>
-                                    </FormControl>
-                                </ListItem>
-
-                            </ListItem>
-                            <ListItem sx={{ display: "flex" }}>
-
-                                <ListItem sx={{ display: "flex" }}>
-                                    <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                                        <InputLabel >Adress...</InputLabel>
-                                        <Input value={Adress} onChange={handleAdress} placeholder="Adress..." />
-
-                                    </FormControl>
-                                </ListItem>
-
+                <ListItem sx={{ display: "flex" }}>
+                  <FormControl
+                    sx={{ m: 1, minWidth: 120, marginRight: "50%" }}
+                    size="small"
+                    variant="standard"
+                  >
+                    <InputLabel id="demo-select-small">Blood</InputLabel>
+                    <Select
+                      labelId="demo-select-small"
+                      id="demo-select-small"
+                      value={blood}
+                      label="State"
+                      onChange={handleBlood}
+                    >
+                      {types.map((type) => (
+                        <MenuItem key={type} value={type}>
+                          {type}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </ListItem>
+              </ListItem>
+              <ListItem sx={{ display: "flex" }}>
+                <ListItem sx={{ display: "flex" }}>
+                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                    <InputLabel>Adress...</InputLabel>
+                    <Input
+                      value={Adress}
+                      onChange={handleAdress}
+                      placeholder="Adress..."
+                    />
+                  </FormControl>
+                </ListItem>
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>

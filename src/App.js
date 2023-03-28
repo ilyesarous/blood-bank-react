@@ -8,12 +8,12 @@ import Formulaire from "./components/formulaire/Formulaire";
 import Patient from "./components/Pages/Patient";
 import DonnationPage from "./components/Pages/DonnationPage";
 import HistoryPage from "./components/Pages/HistoryPage";
+import Stock from "./components/Pages/Stock";
 
 function App() {
   return (
     <Box>
       <Navbar />
-      {/* <HistoryPage/> */}
         <Routes>
           <Route path="/">
             <Route index element={<Body/>}></Route>
@@ -22,6 +22,7 @@ function App() {
             <Route path="/patients/donnation" element={<DonnationPage/>}/>
             <Route path="/patients/history" element={<HistoryPage/>}/>
             <Route path="/form" element={<Formulaire/>}/>
+            <Route path="/stock" element={<Stock/>}/>
           </Route>
         </Routes>
         

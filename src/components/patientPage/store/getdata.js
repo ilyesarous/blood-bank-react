@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const initialState = { lastNamear:"",Code:"",Numero:"",show: false, showMenu: false }
+const initialState = { lastNamear:"",Code:"",Numero:"" }
 
 const GetSlice = createSlice({
     name: "get",
@@ -15,9 +15,6 @@ const GetSlice = createSlice({
         },
         NumTel(state, action) {
             state.Numero = action.payload
-        },
-        ShowMenu(state){
-            state.showMenu = !state.showMenu
         }
     }}
     )

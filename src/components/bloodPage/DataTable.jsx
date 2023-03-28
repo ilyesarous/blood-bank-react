@@ -128,7 +128,6 @@ const DataTable = () => {
                           <FormControl>
                             <Checkbox
                               defaultChecked
-                              // checked={row.active === 1}
                               inputProps={{ "aria-label": "controlled" }}
                               onChange={(e) =>
                                 changeActiveStateHandler(row.codeBlood, e)
