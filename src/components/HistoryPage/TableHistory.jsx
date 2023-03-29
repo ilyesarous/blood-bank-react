@@ -26,11 +26,6 @@ const columns = [
     align: "center",
   },
   {
-    id: "observation",
-    label: "Observation",
-    align: "center",
-  },
-  {
     id: "userCreate",
     label: "User",
     align: "center",
@@ -38,6 +33,11 @@ const columns = [
   {
     id: "dateCreate",
     label: "Creation Date",
+    align: "center",
+  },
+  {
+    id: "observation",
+    label: "Observation",
     align: "center",
   },
   {
@@ -91,7 +91,6 @@ const TableHistory = () => {
             {donnations.map((row) => {
               return (
                 <StyledTableRow
-                  //   onClick={() => getlesvaleur(row)}
                   hover
                   tabIndex={-1}
                   key={i++}

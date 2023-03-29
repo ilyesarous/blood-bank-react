@@ -2,6 +2,11 @@ import {
   Box,
   Button,
   Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -110,8 +115,6 @@ const Sidebar = () => {
     setRecievedFrom("");
   };
 
-  const [res, setRes] = useState([]);
-
   const addHandler = (e) => {
     e.preventDefault();
 
@@ -123,15 +126,10 @@ const Sidebar = () => {
         receivedFrom: bloods[3],
       })
       .then((res) => {
-        console.log("res.data", res);
-        setRes(res.data);
+        console.log("res.data", res.data);
         dispatch(bloodActions.setCount());
+        dispatch(bloodActions.showCard());
       });
-
-    if (res !== "") {
-      dispatch(bloodActions.showCard());
-      dispatch(bloodActions.setAlert());
-    }
 
     setBloodGrp("");
     setRhesus("");
@@ -172,7 +170,7 @@ const Sidebar = () => {
                   Add
                 </Typography>
               </ListItem>
-              
+
               <ListItem sx={{ display: "flex", width: "100%" }}>
                 <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
                   <InputLabel>Blood Group</InputLabel>
@@ -219,11 +217,7 @@ const Sidebar = () => {
                       Blood type is required
                     </FormHelperText>
                   )}
-                  {!alert && (
-                    <FormHelperText error={alert}>
-                      Already exists
-                    </FormHelperText>
-                  )}
+                
                 </FormControl>
               </ListItem>
 
@@ -245,11 +239,7 @@ const Sidebar = () => {
                         />
                       ))}
                     </FormGroup>
-                    {/* {ch === "" && (
-                      <FormHelperText error={ch === ""}>
-                        you need to pick at least one
-                      </FormHelperText>
-                    )} */}
+                    
                   </FormControl>
                 </ListItemText>
               </ListItem>
@@ -269,11 +259,7 @@ const Sidebar = () => {
                         />
                       ))}
                     </FormGroup>
-                    {/* {ch1 === "" && (
-                      <FormHelperText error={ch1 === ""}>
-                        you need to pick at least one
-                      </FormHelperText>
-                    )} */}
+                    
                   </FormControl>
                 </ListItemText>
               </ListItem>

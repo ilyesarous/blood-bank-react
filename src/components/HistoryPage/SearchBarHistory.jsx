@@ -31,27 +31,7 @@ import {
     return (
       <Stack alignItems={"center"}>
         <SearchToolBar>
-          <Stack flexDirection={"row"} gap={3} margin={2} height={48}>
-            <Button
-             
-              variant="outlined"
-              sx={{ display: "flex", gap: "10px", border: " solod 1.5px" }}
-            >
-              <Typography>Add</Typography>
-              <AddCircleOutline />
-            </Button>
-            {/* <Button
-              
-              variant="outlined"
-              sx={{ display: "flex", gap: "10px", border: " solod 1.5px" }}
-            >
-              <Typography>Update</Typography>
-              <UpdateOutlined />
-            </Button> */}
-          
-          </Stack>
-  
-          <Stack flexDirection={"row"} gap={2}>
+          <Stack flexDirection={"row"} justifyContent={"end"} gap={2} width={"100%"}>
             <FormControl
               variant="standard"
               size="small"

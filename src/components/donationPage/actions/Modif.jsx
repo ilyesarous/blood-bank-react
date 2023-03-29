@@ -31,13 +31,15 @@ const Modif = (props) => {
   const NumeroIdentity = useSelector((state) => state.modifDonation.numerotype);
   const [State, setState] = useState("");
   const [blood, setBlood] = useState("");
-
+  const [observation, setObservation] = useState("")
   const mf = useDispatch();
 
   const showCardHandler = () => {
     mf(modifActions.Showme());
   };
-
+  const handleObservation = e => {
+    setObservation(e.target.value);
+  }
   const handleBlood = (e) => {
     setBlood(e.target.value);
   };
@@ -46,9 +48,10 @@ const Modif = (props) => {
   };
   const togglerHandler = (e) => {
     e.preventDefault();
-    mf(modifActions.getstate(State))
+    mf(modifActions.getstate(State));
     mf(modifActions.getBlood(blood));
-    mf(modifActions.updatDonateur())
+    mf(modifActions.getObservation(observation));
+    mf(modifActions.updatDonateur());
     mf(GetActions.modifcounteur());
     setState("");
     mf(modifActions.Showme());
@@ -76,31 +79,36 @@ const Modif = (props) => {
           <List>
             <form onSubmit={togglerHandler}>
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{flex: 2}} >Last Name:</InputLabel>
+                <InputLabel sx={{ flex: 2 }}>Last Name:</InputLabel>
                 <Typography flex={2} justifyContent={"center"}>
                   <u>{lastname}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{flex: 2}}>type Identity :</InputLabel>
+                <InputLabel sx={{ flex: 2 }}>type Identity :</InputLabel>
                 <Typography flex={2} justifyContent={"center"}>
                   <u>{typeIdentity}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{flex: 2}}>Numero Identity :</InputLabel>
+                <InputLabel sx={{ flex: 2 }}>Numero Identity :</InputLabel>
                 <Typography flex={2} justifyContent={"center"}>
                   <u>{NumeroIdentity}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel>Blood Group:</InputLabel>
-                <Input onChange={handleBlood} />
+                <InputLabel sx={{ flex: 2 }}>Blood Group:</InputLabel>
+                <Input onChange={handleBlood} sx={{ flex: 2 }} />
               </ListItem>
-              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+              <ListItem sx={{ display: "flex" }}>
+                <InputLabel sx={{ flex: 2 }}>Observation:</InputLabel>
+                <Input onChange={handleObservation} sx={{ flex: 2 }} />
+              </ListItem>
+              <ListItem sx={{ display: "flex" }}>
                 <FormControl
-                  sx={{ m: 1, minWidth: 120, marginRight: "50%" }}
+                  sx={{ minWidth: 120 }}
                   size="small"
+                  variant="standard"
                 >
                   <InputLabel id="demo-select-small">State</InputLabel>
                   <Select

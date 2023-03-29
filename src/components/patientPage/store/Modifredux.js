@@ -3,7 +3,7 @@ import Axios from "axios";
 
 const initialModifState = {
   patient: [],
-  birdh: [],
+  birth: "",
   codeP: "",
   lastName: "",
   phone: "",
@@ -13,7 +13,7 @@ const initialModifState = {
   select: false,
   showUpdate: false,
 };
-// {} najem na3mel patient. w ken 3malt [] na3mel patient [i]
+
 const ModifSlice = createSlice({
   name: "update",
   initialState: initialModifState,
@@ -21,52 +21,43 @@ const ModifSlice = createSlice({
     ShowAlert(state) {
       if (state.codeP === "") state.select = true;
       else {
-        state.showUpdate = !state.show;
+        state.showUpdate = !state.showUpdate;
         state.select = false;
       }
     },
     modif(state, action) {
-      const codepatient = action.payload;
-      state.codeP = codepatient;
+      state.codeP = action.payload;
     },
 
     modifPat(state, action) {
-      const patient = action.payload;
-      state.patient = patient;
+      state.patient = action.payload;
     },
 
     modifBirth(state, action) {
-      const bir = action.payload;
-      state.birdh = bir;
+      state.birth = action.payload;
     },
     modifLastName(state, action) {
-      const bir = action.payload;
-      state.lastName = bir;
+      state.lastName = action.payload;
     },
     modifPhone(state, action) {
-      const bir = action.payload;
-      state.phone = bir;
+      state.phone = action.payload;
     },
     modifEmail(state, action) {
-      const bir = action.payload;
-      state.email = bir;
+      state.email = action.payload;
     },
     modifAdress(state, action) {
-      const bir = action.payload;
-      state.adresse = bir;
+      state.adresse = action.payload;
     },
     modifCounteur(state) {
       state.counteur++;
     },
 
     modifBlood(state, action) {
-      const Bloodcode = action.payload;
-      state.bloodcode = Bloodcode;
+      state.bloodcode = action.payload;
     },
 
     Updat(state, action) {
       const pat = action.payload;
-      const b = state.birdh.map((x) => x);
       const a = state.patient.map((s) => s);
 
       Axios.put(`http://localhost:9005/blood-bank/patient/${state.codeP}`, {
@@ -81,7 +72,7 @@ const ModifSlice = createSlice({
         fatherNameEng: a[8],
         grandFatherNameEng: a[9],
         fullNameEng: a[10],
-        birthDate: b,
+        birthDate: a[17],
         gender: a[12],
         phoneNumber: pat[3],
         adress: pat[1],

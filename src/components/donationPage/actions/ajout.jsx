@@ -38,7 +38,7 @@ const Ajout = (props) => {
   const [typeIdentity, setTypeIdentity] = useState("");
   const [NumIdentity, setNumIdentity] = useState("");
   const [State, setState] = useState("PENDING");
-  const Blood = "-"
+  const Blood = "-";
 
   const handleAge = (e) => {
     setAge(e.target.value);
@@ -49,8 +49,6 @@ const Ajout = (props) => {
   const handleNumIdentity = (e) => {
     setNumIdentity(e.target.value);
   };
- 
-
 
   const tabDonation = [typeIdentity, NumIdentity, Age, Blood, State];
 

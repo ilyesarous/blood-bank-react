@@ -38,8 +38,6 @@ const SearchToolBar = styled(Toolbar)({
 const SearchBar = () => {
   const verif = useSelector((state) => state.modif.select);
   const aj = useDispatch();
-  const up = useDispatch();
-  const get = useDispatch();
 
   const [lastNameAr, setlastnamear] = useState("");
   const [CodePatient, setCodePatient] = useState("");
@@ -49,29 +47,29 @@ const SearchBar = () => {
     aj(AjoutActions.Showme());
   };
   const toggleCancelHandler = () => {
-    up(ModifActions.Showme());
+    aj(ModifActions.ShowAlert());
   };
 
   const handleCode = (e) => {
     setCodePatient(e.target.value);
   };
   const Codepa = () => {
-    get(GetActions.CodePat(CodePatient));
-    get(ModifActions.modifCounteur());
+    aj(GetActions.CodePat(CodePatient));
+    aj(ModifActions.modifCounteur());
   };
   const handlePhoneNumber = (e) => {
     setPhoneNumber(e.target.value);
   };
   const PhoneNum = () => {
-    get(GetActions.NumTel(PhoneNumber));
-    get(ModifActions.modifCounteur());
+    aj(GetActions.NumTel(PhoneNumber));
+    aj(ModifActions.modifCounteur());
   };
   const handleLastnamear = (e) => {
     setlastnamear(e.target.value);
   };
   const lastName = () => {
-    get(GetActions.lastName(lastNameAr));
-    get(ModifActions.modifCounteur());
+    aj(GetActions.lastName(lastNameAr));
+    aj(ModifActions.modifCounteur());
   };
 
   return (
@@ -81,10 +79,10 @@ const SearchBar = () => {
           <Button
             onClick={toggleCounterHandler}
             variant="outlined"
-            sx={{ display: "flex", gap:  "10px", border: " solod 1.5px" }}
+            sx={{ display: "flex", gap: "10px", border: " solod 1.5px" }}
           >
             <Typography>Add</Typography>
-            <AddCircleOutline sx={{ color: "#1293b8" }} />
+            <AddCircleOutline />
           </Button>
           <Button
             onClick={toggleCancelHandler}
@@ -141,7 +139,7 @@ const SearchBar = () => {
                 display: "flex",
                 justifyContent: "space-around",
                 alignItems: "center",
-                // border: "  1px solid  #808080" 
+                // border: "  1px solid  #808080"
               }}
             >
               <InputLabel>Search by name...</InputLabel>

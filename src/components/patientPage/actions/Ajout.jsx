@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   FormControl,
+  FormHelperText,
   Input,
   InputLabel,
   List,
@@ -29,7 +30,6 @@ const StyleModal = styled(Modal)({
 
 const Ajout = () => {
   const ajt = useSelector((state) => state.ajout.show);
-  // console.log(ajt);
 
   const aj = useDispatch();
   const [lastNameAr, setlastnamear] = useState("");
@@ -148,6 +148,19 @@ const Ajout = () => {
 
   const toggleCounterHandler = () => {
     aj(AjoutActions.Showme());
+    setlastnamear("");
+    setFirstnamear("");
+    setFathernamear("");
+    setGrandFathernamear("");
+    setLastnameEng("");
+    setFirstnameEng("");
+    setFathernameEng("");
+    setGrandFathernameEng("");
+    setEmail("");
+    setAdress("");
+    setGender("");
+    setNumber("");
+    setBlood("");
   };
 
   return (
@@ -190,8 +203,8 @@ const Ajout = () => {
                     <Input
                       value={firstnamear}
                       onChange={handleFirstnamear}
-                      placeholder="First Name Ar..."
                       required
+                      placeholder="First Name Ar..."
                     />
                   </FormControl>
                 </ListItem>
@@ -202,8 +215,8 @@ const Ajout = () => {
                     <Input
                       value={fathernamear}
                       onChange={handleFathernamear}
-                      placeholder="father Name Ar..."
                       required
+                      placeholder="father Name Ar..."
                     />
                   </FormControl>
                 </ListItem>
@@ -215,8 +228,8 @@ const Ajout = () => {
                     <Input
                       value={GrandFathernamear}
                       onChange={handleGrandFathernamear}
-                      placeholder="Grand father Name Ar..."
                       required
+                      placeholder="Grand father Name Ar..."
                     />
                   </FormControl>
                 </ListItem>
@@ -227,8 +240,8 @@ const Ajout = () => {
                     <Input
                       value={lastnameEng}
                       onChange={handleLastnamEng}
-                      placeholder="last Name Eng..."
                       required
+                      placeholder="last Name Eng..."
                     />
                   </FormControl>
                 </ListItem>
@@ -239,8 +252,8 @@ const Ajout = () => {
                     <Input
                       value={FirstnameEng}
                       onChange={handleFirstnameEng}
-                      placeholder="First Name Eng..."
                       required
+                      placeholder="First Name Eng..."
                     />
                   </FormControl>
                 </ListItem>
@@ -252,8 +265,8 @@ const Ajout = () => {
                     <Input
                       value={FathernameEng}
                       onChange={handleFathernameEng}
-                      placeholder="father Name Eng..."
                       required
+                      placeholder="father Name Eng..."
                     />
                   </FormControl>
                 </ListItem>
@@ -264,8 +277,8 @@ const Ajout = () => {
                     <Input
                       value={GrandFathernameEng}
                       onChange={handleGrandFathernameEng}
-                      placeholder="Grand father Name Eng..."
                       required
+                      placeholder="Grand father Name Eng..."
                     />
                   </FormControl>
                 </ListItem>

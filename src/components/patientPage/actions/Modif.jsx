@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Typography } from "@mui/material";
 import { ModifActions } from "../store/Modifredux";
+import { Stack } from "@mui/system";
 
 const StyleModal = styled(Modal)({
   display: "flex",
@@ -25,27 +26,26 @@ const StyleModal = styled(Modal)({
 const Modif = (props) => {
   const codeup = useSelector((state) => state.modif.codeP);
   const LastName = useSelector((state) => state.modif.lastName);
-  const birdhday = useSelector((state) => state.modif.birdh);
-  const Num = useSelector(state => state.modif.phone);
-  const adress = useSelector(state => state.modif.adresse);
-  const email = useSelector(state => state.modif.email);
+  const birthday = useSelector((state) => state.modif.birth);
+  const Num = useSelector((state) => state.modif.phone);
+  const adress = useSelector((state) => state.modif.adresse);
+  const email = useSelector((state) => state.modif.email);
 
-  const cancel = useSelector((state) => state.modif.show);
-
+  const cancel = useSelector((state) => state.modif.showUpdate);
 
   const up = useDispatch();
 
   const [Email, setEmail] = useState("");
   const [Adress, setAdress] = useState("");
   const [NumberPhone, setNumber] = useState("");
-  
+
   const tabPatientup = [codeup, Adress, Email, NumberPhone];
 
   const togglerHandler = (e) => {
     e.preventDefault();
     up(ModifActions.Updat(tabPatientup));
     up(ModifActions.modifCounteur());
-    up(ModifActions.Showme())
+    up(ModifActions.ShowAlert());
 
     setEmail("");
     setAdress("");
@@ -64,7 +64,7 @@ const Modif = (props) => {
     setNumber(e.target.value);
   };
   const toggleCancelHandler = () => {
-    up(ModifActions.Showme());
+    up(ModifActions.ShowAlert());
   };
 
   return (
@@ -76,7 +76,7 @@ const Modif = (props) => {
         onClose={toggleCancelHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Box width={500} bgcolor="white" padding={3} borderRadius={5}>
+        <Box width={400} bgcolor="white" padding={3} borderRadius={5}>
           <List>
             <form onSubmit={togglerHandler}>
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
@@ -94,76 +94,54 @@ const Modif = (props) => {
                 </Typography>
               </ListItem>
 
+              <ListItem sx={{ display: "flex", marginTop:5 }}>
+                <InputLabel sx={{flex:1}}>Code Patient:</InputLabel>
+                <Typography flex={2}>
+                  <u>{codeup}</u>
+                </Typography>
+              </ListItem>
+              <ListItem sx={{ display: "flex" }}>
+                <InputLabel sx={{flex:1}}>Last Name:</InputLabel>
+                <Typography flex={2}>
+                  <u>{LastName}</u>
+                </Typography>
+              </ListItem>
+              <ListItem sx={{ display: "flex" }}>
+                <InputLabel sx={{flex:1}}> Birdhay:</InputLabel>
+                <Typography flex={2}>
+                  <u>{birthday}</u>
+                </Typography>
+              </ListItem>
+
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                <FormControl
-                  variant="standard"
-                >
-                  <Typography>
-                    Code Patient:
-                    <b>
-                      <u>{codeup}</u>
-                    </b>
-                  </Typography>
-                </FormControl>
-              </ListItem>
-              <ListItem sx={{ display: "flex", justifyContent: "space-around" }}>
-                <FormControl
-                  variant="standard"
-                >
-                  <Typography>
-                    Last Name:
-                    <b>
-                      <u>{LastName}</u>
-                    </b>
-                  </Typography>
-                </FormControl>
-         
-                <FormControl
-                  variant="standard"
-                  
-                >
-                  <Typography>
-                    Birdhay:
-                    <b>
-                      <u>{birdhday}</u>
-                    </b>
-                  </Typography>
-                </FormControl>
-              </ListItem>
-
-              <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
-                <FormControl variant="standard" sx={{ minWidth: 250 }}>
-
-                  <InputLabel>Email...</InputLabel>
+                  <InputLabel sx={{flex:1}}>Email:</InputLabel>
                   <Input
+                    sx={{flex:2}}
                     value={Email}
                     onChange={handleEmail}
                     placeholder={email}
                   />
-                </FormControl>
               </ListItem>
 
-              <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
-                <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>Adress....</InputLabel>
+              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                  <InputLabel sx={{flex:1}}>Adress:</InputLabel>
                   <Input
+                    sx={{flex:2}}
                     value={Adress}
                     onChange={handleAdress}
                     placeholder={adress}
                   />
-                </FormControl>
               </ListItem>
 
-              <ListItem sx={{ display: "flex" , justifyContent: "center" }}>
-                <FormControl variant="standard" sx={{ minWidth: 250 }}>
-                  <InputLabel>Phone Number...</InputLabel>
+              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                  <InputLabel sx={{flex:1}}>Phone :</InputLabel>
 
                   <Input
+                    sx={{flex:2}}
                     value={NumberPhone}
                     onChange={handleNumber}
                     placeholder={Num}
                   />
-                </FormControl>
               </ListItem>
 
               <ListItem sx={{ marginTop: 2, justifyContent: "right", gap: 1 }}>

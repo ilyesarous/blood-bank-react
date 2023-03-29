@@ -4,7 +4,13 @@ import {
   UpdateOutlined,
 } from "@mui/icons-material";
 import {
+  Alert,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   IconButton,
   Input,
@@ -15,7 +21,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Icons } from "../../theme/styles";
 import { AjoutActions } from "./store/ajout";
 import { GetActions } from "./store/get";
@@ -27,41 +33,37 @@ const SearchToolBar = styled(Toolbar)({
   width: "100%",
 });
 
-
 const SearchBar = () => {
   const [TypeIdentity, setTypeIdentity] = useState("");
   const [NumIdentity, setNumIdentity] = useState("");
-  
+  const selected = useSelector((state) => state.modifDonation.selected);
+  const disable = useSelector((state) => state.ajoutDonation.selected);
 
   const ajout = useDispatch();
-  const get = useDispatch();
 
   const handletypeIdentity = (e) => {
     setTypeIdentity(e.target.value);
   };
-  
+
   const handlenumIdentity = (e) => {
     setNumIdentity(e.target.value);
   };
-  
-  
 
-
-  const toggleAjoutDonationHandler =() =>{
+  const toggleAjoutDonationHandler = () => {
     ajout(AjoutActions.Showme());
-    
   };
-  const toggleModifDonationHandler =() =>{
+  const closeHandler=() => {
+    ajout(AjoutActions.closeAlertHandler())
+  }
+  const toggleModifDonationHandler = () => {
     ajout(modifActions.Showme());
-    
   };
   const searchHandler = () => {
-    get(GetActions.getType(TypeIdentity));
-    get(GetActions.getNum(NumIdentity));
-    get(GetActions.modifcounteur())
-    setTypeIdentity("")
-    setNumIdentity("")
-    
+    ajout(GetActions.getType(TypeIdentity));
+    ajout(GetActions.getNum(NumIdentity));
+    ajout(GetActions.modifcounteur());
+    setTypeIdentity("");
+    setNumIdentity("");
   };
 
   return (
@@ -76,6 +78,26 @@ const SearchBar = () => {
             <Typography>Add</Typography>
             <AddCircleOutline />
           </Button>
+          <Dialog
+            open={disable}
+            onClose={closeHandler}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Can't open the add window?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                You should select a patient to add a new donation
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={closeHandler} autoFocus>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Button
             onClick={toggleModifDonationHandler}
             variant="outlined"
@@ -84,9 +106,9 @@ const SearchBar = () => {
             <Typography>Update</Typography>
             <UpdateOutlined />
           </Button>
-          {/* {selected && (
+          {selected && (
             <Alert severity="warning">you need to select a blood</Alert>
-          )} */}
+          )}
         </Stack>
 
         <Stack flexDirection={"row"} gap={2}>
@@ -96,8 +118,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel id="demo-select-small">Numero Identity...</InputLabel>
-            <Input value={NumIdentity}
-                onChange={handlenumIdentity} required />
+            <Input value={NumIdentity} onChange={handlenumIdentity} required />
           </FormControl>
           <FormControl
             variant="standard"
@@ -105,8 +126,11 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel>Type Identity...</InputLabel>
-            <Input value={TypeIdentity}
-                onChange={handletypeIdentity} required />
+            <Input
+              value={TypeIdentity}
+              onChange={handletypeIdentity}
+              required
+            />
           </FormControl>
           <Icons>
             <IconButton

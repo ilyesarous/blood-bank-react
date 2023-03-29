@@ -28,24 +28,6 @@ const SearchToolBar = styled(Toolbar)({
 });
 
 const SearchBar = () => {
-  // const [types, setTypes] = useState([]);
-  // const [groups, setGroups] = useState([]);
-  // const count = useSelector((state) => state.blood.count);
-  // const getTypes = useCallback(() => {
-  //   axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
-  //     setTypes(res.data);
-  //   });
-  // }, [count]);
-  // const getGroups = useCallback(() => {
-  //   axios.get("http://localhost:9005/blood-bank/blood/groups").then((res) => {
-  //     setGroups(res.data);
-  //   });
-  // }, [count]);
-
-  // useEffect(() => {
-  //   getGroups();
-  //   getTypes();
-  // }, [getGroups, getTypes]);
 
   const [bloodGrp, setBloodGrp] = useState("");
   const [givenTo, setGivenTo] = useState("");

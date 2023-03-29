@@ -25,29 +25,36 @@ const StyleModal = styled(Modal)({
 const Add = () => {
 
   const [bloodGrp, setBloodGrp] = useState("");
+  const [codeAchat,setCodeAchat] = useState("")
   const showCard = useSelector((state) => state.addStock.show);
 
   const dispatch = useDispatch();
 
   const showCardHandler = () => {
     dispatch(addActions.showCardHandler());
-    console.log(showCard);
   };
 
   const handleChanges = event => {
     setBloodGrp(event.target.value)
+  };
+  const handleCodeChanges = event => {
+    setCodeAchat(event.target.value)
   };
 
   const submitHandler = event => {
     event.preventDefault()
     axios
       .post("http://localhost:9005/blood-bank/stock", {
-        blood: bloodGrp
+        blood: bloodGrp,
+        codedonateur: codeAchat
       })
       .then((res) => {
         console.log("res.data", res);
         dispatch(addActions.countHandler());
+        showCardHandler()
       });
+      setBloodGrp("")
+      setCodeAchat("")
   }
 
   return (
@@ -73,6 +80,12 @@ const Add = () => {
                 <FormControl variant="standard" sx={{ minWidth: 100 }}>
                   <InputLabel>Group Blood</InputLabel>
                   <Input onChange={handleChanges} required />
+                </FormControl>
+              </ListItem>
+              <ListItem sx={{ display: "flex", gap: 5, margin: 2 }}>
+                <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                  <InputLabel>Code Achat</InputLabel>
+                  <Input onChange={handleCodeChanges} required />
                 </FormControl>
               </ListItem>
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>

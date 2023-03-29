@@ -10,40 +10,45 @@ const initialAjoutState = {
   phone: "",
   sexe: "",
   show: false,
+  selected: false,
 };
 const AjoutSlice = createSlice({
   name: "ajout",
   initialState: initialAjoutState,
   reducers: {
     Showme(state) {
-      state.show = !state.show;
+      if (state.codeP === "") {
+        state.selected = true;
+      } else {
+        state.selected = false;
+        state.show = !state.show;
+      }
+    },
+    closeAlertHandler(state) {
+      state.selected = !state.selected;
     },
     getcode(state, action) {
-      const codepas = action.payload;
-      state.codeP = codepas;
+      state.codeP = action.payload;
       console.log("le code", state.codeP);
     },
     getAdre(state, action) {
-      const adresse = action.payload;
-      state.adre = adresse;
+      state.adre = action.payload;
     },
     getName(state, action) {
-      const Name = action.payload;
-      state.lastname = Name;
+      state.lastname = action.payload;
     },
     getSexe(state, action) {
-      const Sexe = action.payload;
-      state.sexe = Sexe;
+      state.sexe = action.payload;
+
       console.log("el sex", state.sexe);
     },
     getPhone(state, action) {
-      const ph = action.payload;
-      state.phone = ph;
+      state.phone = action.payload;
+
       console.log("el tel", state.phone);
     },
     add(state, action) {
-      const patient = action.payload;
-      state.patient = patient;
+      state.patient = action.payload;
     },
     addDonation(state, action) {
       const pat = action.payload;

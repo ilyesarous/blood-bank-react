@@ -107,7 +107,7 @@ const columns = [
     align: "center",
   },
   {
-    id: "birthDate",
+    id: "birthDay",
     label: "BirthDate",
     align: "center",
   },
@@ -119,7 +119,8 @@ const columns = [
 ];
 
 const Tableadd = () => {
-  // const Lastname = useSelector(state=>state.geet.lastNameAr)
+  const count = useSelector((state) => state.modif.counteur);
+
   const lastName = useSelector((state) => state.geet.lastNamear);
   
   const CodePatient = useSelector((state) => state.geet.Code);
@@ -151,11 +152,12 @@ const Tableadd = () => {
       Patient.adress,
       Patient.phoneNumber,
       Patient.email,
-      Patient.adress
+      Patient.adress,
+      Patient.birthDay
     ];
-
+    console.log(p);
     get(ModifActions.modifPat(p));
-    get(ModifActions.modifBirth(Patient.birthDate));
+    get(ModifActions.modifBirth(p[17]));
     get(ModifActions.modif(Patient.code));
     get(ModifActions.modifLastName(Patient.lastNameAr));
     get(ModifActions.modifPhone(Patient.phoneNumber));
@@ -181,8 +183,6 @@ const Tableadd = () => {
     setPage(0);
   };
 
-  const count = useSelector((state) => state.modif.counteur);
-
   const getPatientDataHandler = useCallback(async () => {
     try {
       const blood = await fetch(
@@ -202,7 +202,7 @@ const Tableadd = () => {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: "450px" }}>
+        <TableContainer sx={{ height: "450px" }}>
           <Table size="small" stickyHeader={true} aria-label="sticky table">
             <TableHead>
               <TableRow>

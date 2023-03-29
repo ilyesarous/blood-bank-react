@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   bloods: [],
   show: false,
-  alert: false,
+  alert: true,
   count: 0,
   group: "",
   rhesus: "",
@@ -21,9 +21,9 @@ const bloodSlice = createSlice({
     addBlood(state, action) {
       state.bloods = [...state.bloods, action.payload];
     },
+
     setAlert(state) {
-      if (state.alert === true) state.alert = false;
-      else state.alert = true;
+      state.alert = !state.alert;
     },
     setCount(state) {
       state.count++;
@@ -31,21 +31,21 @@ const bloodSlice = createSlice({
     getChecked(state) {
       state.checked = !state.checked;
     },
-    getRhesus(state,action){
-      state.rhesus = action.payload
+    getRhesus(state, action) {
+      state.rhesus = action.payload;
     },
-    getReceive(state,action){
-      state.receive = action.payload.toString()
+    getReceive(state, action) {
+      state.receive = action.payload.toString();
       console.log("receive: ", state.receive);
     },
-    getGiven(state,action){
-      state.given = action.payload.toString()
+    getGiven(state, action) {
+      state.given = action.payload.toString();
       console.log(state.given);
     },
-    getGroup(state,action){
-      state.group = action.payload
+    getGroup(state, action) {
+      state.group = action.payload;
       // console.log(state.group);
-    }
+    },
   },
 });
 
