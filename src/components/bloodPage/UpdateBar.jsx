@@ -232,11 +232,6 @@ const UpdateBar = () => {
                         />
                       ))}
                     </FormGroup>
-                    {/* {ch === "" && (
-                      <FormHelperText error={ch === ""}>
-                        you need to pick at least one
-                      </FormHelperText>
-                    )} */}
                   </FormControl>
                 </ListItemText>
               </ListItem>
@@ -256,11 +251,6 @@ const UpdateBar = () => {
                         />
                       ))}
                     </FormGroup>
-                    {/* {ch1 === "" && (
-                      <FormHelperText error={ch1 === ""}>
-                        you need to pick at least one
-                      </FormHelperText>
-                    )} */}
                   </FormControl>
                 </ListItemText>
               </ListItem>

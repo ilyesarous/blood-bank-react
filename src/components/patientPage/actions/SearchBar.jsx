@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AjoutActions } from "../store/Ajoutredux";
 import { ModifActions } from "../store/Modifredux";
 import { GetActions } from "../store/getdata";
+import { Icons } from "../../../theme/styles";
 
 const SearchToolBar = styled(Toolbar)({
   display: "flex",
@@ -53,23 +54,23 @@ const SearchBar = () => {
   const handleCode = (e) => {
     setCodePatient(e.target.value);
   };
-  const Codepa = () => {
-    aj(GetActions.CodePat(CodePatient));
-    aj(ModifActions.modifCounteur());
-  };
+
   const handlePhoneNumber = (e) => {
     setPhoneNumber(e.target.value);
-  };
-  const PhoneNum = () => {
-    aj(GetActions.NumTel(PhoneNumber));
-    aj(ModifActions.modifCounteur());
   };
   const handleLastnamear = (e) => {
     setlastnamear(e.target.value);
   };
-  const lastName = () => {
+
+  const searchHandler = () => {
+    aj(GetActions.CodePat(CodePatient));
     aj(GetActions.lastName(lastNameAr));
+    aj(GetActions.NumTel(PhoneNumber));
     aj(ModifActions.modifCounteur());
+
+    setlastnamear("");
+    setCodePatient("");
+    setPhoneNumber("");
   };
 
   return (
@@ -98,7 +99,7 @@ const SearchBar = () => {
           )}
         </Stack>
 
-        <Stack flexDirection={"row"} sx={{ justifyContent: "right" }}>
+        <Stack flexDirection={"row"} gap={2}>
           <FormControl
             variant="standard"
             sx={{
@@ -107,24 +108,15 @@ const SearchBar = () => {
               justifyContent: "right",
             }}
           >
-            <Stack
-              flexDirection={"row"}
-              sx={{
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              <InputLabel>Search by code...</InputLabel>
-              <Input
-                value={CodePatient}
-                onChange={handleCode}
-                placeholder="Search......"
-              />
-              <IconButton onClick={Codepa}>
-                <SearchOutlined color="secondary" />
-              </IconButton>
-            </Stack>
+            <InputLabel>Search by code:</InputLabel>
+            <Input value={CodePatient} onChange={handleCode} />
           </FormControl>
+
+          <FormControl variant="standard">
+            <InputLabel>Search by last name:</InputLabel>
+            <Input value={lastNameAr} onChange={handleLastnamear} />
+          </FormControl>
+
           <FormControl
             variant="standard"
             sx={{
@@ -133,52 +125,20 @@ const SearchBar = () => {
               justifyContent: "right",
             }}
           >
-            <Stack
-              flexDirection={"row"}
-              sx={{
-                display: "flex",
-                justifyContent: "space-around",
-                alignItems: "center",
-                // border: "  1px solid  #808080"
-              }}
-            >
-              <InputLabel>Search by name...</InputLabel>
-              <Input
-                value={lastNameAr}
-                onChange={handleLastnamear}
-                placeholder="Search......"
-              />
-              <IconButton onClick={lastName}>
-                <SearchOutlined color="secondary" />
-              </IconButton>
-            </Stack>
+            <InputLabel>Search by Num tel:</InputLabel>
+            <Input value={PhoneNumber} onChange={handlePhoneNumber} />
           </FormControl>
-          <FormControl
-            variant="standard"
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "right",
-            }}
-          >
-            <Stack
-              flexDirection={"row"}
-              sx={{
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
+          <Icons>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="search"
+              sx={{ mr: 2, border: ".5px solid #1D95BB" }}
+              onClick={searchHandler}
             >
-              <InputLabel>Search by Num tel...</InputLabel>
-              <Input
-                value={PhoneNumber}
-                onChange={handlePhoneNumber}
-                placeholder="Search......"
-              />
-              <IconButton onClick={PhoneNum}>
-                <SearchOutlined color="secondary" />
-              </IconButton>
-            </Stack>
-          </FormControl>
+              <SearchOutlined color="primary" />
+            </IconButton>
+          </Icons>
         </Stack>
       </SearchToolBar>
     </Stack>

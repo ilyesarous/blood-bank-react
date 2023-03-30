@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   bloods: [],
   show: false,
-  alert: true,
+  alert: false,
   count: 0,
   group: "",
   rhesus: "",
@@ -44,7 +44,6 @@ const bloodSlice = createSlice({
     },
     getGroup(state, action) {
       state.group = action.payload;
-      // console.log(state.group);
     },
   },
 });

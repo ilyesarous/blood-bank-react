@@ -114,7 +114,7 @@ const Sidebar = () => {
     setGivenTo("");
     setRecievedFrom("");
   };
-
+  
   const addHandler = (e) => {
     e.preventDefault();
 
@@ -129,6 +129,9 @@ const Sidebar = () => {
         console.log("res.data", res.data);
         dispatch(bloodActions.setCount());
         dispatch(bloodActions.showCard());
+      })
+      .catch((e) => {
+        dispatch(bloodActions.setAlert())
       });
 
     setBloodGrp("");
@@ -136,6 +139,10 @@ const Sidebar = () => {
     setGivenTo("");
     setRecievedFrom("");
   };
+
+  const closeHandler = () => {
+    dispatch(bloodActions.setAlert())
+  }
 
   const cancelHandler = () => {
     dispatch(bloodActions.showCard());
@@ -217,7 +224,6 @@ const Sidebar = () => {
                       Blood type is required
                     </FormHelperText>
                   )}
-                
                 </FormControl>
               </ListItem>
 
@@ -239,7 +245,6 @@ const Sidebar = () => {
                         />
                       ))}
                     </FormGroup>
-                    
                   </FormControl>
                 </ListItemText>
               </ListItem>
@@ -259,7 +264,6 @@ const Sidebar = () => {
                         />
                       ))}
                     </FormGroup>
-                    
                   </FormControl>
                 </ListItemText>
               </ListItem>
@@ -274,6 +278,26 @@ const Sidebar = () => {
                 >
                   Add
                 </Button>
+                <Dialog
+                  open={verif}
+                  onClose={closeHandler}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Error!"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      This blood group already exists
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={closeHandler} autoFocus>
+                      Ok
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </ListItem>
             </List>
           </form>

@@ -39,11 +39,14 @@ const columns = [
 const StockTable = () => {
   const [stocks, setStocks] = useState([]);
   const count = useSelector(state => state.addStock.count)
+  const blood = useSelector(state => state.addStock.blood)
+  // const code = useSelector(state => state.addStock.code)
   const dispatch = useDispatch()
 
   const getDataHandler = useCallback(async () => {
     try {
-      const stock = await fetch(`http://localhost:9005/blood-bank/stock`);
+      console.log("blood", blood);
+      const stock = await fetch(`http://localhost:9005/blood-bank/stock?blood=${blood}`);
       if (!stock.ok) throw new Error("something went wrong!");
       const data = await stock.json();
       setStocks(data);

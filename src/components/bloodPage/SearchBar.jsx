@@ -99,7 +99,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel id="demo-select-small">Received From</InputLabel>
-            <Input onChange={handleReceivedFrom} />
+            <Input value={receivedFrom} onChange={handleReceivedFrom} />
           </FormControl>
           <FormControl
             variant="standard"
@@ -107,7 +107,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel>Given To</InputLabel>
-            <Input onChange={handleGivenTo} />
+            <Input value={givenTo} onChange={handleGivenTo} />
           </FormControl>
           <FormControl
             variant="standard"
@@ -115,7 +115,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel>Blood Group</InputLabel>
-            <Input onChange={handleBloodGrpChange}/>
+            <Input value={bloodGrp} onChange={handleBloodGrpChange}/>
           </FormControl>
           <Icons>
             <IconButton

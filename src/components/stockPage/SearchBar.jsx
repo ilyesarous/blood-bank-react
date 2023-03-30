@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Icons } from "../../theme/styles";
 import { addActions } from "./store/AddSlice";
@@ -33,10 +34,21 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const showCard = useSelector((state) => state.addStock.show);
 
+  const [blood, setBlood] = useState("")
+
   const showAddCardHandler = () => {
     dispatch(addActions.showCardHandler());
     console.log(showCard);
   };
+
+  const getBloodHandler= (event) => {
+    setBlood(event.target.value)
+  }
+
+  const searchHandler = () => {
+    dispatch(addActions.getBlood(blood))
+    dispatch(addActions.countHandler())
+  }
 
   const deleteHandler = () => {
     if (code !== "") {
@@ -77,12 +89,13 @@ const SearchBar = () => {
             size="small"
             sx={{ m: 1, minWidth: 140 }}
           >
-            <InputLabel id="demo-select-small">...</InputLabel>
-            <Input />
+            <InputLabel id="demo-select-small">Blood Group</InputLabel>
+            <Input onChange={getBloodHandler}/>
           </FormControl>
           
           <Icons>
             <IconButton
+              onClick={searchHandler}
               edge="start"
               color="inherit"
               aria-label="search"
