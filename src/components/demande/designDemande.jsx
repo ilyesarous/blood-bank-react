@@ -1,14 +1,59 @@
 import { Stack, IconButton, Box } from "@mui/material";
 import { Check, Close } from "@mui/icons-material";
+import { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addActions } from "./store/AddSlice";
 
 const DesignDemande = (props) => {
+  const [status, setStatus] = useState("");
+  const dispatch = useDispatch();
 
-    const AcceptedHandler = () => {
-        console.log("accepted ", props.demande.code);
-    }
-    const RejectedHandler = () => {
-        console.log("rejected ", props.demande.code);
-    }
+  const AcceptedHandler = () => {
+    // console.log("accepted ", props.demande.quantiter);
+    setStatus("SOLVED");
+    axios
+      .put(
+        `http://localhost:9005/blood-bank/demandeeee/${props.demande.code}`,
+        {
+          code: props.demande.code,
+          codeMedecin: props.demande.doctorCode,
+          blood: props.demande.bloodGrp,
+          quantiter: props.demande.quantiter,
+          codeService: props.demande.serviceCode,
+          state: props.demande.state,
+          status: status,
+          usercreate: props.demande.usercreate,
+          createDate: props.demande.createDate,
+          id: props.demande.id,
+        }
+      )
+      .then((res) => {
+        dispatch(addActions.addCount())
+      });
+  };
+  const RejectedHandler = () => {
+    // console.log("rejected ", props.demande.code);
+    setStatus("REJECTED");
+    console.log("status: ", status);
+    axios.put(
+      `http://localhost:9005/blood-bank/demandeeee/${props.demande.code}`,
+      {
+        code: props.demande.code,
+        codeMedecin: props.demande.doctorCode,
+        blood: props.demande.bloodGrp,
+        quantiter: props.demande.quantiter,
+        codeService: props.demande.serviceCode,
+        state: props.demande.state,
+        status: status,
+        usercreate: props.demande.usercreate,
+        createDate: props.demande.createDate,
+        id: props.demande.id,
+      }
+    ).then((res) => {
+        dispatch(addActions.addCount())
+      });;
+  };
 
   return (
     <Stack
@@ -22,7 +67,7 @@ const DesignDemande = (props) => {
         textAlign: " center",
         backgroundColor: "white",
         flexDirection: "row",
-        boxShadow: "0 1px 8px rgba(0, 0, 0, 0.05)"
+        boxShadow: "0 1px 8px rgba(0, 0, 0, 0.05)",
       }}
     >
       <Box
@@ -124,10 +169,16 @@ const DesignDemande = (props) => {
         {props.demande.createDate}
       </Box>
       <Stack flexDirection={"row"}>
-        <IconButton onClick={AcceptedHandler} sx={{":hover":{backgroundColor:"#1D95BB", color:"white"}}}>
+        <IconButton
+          onClick={AcceptedHandler}
+          sx={{ ":hover": { backgroundColor: "#1D95BB", color: "white" } }}
+        >
           <Check />
         </IconButton>
-        <IconButton onClick={RejectedHandler} sx={{":hover":{backgroundColor:"#DF2E38", color:"white"}}}>
+        <IconButton
+          onClick={RejectedHandler}
+          sx={{ ":hover": { backgroundColor: "#DF2E38", color: "white" } }}
+        >
           <Close />
         </IconButton>
       </Stack>

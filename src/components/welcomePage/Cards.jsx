@@ -16,11 +16,16 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Icons, ShowCards } from "../../theme/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addActions } from "../demande/store/AddSlice";
 
 const Cards = () => {
   const count = useSelector((state) => state.addDemande.count);
+  const dispatch = useDispatch()
 
+  const handleNotif = () => {
+    dispatch(addActions.subtractCount(0))
+  }
   return (
     <ShowCards>
       <Stack
@@ -108,14 +113,14 @@ const Cards = () => {
           </CardActionArea>
         </Card>
         <Card sx={{ width: { sm: "100%", md: "17%" } }}>
-          <CardActionArea sx={{ padding: 1 }}>
+          <CardActionArea onClick={handleNotif} sx={{ padding: 1 }}>
             <Link to="/demande_table" style={{ textDecoration: "none" }}>
               <CardContent>
                 <Icons sx={{ justifyContent: "space-between" }}>
                   <Typography variant="h6" color="primary">
                     Demande Table
                   </Typography>
-                  <Badge badgeContent={count} color="primary">
+                  <Badge badgeContent={count}  color="primary">
                     <TableRows color="primary" sx={{ margin: 1 }} />
                   </Badge>
                 </Icons>

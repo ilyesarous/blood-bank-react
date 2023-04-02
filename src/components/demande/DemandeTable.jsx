@@ -3,6 +3,7 @@ import { Settings } from "@mui/icons-material";
 import { useCallback, useEffect, useState } from "react";
 import DesignDemande from "./designDemande";
 import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
 
 const PageName = styled(Box)({
   display: "flex",
@@ -14,6 +15,7 @@ const PageName = styled(Box)({
 
 const DemandeTable = () => {
   const [table, setTable] = useState([]);
+  const count = useSelector((state) => state.addDemande.count);
 
   const getDemandeDataHandler = useCallback(async () => {
     try {
@@ -26,7 +28,7 @@ const DemandeTable = () => {
     } catch (error) {
       console.log(console.error);
     }
-  }, []);
+  }, [count]);
 
   useEffect(() => {
     getDemandeDataHandler();

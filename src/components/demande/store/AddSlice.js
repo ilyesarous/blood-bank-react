@@ -9,9 +9,10 @@ const addSlice = createSlice({
         addCount(state){
             state.count++
         },
-        subtractCount(state){
-            state.count--
-        }
+        subtractCount(state, action){
+            state.count = action.payload
+        },
+       
     }
 })
 
