@@ -11,6 +11,7 @@ import ModifReducerr from "./components/donationPage/store/modif";
 import GetDonateurHisReducer from "./components/HistoryPage/store/getDonateur";
 import GetReducerr from "./components/donationPage/store/get";
 import addReducer from "./components/stockPage/store/AddSlice";
+import addDemandeReducer from "./components/demande/store/AddSlice";
 
 const store = configureStore({
     reducer: {
@@ -25,7 +26,8 @@ const store = configureStore({
         getDonateur:GetDonateurHisReducer,
         geet: GetReducer,
         modif: ModifReducer,
-        addStock: addReducer
+        addStock: addReducer,
+        addDemande: addDemandeReducer
     }
 })
 

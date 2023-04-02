@@ -9,6 +9,8 @@ import Patient from "./components/Pages/Patient";
 import DonnationPage from "./components/Pages/DonnationPage";
 import HistoryPage from "./components/Pages/HistoryPage";
 import Stock from "./components/Pages/Stock";
+import DemandePage from "./components/Pages/DemandePage";
+import DemandeTable from "./components/demande/DemandeTable";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/patients/history" element={<HistoryPage/>}/>
             <Route path="/form" element={<Formulaire/>}/>
             <Route path="/stock" element={<Stock/>}/>
+            <Route path="/demande_form" element={<DemandePage/>}/>
+            <Route path="/demande_table" element={<DemandeTable/>}/>
           </Route>
         </Routes>
         
