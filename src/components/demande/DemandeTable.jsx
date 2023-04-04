@@ -10,13 +10,12 @@ const PageName = styled(Box)({
   margin: 50,
   justifyContent: "end",
   alignItems: "center",
-  gap: 10
-})
+  gap: 10,
+});
 
 const DemandeTable = () => {
   const [table, setTable] = useState([]);
   const count = useSelector((state) => state.addDemande.count);
-
   const getDemandeDataHandler = useCallback(async () => {
     try {
       const demande = await fetch(
@@ -40,7 +39,7 @@ const DemandeTable = () => {
         <Typography variant="h5" color="lightgrey" component="div">
           Requests Page
         </Typography>
-        <Settings sx={{width: 40, height: 40, color: "lightgrey"}}/>
+        <Settings sx={{ width: 40, height: 40, color: "lightgrey" }} />
       </PageName>
       {table.map((tab) => (
         <DesignDemande key={tab.code} demande={tab} />

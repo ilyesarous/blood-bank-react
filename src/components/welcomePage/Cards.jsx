@@ -22,7 +22,7 @@ import { addActions } from "../demande/store/AddSlice";
 const Cards = () => {
   const count = useSelector((state) => state.addDemande.count);
   const dispatch = useDispatch()
-
+  console.log(count);
   const handleNotif = () => {
     dispatch(addActions.subtractCount(0))
   }

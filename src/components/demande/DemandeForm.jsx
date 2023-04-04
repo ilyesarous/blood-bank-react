@@ -4,12 +4,10 @@ import {
   Button,
   FormControl,
   Input,
-  InputLabel,
   List,
   ListItem,
   ListItemText,
   MenuItem,
-  Modal,
   Select,
   Stack,
   Table,
@@ -53,7 +51,7 @@ const DemandeForm = () => {
     setState(e.target.value);
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const sendRequestHandler = (e) => {
     e.preventDefault();
@@ -68,9 +66,8 @@ const DemandeForm = () => {
         status: status,
       })
       .then((res) => {
-        dispatch(addActions.addCount())
+        dispatch(addActions.addCount());
       });
-    //   .catch((e) => {});
 
     setBloodGrp("");
     setQuantity("");
@@ -103,19 +100,35 @@ const DemandeForm = () => {
             <List>
               <ListItem>
                 <ListItemText>Blood group:</ListItemText>
-                <Input value={bloodGrp} onChange={grpBloodChangeHandler} required />
+                <Input
+                  value={bloodGrp}
+                  onChange={grpBloodChangeHandler}
+                  required
+                />
               </ListItem>
               <ListItem>
                 <ListItemText>Quantity:</ListItemText>
-                <Input value={quantity} onChange={quantityChangeHandler} required />
+                <Input
+                  value={quantity}
+                  onChange={quantityChangeHandler}
+                  required
+                />
               </ListItem>
               <ListItem>
                 <ListItemText>Service Code:</ListItemText>
-                <Input value={serviceCode} onChange={serviceCodeChangeHandler} required />
+                <Input
+                  value={serviceCode}
+                  onChange={serviceCodeChangeHandler}
+                  required
+                />
               </ListItem>
               <ListItem>
                 <ListItemText>Doctor's code:</ListItemText>
-                <Input value={doctorCode} onChange={doctorCodeChangeHandler} required />
+                <Input
+                  value={doctorCode}
+                  onChange={doctorCodeChangeHandler}
+                  required
+                />
               </ListItem>
               <ListItem>
                 <ListItemText>State:</ListItemText>

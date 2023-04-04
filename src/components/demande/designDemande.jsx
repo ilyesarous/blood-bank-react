@@ -1,41 +1,14 @@
 import { Stack, IconButton, Box } from "@mui/material";
 import { Check, Close } from "@mui/icons-material";
-import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addActions } from "./store/AddSlice";
 
 const DesignDemande = (props) => {
-  const [status, setStatus] = useState("");
   const dispatch = useDispatch();
 
   const AcceptedHandler = () => {
-    // console.log("accepted ", props.demande.quantiter);
-    setStatus("SOLVED");
-    axios
-      .put(
-        `http://localhost:9005/blood-bank/demandeeee/${props.demande.code}`,
-        {
-          code: props.demande.code,
-          codeMedecin: props.demande.doctorCode,
-          blood: props.demande.bloodGrp,
-          quantiter: props.demande.quantiter,
-          codeService: props.demande.serviceCode,
-          state: props.demande.state,
-          status: status,
-          usercreate: props.demande.usercreate,
-          createDate: props.demande.createDate,
-          id: props.demande.id,
-        }
-      )
-      .then((res) => {
-        dispatch(addActions.addCount())
-      });
-  };
-  const RejectedHandler = () => {
-    // console.log("rejected ", props.demande.code);
-    setStatus("REJECTED");
-    console.log("status: ", status);
+    dispatch(addActions.addCount())
     axios.put(
       `http://localhost:9005/blood-bank/demandeeee/${props.demande.code}`,
       {
@@ -45,14 +18,33 @@ const DesignDemande = (props) => {
         quantiter: props.demande.quantiter,
         codeService: props.demande.serviceCode,
         state: props.demande.state,
-        status: status,
+        status: "SOLVED",
         usercreate: props.demande.usercreate,
         createDate: props.demande.createDate,
         id: props.demande.id,
       }
-    ).then((res) => {
-        dispatch(addActions.addCount())
-      });;
+    );
+    window.location.reload()
+  };
+
+  const RejectedHandler = () => {
+    dispatch(addActions.addCount())
+    axios.put(
+      `http://localhost:9005/blood-bank/demandeeee/${props.demande.code}`,
+      {
+        code: props.demande.code,
+        codeMedecin: props.demande.doctorCode,
+        blood: props.demande.bloodGrp,
+        quantiter: props.demande.quantiter,
+        codeService: props.demande.serviceCode,
+        state: props.demande.state,
+        status: "REJECTED",
+        usercreate: props.demande.usercreate,
+        createDate: props.demande.createDate,
+        id: props.demande.id,
+      }
+    );
+    window.location.reload()
   };
 
   return (
