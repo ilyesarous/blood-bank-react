@@ -26,6 +26,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addActions } from "./store/AddSlice";
+import { useCallback } from "react";
+import { useEffect } from "react";
 
 const StyleModal = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -39,9 +41,19 @@ const DemandeForm = () => {
   const [serviceCode, setServiceCode] = useState("");
   const [doctorCode, setDoctorCode] = useState("");
   const [state, setState] = useState("");
+  const [types, setTypes] = useState([]);
   const status = "";
   const dispatch = useDispatch()
   const selected = useSelector((state) => state.addDemande.selected)
+
+  const getTypes = useCallback(() => {
+    axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
+      setTypes(res.data);
+    });
+   },[])
+  useEffect(() => {
+    getTypes()
+  }, [getTypes]);
   
 
   const closeHandler = () =>{
@@ -114,11 +126,19 @@ const DemandeForm = () => {
             <List>
               <ListItem>
                 <ListItemText>Blood group:</ListItemText>
-                <Input
-                  value={bloodGrp}
-                  onChange={grpBloodChangeHandler}
-                  required
-                />
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 175 }}>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={bloodGrp}
+                    onChange={grpBloodChangeHandler}
+                    label="blood"
+                  >
+                    <MenuItem value={""}>NONE</MenuItem>
+                    {types.map(type => <MenuItem value={type}>{type}</MenuItem>)}
+                    {/* <MenuItem value={"minor"}>Minor</MenuItem> */}
+                  </Select>
+                </FormControl>
               </ListItem>
               <ListItem>
                 <ListItemText>Quantity:</ListItemText>
