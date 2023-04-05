@@ -2,6 +2,11 @@ import styled from "@emotion/styled";
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   Input,
   List,
@@ -19,7 +24,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addActions } from "./store/AddSlice";
 
 const StyleModal = styled(Box)(({ theme }) => ({
@@ -35,6 +40,14 @@ const DemandeForm = () => {
   const [doctorCode, setDoctorCode] = useState("");
   const [state, setState] = useState("");
   const status = "";
+  const dispatch = useDispatch()
+  const selected = useSelector((state) => state.addDemande.selected)
+  
+
+  const closeHandler = () =>{
+    dispatch(addActions.setSelected())
+  }
+
   const grpBloodChangeHandler = (e) => {
     setBloodGrp(e.target.value);
   };
@@ -51,8 +64,6 @@ const DemandeForm = () => {
     setState(e.target.value);
   };
 
-  const dispatch = useDispatch();
-
   const sendRequestHandler = (e) => {
     e.preventDefault();
 
@@ -64,9 +75,12 @@ const DemandeForm = () => {
         codeService: serviceCode,
         state: state,
         status: status,
+        createDate: ""
       })
       .then((res) => {
         dispatch(addActions.addCount());
+      }).catch(e => {
+        dispatch(addActions.setSelected())
       });
 
     setBloodGrp("");
@@ -154,6 +168,27 @@ const DemandeForm = () => {
             </List>
           </Box>
         </form>
+        <Dialog
+            open={selected}
+            onClose={closeHandler}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            va
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Error!"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                verif the doctor's code or service code!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={closeHandler} autoFocus>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
       </StyleModal>
     </Stack>
   );
