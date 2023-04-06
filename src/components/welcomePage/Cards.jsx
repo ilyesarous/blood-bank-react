@@ -21,11 +21,11 @@ import { addActions } from "../demande/store/AddSlice";
 
 const Cards = () => {
   const count = useSelector((state) => state.addDemande.count);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   console.log(count);
   const handleNotif = () => {
-    dispatch(addActions.subtractCount(0))
-  }
+    dispatch(addActions.subtractCount(0));
+  };
   return (
     <ShowCards>
       <Stack
@@ -104,7 +104,7 @@ const Cards = () => {
               <CardContent>
                 <Icons sx={{ justifyContent: "space-between" }}>
                   <Typography variant="h6" color="primary">
-                    Demande Form
+                    Request Form
                   </Typography>
                   <Receipt color="primary" sx={{ margin: 1 }} />
                 </Icons>
@@ -118,9 +118,9 @@ const Cards = () => {
               <CardContent>
                 <Icons sx={{ justifyContent: "space-between" }}>
                   <Typography variant="h6" color="primary">
-                    Demande Table
+                    Request Table
                   </Typography>
-                  <Badge badgeContent={count}  color="primary">
+                  <Badge badgeContent={count} color="primary">
                     <TableRows color="primary" sx={{ margin: 1 }} />
                   </Badge>
                 </Icons>
