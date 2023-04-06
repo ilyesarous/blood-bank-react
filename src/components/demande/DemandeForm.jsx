@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import {
+  Alert,
   Box,
   Button,
   Dialog,
@@ -14,6 +15,8 @@ import {
   ListItemText,
   MenuItem,
   Select,
+  Slide,
+  Snackbar,
   Stack,
   Table,
   TableBody,
@@ -35,6 +38,10 @@ const StyleModal = styled(Box)(({ theme }) => ({
   justifyContent: "center",
 }));
 
+function TransitionUp(props) {
+  return <Slide {...props} direction="up" />;
+}
+
 const DemandeForm = () => {
   const [bloodGrp, setBloodGrp] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -43,22 +50,29 @@ const DemandeForm = () => {
   const [state, setState] = useState("");
   const [types, setTypes] = useState([]);
   const status = "";
-  const dispatch = useDispatch()
-  const selected = useSelector((state) => state.addDemande.selected)
+  const dispatch = useDispatch();
+  const [mes, setMes] = useState("");
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+  const [transition, setTransition] = useState(undefined);
+
+  const handleClick = (Transition) => () => {
+    setTransition(() => Transition);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const getTypes = useCallback(() => {
     axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
       setTypes(res.data);
     });
-   },[])
+  }, []);
   useEffect(() => {
-    getTypes()
+    getTypes();
   }, [getTypes]);
-  
-
-  const closeHandler = () =>{
-    dispatch(addActions.setSelected())
-  }
 
   const grpBloodChangeHandler = (e) => {
     setBloodGrp(e.target.value);
@@ -87,12 +101,16 @@ const DemandeForm = () => {
         codeService: serviceCode,
         state: state,
         status: status,
-        createDate: ""
+        createDate: "",
       })
       .then((res) => {
         dispatch(addActions.addCount());
-      }).catch(e => {
-        dispatch(addActions.setSelected())
+        setMes("Sent Successfully!");
+        setError("success")
+      })
+      .catch((e) => {
+        setMes("Error! Check your infos");
+        setError("error")
       });
 
     setBloodGrp("");
@@ -135,7 +153,9 @@ const DemandeForm = () => {
                     label="blood"
                   >
                     <MenuItem value={""}>NONE</MenuItem>
-                    {types.map(type => <MenuItem value={type}>{type}</MenuItem>)}
+                    {types.map((type) => (
+                      <MenuItem value={type}>{type}</MenuItem>
+                    ))}
                     {/* <MenuItem value={"minor"}>Minor</MenuItem> */}
                   </Select>
                 </FormControl>
@@ -181,34 +201,33 @@ const DemandeForm = () => {
                 </FormControl>
               </ListItem>
               <ListItem sx={{ justifyContent: "right" }}>
-                <Button type="submit" variant="outlined">
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  onClick={handleClick(TransitionUp)}
+                >
                   Send
                 </Button>
               </ListItem>
             </List>
           </Box>
         </form>
-        <Dialog
-            open={selected}
-            onClose={closeHandler}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            va
+        <Snackbar
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={transition}
+          message={mes}
+          key={transition ? transition.name : ""}
+          autoHideDuration={2000}
+        >
+          <Alert
+            onClose={handleClose}
+            severity={error}
+            sx={{ width: "100%" }}
           >
-            <DialogTitle id="alert-dialog-title">
-              {"Error!"}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                verif the doctor's code or service code!
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={closeHandler} autoFocus>
-                Ok
-              </Button>
-            </DialogActions>
-          </Dialog>
+            This is a success message!
+          </Alert>
+        </Snackbar>
       </StyleModal>
     </Stack>
   );
