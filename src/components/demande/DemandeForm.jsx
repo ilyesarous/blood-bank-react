@@ -102,15 +102,16 @@ const DemandeForm = () => {
         state: state,
         status: status,
         createDate: "",
+        nameMedecin:""
       })
       .then((res) => {
         dispatch(addActions.addCount());
         setMes("Sent Successfully!");
-        setError("success")
+        // setError("success")
       })
       .catch((e) => {
         setMes("Error! Check your infos");
-        setError("error")
+        // setError("error")
       });
 
     setBloodGrp("");
@@ -154,7 +155,7 @@ const DemandeForm = () => {
                   >
                     <MenuItem value={""}>NONE</MenuItem>
                     {types.map((type) => (
-                      <MenuItem value={type}>{type}</MenuItem>
+                      <MenuItem key={type} value={type}>{type}</MenuItem>
                     ))}
                     {/* <MenuItem value={"minor"}>Minor</MenuItem> */}
                   </Select>
@@ -222,7 +223,7 @@ const DemandeForm = () => {
         >
           <Alert
             onClose={handleClose}
-            severity={error}
+            // severity={error}
             sx={{ width: "100%" }}
           >
             This is a success message!
