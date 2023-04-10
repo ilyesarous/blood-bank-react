@@ -26,12 +26,30 @@ const columns = [
   },
   {
     id: "blood",
-    label: "Blood Group",
+    label: "Blood",
+    align: "center",
+  },
+  {
+    id: "codedonateur",
+    label: "Code Donation",
     align: "center",
   },
   {
     id: "dateperime",
-    label: "date perimer",
+    label: "Date Perime",
+    align: "center",
+  },
+  {
+    id: "quantite",
+    label: "Qantity",
+    align: "center",
+  },{
+    id: "quantiteTotal",
+    label: "Qantity Total",
+    align: "center",
+  },{
+    id: "version",
+    label: "Version",
     align: "center",
   },
 ];
@@ -65,7 +83,7 @@ const StockTable = () => {
 
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-      <TableContainer sx={{ maxHeight: 600 }}>
+      <TableContainer sx={{ maxHeight: 450 }}>
         <Table size="small" stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

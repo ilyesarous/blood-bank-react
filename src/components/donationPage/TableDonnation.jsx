@@ -95,18 +95,19 @@ const columns = [
 ];
 
 const TableDonnation = () => {
-
   const typeIdentity = useSelector((state) => state.getDonation.typeIdentity);
-  
+
   const numIdentity = useSelector((state) => state.getDonation.NumIdentity);
   const count = useSelector((state) => state.getDonation.counteur);
 
   const [donnations, setDeoonations] = useState([]);
-  const get=useDispatch();
+  const get = useDispatch();
 
   const getDonnationsHandler = useCallback(async () => {
     try {
-      const blood = await fetch(`http://localhost:9005/blood-bank/donation?typeIdentity=${typeIdentity}&numIdentity=${numIdentity}`)
+      const blood = await fetch(
+        `http://localhost:9005/blood-bank/donation?typeIdentity=${typeIdentity}&numIdentity=${numIdentity}`
+      );
       if (!blood.ok) throw new Error("something went wrong!");
       const data = await blood.json();
       setDeoonations(data);
@@ -132,19 +133,18 @@ const TableDonnation = () => {
       Donation.Blood,
       Donation.etat,
     ];
-    get(modifActions.getCode(Donation.code))
+    get(modifActions.getCode(Donation.code));
     get(modifActions.getLastName(Donation.fullName));
     get(modifActions.getType(Donation.typeIdentity));
     get(modifActions.getNumerotype(Donation.numIdentity));
     get(modifActions.getDonateur(d));
-    
   };
-
-  
 
   return (
     <Stack>
-      <TableContainer>
+      <TableContainer
+        sx={{maxHeight: 450}}
+      >
         <Table size="small" stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

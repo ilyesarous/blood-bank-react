@@ -10,7 +10,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Check, Close, Settings } from "@mui/icons-material";
+import { Check, Close, DeleteForever, Settings } from "@mui/icons-material";
 import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,11 +31,10 @@ const entete = [
   { id: "code", label: "Code", minWidth: 160 },
   { id: "blood", label: "Blood", minWidth: 160 },
   { id: "quantiter", label: "Quantity", minWidth: 160 },
-  { id: "codeService", label: "Code Service", minWidth: 160 },
+  { id: "nameService", label: "Service", minWidth: 160 },
   { id: "nameMedecin", label: "Doctor", minWidth: 160 },
   { id: "state", label: "State", minWidth: 160 },
   { id: "createDate", label: "Creation Date", minWidth: 160 },
-  // { id: "response", label: "Response", minWidth: 160 },
 ];
 
 const DemandeTable = () => {
@@ -162,6 +161,17 @@ const DemandeTable = () => {
                         }}
                       >
                         <Close />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => RejectedHandler(tab)}
+                        sx={{
+                          ":hover": {
+                            backgroundColor: "#DF2E38",
+                            color: "white",
+                          },
+                        }}
+                      >
+                        <DeleteForever />
                       </IconButton>
                     </Stack>
                   </TableCell>
