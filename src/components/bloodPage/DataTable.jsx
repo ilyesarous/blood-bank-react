@@ -84,7 +84,7 @@ const DataTable = () => {
   };
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-      <TableContainer sx={{ maxHeight: 600 }}>
+      <TableContainer sx={{ maxHeight: 450 }}>
         <Table size="small" stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
