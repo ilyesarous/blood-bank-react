@@ -1,5 +1,11 @@
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   IconButton,
   Stack,
   Table,
@@ -39,6 +45,7 @@ const entete = [
 
 const DemandeTable = () => {
   const [table, setTable] = useState([]);
+  const [mes, setMes] = useState("");
   const count = useSelector((state) => state.addDemande.count);
   const dispatch = useDispatch();
   const getDemandeDataHandler = useCallback(async () => {
@@ -58,46 +65,52 @@ const DemandeTable = () => {
     getDemandeDataHandler();
   }, [getDemandeDataHandler]);
 
+  const [open, setOpen] = useState(false);
+
   const AcceptedHandler = (tab) => {
     console.log(tab);
     dispatch(addActions.addCount());
-    axios.put(`http://localhost:9005/blood-bank/demandeeee/${tab.code}`, {
-      code: tab.code,
-      codeMedecin: tab.doctorCode,
-      blood: tab.bloodGrp,
-      quantiter: tab.quantiter,
-      codeService: tab.serviceCode,
-      state: tab.state,
-      status: "SOLVED",
-      usercreate: tab.usercreate,
-      createDate: tab.createDate,
-      nameMedecin: tab.nameMedecin,
-      id: tab.id,
-    });
-    window.location.reload();
+    axios
+      .put(`http://localhost:9005/blood-bank/demandeeee/${tab.code}`, {
+        code: tab.code,
+        codeMedecin: tab.doctorCode,
+        blood: tab.bloodGrp,
+        quantiter: tab.quantiter,
+        codeService: tab.serviceCode,
+        state: tab.state,
+        status: tab.status,
+        usercreate: tab.usercreate,
+        createDate: tab.createDate,
+        nameMedecin: tab.nameMedecin,
+        id: tab.id,
+      })
+      .then((res) => {
+        console.log("res.data: ",res.data);
+        if (res.data.code === null) {
+          setMes("Request has been aproved!");
+        } else {
+          setMes("quantity has been decreased!");
+        }
+      })
+      .catch(setMes("Blood does not exist in the stock!"))
+      .finally(() => {
+        setOpen(true);
+      });
   };
 
   const RejectedHandler = (tab) => {
-    dispatch(addActions.addCount())
-    axios.put(
-      `http://localhost:9005/blood-bank/demandeeee/${tab.code}`,
-    {
-    code: tab.code,
-    codeMedecin: tab.doctorCode,
-    blood: tab.bloodGrp,
-    quantiter: tab.quantiter,
-    codeService: tab.serviceCode,
-    state: tab.state,
-    status: "REJECTED",
-    usercreate: tab.usercreate,
-    createDate: tab.createDate,
-    nameMedecin: tab.nameMedecin,
-    id: tab.id,
-      }
+    dispatch(addActions.addCount());
+    axios.delete(
+      `http://localhost:9005/blood-bank/demandeeee/medecin/${tab.codeMedecin}`
     );
-    window.location.reload();
   };
   let i = 0;
+
+  const handleClose = () => {
+    setOpen(false);
+    window.location.reload()
+  };
+
   return (
     <Stack>
       <PageName>
@@ -136,9 +149,11 @@ const DemandeTable = () => {
               {table.map((tab) => (
                 <TableRow key={i++}>
                   {entete.map((column) => (
-                    <TableCell  align="center" key={column.id}>{tab[column.id]}</TableCell>
+                    <TableCell align="center" key={column.id}>
+                      {tab[column.id]}
+                    </TableCell>
                   ))}
-                  <TableCell  align="center">
+                  <TableCell align="center">
                     <Stack flexDirection={"row"}>
                       <IconButton
                         onClick={() => AcceptedHandler(tab)}
@@ -160,17 +175,6 @@ const DemandeTable = () => {
                           },
                         }}
                       >
-                        <Close />
-                      </IconButton>
-                      <IconButton
-                        onClick={() => RejectedHandler(tab)}
-                        sx={{
-                          ":hover": {
-                            backgroundColor: "#DF2E38",
-                            color: "white",
-                          },
-                        }}
-                      >
                         <DeleteForever />
                       </IconButton>
                     </Stack>
@@ -180,6 +184,24 @@ const DemandeTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Alert!"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {mes}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Stack>
     </Stack>
   );
