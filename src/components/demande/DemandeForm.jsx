@@ -195,9 +195,8 @@ const DemandeForm = () => {
                     label="state"
                     onChange={handleStateChange}
                   >
-                    <MenuItem value={""}>NONE</MenuItem>
-                    <MenuItem value={"urgent"}>Urgent</MenuItem>
-                    <MenuItem value={"minor"}>Minor</MenuItem>
+                    <MenuItem value={"Urgent"}>Urgent</MenuItem>
+                    <MenuItem value={"Minor"}>Minor</MenuItem>
                   </Select>
                 </FormControl>
               </ListItem>

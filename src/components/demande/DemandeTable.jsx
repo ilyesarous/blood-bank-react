@@ -100,9 +100,26 @@ const DemandeTable = () => {
 
   const RejectedHandler = (tab) => {
     dispatch(addActions.addCount());
-    fetch(`http://localhost:9005/blood-bank/demandeeee/${tab.code}`, {
-      method: "DELETE",
-    }); //.then( window.location.reload());
+    axios
+      .put(`http://localhost:9005/blood-bank/demandeeee/rej/${tab.code}`, {
+        code: tab.code,
+        codeMedecin: tab.doctorCode,
+        blood: tab.bloodGrp,
+        quantiter: tab.quantiter,
+        codeService: tab.serviceCode,
+        state: tab.state,
+        status: tab.status,
+        usercreate: tab.usercreate,
+        createDate: tab.createDate,
+        nameMedecin: tab.nameMedecin,
+        id: tab.id,
+      })
+      .then((res) => {
+        setMes("Request has been rejected!");
+      })
+      .finally(() => {
+        setOpen(true);
+      });
   };
   let i = 0;
 

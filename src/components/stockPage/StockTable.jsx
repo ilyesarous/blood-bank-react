@@ -44,10 +44,6 @@ const columns = [
     label: "Qantity",
     align: "center",
   },{
-    id: "quantiteTotal",
-    label: "Qantity Total",
-    align: "center",
-  },{
     id: "version",
     label: "Version",
     align: "center",
