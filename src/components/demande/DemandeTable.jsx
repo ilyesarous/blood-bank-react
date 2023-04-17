@@ -16,7 +16,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Check, Close, DeleteForever, Settings } from "@mui/icons-material";
+import { Check, DeleteForever, Settings } from "@mui/icons-material";
 import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
@@ -85,7 +85,7 @@ const DemandeTable = () => {
         id: tab.id,
       })
       .then((res) => {
-        console.log("res.data: ",res.data);
+        console.log("res.data: ", res.data);
         if (res.data.code === null) {
           setMes("Request has been aproved!");
         } else {
@@ -100,15 +100,15 @@ const DemandeTable = () => {
 
   const RejectedHandler = (tab) => {
     dispatch(addActions.addCount());
-    axios.delete(
-      `http://localhost:9005/blood-bank/demandeeee/medecin/${tab.codeMedecin}`
-    );
+    fetch(`http://localhost:9005/blood-bank/demandeeee/${tab.code}`, {
+      method: "DELETE",
+    }); //.then( window.location.reload());
   };
   let i = 0;
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload()
+    window.location.reload();
   };
 
   return (
