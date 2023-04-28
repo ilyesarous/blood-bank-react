@@ -1,63 +1,85 @@
 import { Home, OpenWith, Person, PowerSettingsNew } from "@mui/icons-material";
 import { AppBar, Box, IconButton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icons, StyledToolBar, Text } from "../../theme/styles";
 import { fullScreenActions } from "../bloodPage/BloodStore/FullScreen";
+import { authActions } from "../authentification/store/authSlice";
 
 const Navbar = () => {
+  const loggedin = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
+  const navigateor = useNavigate();
+
   const fullScreen = useSelector((state) => state.fullScreen.fullScreen);
   const fullScreenHandler = () => {
     dispatch(fullScreenActions.fullScreenMode());
     if (fullScreen) document.documentElement.requestFullscreen();
     else document.exitFullscreen();
   };
+
+  const logout = () => {
+    dispatch(authActions.changeLogoutStatus());
+    navigateor("/");
+  };
+  const goToProfile = () => {
+    navigateor("/profile");
+  }
+
   return (
     <Box>
       <AppBar position="static">
         <StyledToolBar variant="dense">
-          <Icons>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <PowerSettingsNew />
-            </IconButton>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={fullScreenHandler}
-              sx={{ mr: 2 }}
-            >
-              <OpenWith />
-            </IconButton>
-            <Link to="/" style={{color:"white"}}>
+          {loggedin && (
+            <Icons>
               <IconButton
                 edge="start"
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
+                onClick={logout}
               >
-                <Home />
+                <PowerSettingsNew />
               </IconButton>
-            </Link>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={fullScreenHandler}
+                sx={{ mr: 2 }}
+              >
+                <OpenWith />
+              </IconButton>
+              <Link to="/welcome" style={{ color: "white" }}>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2 }}
+                >
+                  <Home />
+                </IconButton>
+              </Link>
+                <Typography>name.clinisys</Typography>
+                <IconButton
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={goToProfile}
+                >
+                  <Person />
+                </IconButton>
+            </Icons>
+          )}
+          <Box display={"flex"} width={"100%"} justifyContent={"right"}>
             <Text>
-              <Typography>name.clinisys</Typography>
-              <Person />
+              <Typography color="inherit" component="div">
+                page name
+              </Typography>
+              <Typography color="inherit" component="div">
+                CliniSysErp
+              </Typography>
             </Text>
-          </Icons>
-          <Text>
-            <Typography color="inherit" component="div">
-              page name
-            </Typography>
-            <Typography color="inherit" component="div">
-              CliniSysErp
-            </Typography>
-          </Text>
+          </Box>
         </StyledToolBar>
       </AppBar>
     </Box>

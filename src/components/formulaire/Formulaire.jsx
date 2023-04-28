@@ -14,7 +14,7 @@ import {
 
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Formulaire = () => {
   const questions = [
@@ -67,8 +67,7 @@ const Formulaire = () => {
 
     console.log(response);
   };
-
-  const [link, setLink] = useState("")
+  const navigateor = useNavigate();
 
   const [alert, setAlert] = useState(false);
 
@@ -78,7 +77,7 @@ const Formulaire = () => {
     } else {
       setAlert(false);
 
-      setLink("/patients/donnation");
+      navigateor("/patients/donnation");
     }
   };
 
@@ -118,11 +117,11 @@ const Formulaire = () => {
         <Divider sx={{ marginTop: 3 }} />
 
         <ListItem sx={{ justifyContent: "right" }}>
-          <Link to={link}>
+          
             <Button variant="outlined" onClick={submitHandler}>
               submit
             </Button>
-          </Link>
+          
         </ListItem>
       </List>
     </Stack>

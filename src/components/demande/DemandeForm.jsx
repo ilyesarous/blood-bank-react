@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import {
-  Alert,
   Box,
   Button,
   Dialog,
@@ -15,8 +14,6 @@ import {
   ListItemText,
   MenuItem,
   Select,
-  Slide,
-  Snackbar,
   Stack,
   Table,
   TableBody,
@@ -38,10 +35,6 @@ const StyleModal = styled(Box)(({ theme }) => ({
   justifyContent: "center",
 }));
 
-function TransitionUp(props) {
-  return <Slide {...props} direction="up" />;
-}
-
 const DemandeForm = () => {
   const [bloodGrp, setBloodGrp] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -51,18 +44,10 @@ const DemandeForm = () => {
   const [types, setTypes] = useState([]);
   const status = "";
   const dispatch = useDispatch();
-  const [mes, setMes] = useState("");
-  const [error, setError] = useState("");
-  const [open, setOpen] = useState(false);
-  const [transition, setTransition] = useState(undefined);
+  const disable = useSelector(state => state.addDemande.selected)
 
-  const handleClick = (Transition) => () => {
-    setTransition(() => Transition);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const closeHandler = () => {
+    dispatch(addActions.setSelected());
   };
 
   const getTypes = useCallback(() => {
@@ -102,15 +87,14 @@ const DemandeForm = () => {
         state: state,
         status: status,
         createDate: "",
-        nameMedecin:""
+        nameMedecin: "",
       })
       .then((res) => {
         dispatch(addActions.addCount());
-        setMes("Sent Successfully!");
         // setError("success")
       })
       .catch((e) => {
-        setMes("Error! Check your infos");
+        dispatch(addActions.setSelected())
         // setError("error")
       });
 
@@ -155,7 +139,9 @@ const DemandeForm = () => {
                   >
                     <MenuItem value={""}>NONE</MenuItem>
                     {types.map((type) => (
-                      <MenuItem key={type} value={type}>{type}</MenuItem>
+                      <MenuItem key={type} value={type}>
+                        {type}
+                      </MenuItem>
                     ))}
                     {/* <MenuItem value={"minor"}>Minor</MenuItem> */}
                   </Select>
@@ -204,7 +190,6 @@ const DemandeForm = () => {
                 <Button
                   type="submit"
                   variant="outlined"
-                  onClick={handleClick(TransitionUp)}
                 >
                   Send
                 </Button>
@@ -212,22 +197,24 @@ const DemandeForm = () => {
             </List>
           </Box>
         </form>
-        <Snackbar
-          open={open}
-          onClose={handleClose}
-          TransitionComponent={transition}
-          message={mes}
-          key={transition ? transition.name : ""}
-          autoHideDuration={2000}
+        <Dialog
+          open={disable}
+          onClose={closeHandler}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          <Alert
-            onClose={handleClose}
-            // severity={error}
-            sx={{ width: "100%" }}
-          >
-            This is a success message!
-          </Alert>
-        </Snackbar>
+          <DialogTitle id="alert-dialog-title">{"Login failed!"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Email or Password is incorrect!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeHandler} autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
       </StyleModal>
     </Stack>
   );

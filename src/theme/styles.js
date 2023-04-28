@@ -20,13 +20,9 @@ export const Icons = styled(Box)(({ theme }) => ({
 }));
 
 export const ShowCards = styled(Box)(({theme}) => ({
-  // display: "flex",
-  // justifyContent: "center",
   marginTop: "8%",
-  padding: 20,
-  // gap: 20,
-  // flexDirection: "column",
-  // maxWidth: 500,
+  paddingLeft: 50,
+  paddingRight: 50,
   [theme.breakpoints.up("sm")]: {
     flexDirection: "row",
   },

@@ -5,6 +5,7 @@ import {
   VolunteerActivism,
   Receipt,
   TableRows,
+  Groups,
 } from "@mui/icons-material";
 import {
   Badge,
@@ -19,99 +20,72 @@ import { Icons, ShowCards } from "../../theme/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { addActions } from "../demande/store/AddSlice";
 
+const cards = [
+  {
+    text: "Blood",
+    icon: <Bloodtype color="primary" sx={{ margin: 1 }} />,
+    link: "/blood",
+  },
+  {
+    text: "Patients",
+    icon: <People color="primary" sx={{ margin: 1 }} />,
+    link: "/patients",
+  },
+  {
+    text: "Donations",
+    icon: <VolunteerActivism color="primary" sx={{ margin: 1 }} />,
+    link: "/patients/donnation",
+  },
+  {
+    text: "Stock",
+    icon: <Inventory color="primary" sx={{ margin: 1 }} />,
+    link: "/stock",
+  },
+  {
+    text: "Request Form",
+    icon: <Receipt color="primary" sx={{ margin: 1 }} />,
+    link: "/demande_form",
+  },
+  {
+    text: "Create new user",
+    icon: <Groups color="primary" sx={{ margin: 1 }} />,
+    link: "/add_user",
+  },
+];
+
 const Cards = () => {
   const count = useSelector((state) => state.addDemande.count);
+  const role = useSelector((state) => state.auth.role);
+  console.log("role: ", role);
   const dispatch = useDispatch();
-  console.log(count);
   const handleNotif = () => {
     dispatch(addActions.subtractCount(0));
   };
   return (
     <ShowCards>
       <Stack
-        width={"100%"}
         flexDirection={"row"}
+        flexWrap={"wrap"}
         gap={5}
         justifyContent={"center"}
-      >
-        <Card sx={{ width: { sm: "100%", md: "17%" } }}>
-          <CardActionArea sx={{ padding: 1 }}>
-            <Link to="/blood" style={{ textDecoration: "none" }}>
-              <CardContent>
-                <Icons sx={{ justifyContent: "space-between" }}>
-                  <Typography variant="h6" color="primary">
-                    Blood
-                  </Typography>
-                  <Bloodtype color="primary" sx={{ margin: 1 }} />
-                </Icons>
-              </CardContent>
-            </Link>
-          </CardActionArea>
-        </Card>
-        <Card sx={{ width: { sm: "100%", md: "17%" } }}>
-          <CardActionArea sx={{ padding: 1 }}>
-            <Link to="/patients" style={{ textDecoration: "none" }}>
-              <CardContent>
-                <Icons sx={{ justifyContent: "space-between" }}>
-                  <Typography variant="h6" color="primary">
-                    Patient
-                  </Typography>
-                  <People color="primary" sx={{ margin: 1 }} />
-                </Icons>
-              </CardContent>
-            </Link>
-          </CardActionArea>
-        </Card>
-        <Card sx={{ width: { sm: "100%", md: "17%" } }}>
-          <CardActionArea sx={{ padding: 1 }}>
-            <Link to="/patients/donnation" style={{ textDecoration: "none" }}>
-              <CardContent>
-                <Icons sx={{ justifyContent: "space-between" }}>
-                  <Typography variant="h6" color="primary">
-                    Donation
-                  </Typography>
-                  <VolunteerActivism color="primary" sx={{ margin: 1 }} />
-                </Icons>
-              </CardContent>
-            </Link>
-          </CardActionArea>
-        </Card>
-        <Card sx={{ width: { sm: "100%", md: "17%" } }}>
-          <CardActionArea sx={{ padding: 1 }}>
-            <Link to="/stock" style={{ textDecoration: "none" }}>
-              <CardContent>
-                <Icons sx={{ justifyContent: "space-between" }}>
-                  <Typography variant="h6" color="primary">
-                    Stock
-                  </Typography>
-                  <Inventory color="primary" sx={{ margin: 1 }} />
-                </Icons>
-              </CardContent>
-            </Link>
-          </CardActionArea>
-        </Card>
-      </Stack>
-      <Stack
         width={"100%"}
-        flexDirection={"row"}
-        gap={5}
-        marginTop={5}
-        justifyContent={"center"}
       >
-        <Card sx={{ width: { sm: "100%", md: "17%" } }}>
-          <CardActionArea sx={{ padding: 1 }}>
-            <Link to="/demande_form" style={{ textDecoration: "none" }}>
-              <CardContent>
-                <Icons sx={{ justifyContent: "space-between" }}>
-                  <Typography variant="h6" color="primary">
-                    Request Form
-                  </Typography>
-                  <Receipt color="primary" sx={{ margin: 1 }} />
-                </Icons>
-              </CardContent>
-            </Link>
-          </CardActionArea>
-        </Card>
+        {cards.map((card) => (
+          <Card sx={{ width: { sm: "100%", md: "17%" } }}>
+            <CardActionArea sx={{ padding: 1 }}>
+              <Link to={card.link} style={{ textDecoration: "none" }}>
+                <CardContent>
+                  <Icons sx={{ justifyContent: "space-between" }}>
+                    <Typography variant="h6" color="primary">
+                      {card.text}
+                    </Typography>
+                    {card.icon}
+                  </Icons>
+                </CardContent>
+              </Link>
+            </CardActionArea>
+          </Card>
+        ))}
         <Card sx={{ width: { sm: "100%", md: "17%" } }}>
           <CardActionArea onClick={handleNotif} sx={{ padding: 1 }}>
             <Link to="/demande_table" style={{ textDecoration: "none" }}>
