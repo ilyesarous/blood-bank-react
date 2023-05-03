@@ -12,14 +12,13 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListSubheader,
-  Typography,
+  ListSubheader
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./store/authSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const StyleModal = styled(Box)(() => ({
   display: "flex",
@@ -72,7 +71,7 @@ const Auth = () => {
         `http://localhost:9005/blood-bank/authentification/${email}/${password}`
       )
       .then((res) => {
-        dispatch(authActions.getRole(res.data.role));
+        dispatch(authActions.getRole(res.data));
         dispatch(authActions.changeLoginStatus());
         navigate();
       })

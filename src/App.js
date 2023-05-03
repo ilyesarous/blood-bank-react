@@ -15,11 +15,11 @@ import Auth from "./components/authentification/loginPage";
 import { useSelector } from "react-redux";
 import Signup from "./components/authentification/signupPage";
 import Profile from "./components/authentification/Profile";
+import UpdatePassword from "./components/authentification/UpdatePassword";
 
 function App() {
   const loggedin = useSelector((state) => state.auth.isLoggedIn);
-  const role = useSelector((state) => state.auth.role);
-  console.log("role: ", role);
+  
   return (
     <Box>
       <Navbar />
@@ -38,9 +38,10 @@ function App() {
               <Route path="/demande_form" element={<DemandePage />} />
               <Route path="/demande_table" element={<DemandeTable />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/add_user" element={<Signup />} />
             </>
           )}
-          <Route path="/add_user" element={<Signup />} />
+          <Route path="/update_password" element={<UpdatePassword />} />
         </Route>
       </Routes>
     </Box>

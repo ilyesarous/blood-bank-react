@@ -8,6 +8,7 @@ import { authActions } from "../authentification/store/authSlice";
 
 const Navbar = () => {
   const loggedin = useSelector((state) => state.auth.isLoggedIn);
+  const name = useSelector(state => state.auth.role)
   const dispatch = useDispatch();
   const navigateor = useNavigate();
 
@@ -60,7 +61,7 @@ const Navbar = () => {
                   <Home />
                 </IconButton>
               </Link>
-                <Typography>name.clinisys</Typography>
+                <Typography>{name.name}.clinisys</Typography>
                 <IconButton
                   color="inherit"
                   aria-label="menu"

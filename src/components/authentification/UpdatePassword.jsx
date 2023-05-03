@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  Email,
-  Person
-} from "@mui/icons-material";
+import { Email, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -29,59 +26,75 @@ const StyleModal = styled(Box)(() => ({
   justifyContent: "center",
 }));
 
-const Signup = () => {
+const UpdatePassword = () => {
+  const [isShown, setIsShown] = useState(true);
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(<Visibility />);
+  const [verifPassword, setVerifPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [mes, setMes] = useState("");
-  const [role, setRole] = useState("");
+  const [password, setPassword] = useState("");
   const navigateor = useNavigate();
   const dispatch = useDispatch();
-  const disable = useSelector((state) => state.auth.showAlertSignUp);
+  const disable = useSelector((state) => state.auth.showAlertLogin);
 
+  const showPassword = () => {
+    setIsShown(!isShown);
+    if (isShown) {
+      setType("text");
+      setIcon(<VisibilityOff />);
+    } else {
+      setType("password");
+      setIcon(<Visibility />);
+    }
+  };
 
+  const getPassword = (e) => {
+    setPassword(e.target.value);
+  };
 
   const getEmail = (e) => {
     setEmail(e.target.value);
   };
-  const getName = (e) => {
-    setName(e.target.value);
-  };
-  const getRole = (e) => {
-    setRole(e.target.value);
+
+  const getVerifPassword = (e) => {
+    setVerifPassword(e.target.value);
   };
 
   const closeHandler = () => {
-    if(mes === "Verify email by the link sent on your email address"){
-      navigate();
-    }
-    dispatch(authActions.changeAlertStateSign());
+    dispatch(authActions.changeAlertStateLog());
   };
 
   const navigate = () => {
-    navigateor("/welcome");
+    navigateor("/");
   };
 
-  const signup = (e) => {
+  const update = (e) => {
     e.preventDefault();
+
+    if (password !== verifPassword) {
+      dispatch(authActions.changeAlertStateLog());
+    }
+
     axios
-      .post("http://localhost:9005/blood-bank/authentification", {
-        adress: email,
-        role: role,
-        name: name,
-      })
+      .put(
+        "http://localhost:9005/blood-bank/authentification/update_password",{
+            adress: email,
+            code: password
+        }
+      )
       .then((res) => {
-        setMes(res.data);
-        dispatch(authActions.changeAlertStateSign());
+        // dispatch(authActions.changeLoginStatus)
+        console.log(res);
+        navigate();
       })
-      .catch(() => {
-        dispatch(authActions.changeAlertStateSign());
-        setMes("this Email already exists");
+      .catch((e) => {
+        dispatch(authActions.changeAlertStateLog());
       });
   };
 
   return (
     <StyleModal paddingTop={4}>
-      <form onSubmit={signup}>
+      <form onSubmit={update}>
         <List
           sx={{ width: "100%", maxWidth: 360 }}
           aria-labelledby="nested-list-subheader"
@@ -94,27 +107,16 @@ const Signup = () => {
                 bgcolor: "transparent",
               }}
             >
-              Sign up
+              Update Password
             </ListSubheader>
           }
         >
           <ListItem alignItems="flex-start">
             <ListItemIcon>
-              <Person />
-            </ListItemIcon>
-            <Input
-              placeholder="enter your name"
-              type="text"
-              onChange={getName}
-              required
-            />
-          </ListItem>
-          <ListItem alignItems="flex-start">
-            <ListItemIcon>
               <Email />
             </ListItemIcon>
             <Input
-              placeholder="enter your email"
+              placeholder="email"
               type="email"
               onChange={getEmail}
               required
@@ -122,19 +124,47 @@ const Signup = () => {
           </ListItem>
           <ListItem alignItems="flex-start">
             <ListItemIcon>
-              <Person />
+              <Lock />
             </ListItemIcon>
             <Input
-              placeholder="set Role"
-              type="text"
-              onChange={getRole}
+              placeholder="New password"
+              type={type}
+              onChange={getPassword}
               required
             />
+            <ListItemIcon
+              onClick={showPassword}
+              sx={{
+                ":hover": { color: "#1D95BB", cursor: "pointer" },
+                paddingLeft: 2,
+                borderRadius: "55px",
+              }}
+            >
+              {icon}
+            </ListItemIcon>
           </ListItem>
-
+          <ListItem alignItems="flex-start">
+            <ListItemIcon>
+              <Lock />
+            </ListItemIcon>
+            <Input
+              placeholder="Verify your password"
+              type={type}
+              onChange={getVerifPassword}
+              required
+            />
+            <ListItemIcon
+              onClick={showPassword}
+              sx={{
+                ":hover": { color: "#1D95BB", cursor: "pointer" },
+                paddingLeft: 2,
+                borderRadius: "55px",
+              }}
+            ></ListItemIcon>
+          </ListItem>
           <ListItem sx={{ justifyContent: "center" }}>
             <Button type="submit" variant="outlined">
-              Sign up
+              submit
             </Button>
           </ListItem>
         </List>
@@ -146,10 +176,10 @@ const Signup = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Login failed!"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Error!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {mes}
+            Verify your Password!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -162,4 +192,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default UpdatePassword;

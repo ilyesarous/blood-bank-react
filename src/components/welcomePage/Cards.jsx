@@ -55,8 +55,6 @@ const cards = [
 
 const Cards = () => {
   const count = useSelector((state) => state.addDemande.count);
-  const role = useSelector((state) => state.auth.role);
-  console.log("role: ", role);
   const dispatch = useDispatch();
   const handleNotif = () => {
     dispatch(addActions.subtractCount(0));
@@ -71,7 +69,7 @@ const Cards = () => {
         width={"100%"}
       >
         {cards.map((card) => (
-          <Card sx={{ width: { sm: "100%", md: "17%" } }}>
+          <Card key={card.text} sx={{ width: { sm: "100%", md: "17%" } }}>
             <CardActionArea sx={{ padding: 1 }}>
               <Link to={card.link} style={{ textDecoration: "none" }}>
                 <CardContent>
