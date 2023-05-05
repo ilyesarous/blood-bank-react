@@ -5,7 +5,7 @@ import {
   VolunteerActivism,
   Receipt,
   TableRows,
-  Groups,
+  PersonAdd,
 } from "@mui/icons-material";
 import {
   Badge,
@@ -19,46 +19,67 @@ import { Link } from "react-router-dom";
 import { Icons, ShowCards } from "../../theme/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { addActions } from "../demande/store/AddSlice";
+// import { useState } from "react";
 
-const cards = [
-  {
-    text: "Blood",
-    icon: <Bloodtype color="primary" sx={{ margin: 1 }} />,
-    link: "/blood",
-  },
-  {
-    text: "Patients",
-    icon: <People color="primary" sx={{ margin: 1 }} />,
-    link: "/patients",
-  },
-  {
-    text: "Donations",
-    icon: <VolunteerActivism color="primary" sx={{ margin: 1 }} />,
-    link: "/patients/donnation",
-  },
-  {
-    text: "Stock",
-    icon: <Inventory color="primary" sx={{ margin: 1 }} />,
-    link: "/stock",
-  },
-  {
-    text: "Request Form",
-    icon: <Receipt color="primary" sx={{ margin: 1 }} />,
-    link: "/demande_form",
-  },
-  {
-    text: "Create new user",
-    icon: <Groups color="primary" sx={{ margin: 1 }} />,
-    link: "/add_user",
-  },
-];
 
 const Cards = () => {
+
+  // const [isShown, setIsShown] = useState(true)
+
+  const cards = [
+    {
+      id: 1,
+      text: "Blood",
+      icon: <Bloodtype color="primary" sx={{ margin: 1 }} />,
+      link: "/blood",
+    },
+    {
+      id: 2,
+      text: "Patients",
+      icon: <People color="primary" sx={{ margin: 1 }} />,
+      link: "/patients",
+    },
+    {
+      id: 3,
+      text: "Donations",
+      icon: <VolunteerActivism color="primary" sx={{ margin: 1 }} />,
+      link: "/patients/donnation",
+    },
+    {
+      id: 4,
+      text: "Stock",
+      icon: <Inventory color="primary" sx={{ margin: 1 }} />,
+      link: "/stock",
+    },
+    {
+      id: 5,
+      text: "Request Form",
+      icon: <Receipt color="primary" sx={{ margin: 1 }} />,
+      link: "/demande_form",
+    },
+    {
+      id: 6,
+      text: "Request Table",
+      icon: <TableRows color="primary" sx={{ margin: 1 }} />,
+      link: "/demande_table",
+    },
+    {
+      id: 7,
+      text: "Create new user",
+      icon: <PersonAdd color="primary" sx={{ margin: 1 }} />,
+      link: "/add_user",
+    },
+  
+  ];
+
+  // const role = useSelector((state) => state.auth.role);
   const count = useSelector((state) => state.addDemande.count);
+ 
   const dispatch = useDispatch();
   const handleNotif = () => {
     dispatch(addActions.subtractCount(0));
   };
+
   return (
     <ShowCards>
       <Stack
@@ -77,29 +98,20 @@ const Cards = () => {
                     <Typography variant="h6" color="primary">
                       {card.text}
                     </Typography>
-                    {card.icon}
+                    {card.text === "Request Table" ? (
+                      <Badge onClick={handleNotif} badgeContent={count} color="primary">
+                        {card.icon}
+                      </Badge>
+                    ) : (
+                      card.icon
+                    )}
                   </Icons>
                 </CardContent>
               </Link>
             </CardActionArea>
           </Card>
         ))}
-        <Card sx={{ width: { sm: "100%", md: "17%" } }}>
-          <CardActionArea onClick={handleNotif} sx={{ padding: 1 }}>
-            <Link to="/demande_table" style={{ textDecoration: "none" }}>
-              <CardContent>
-                <Icons sx={{ justifyContent: "space-between" }}>
-                  <Typography variant="h6" color="primary">
-                    Request Table
-                  </Typography>
-                  <Badge badgeContent={count} color="primary">
-                    <TableRows color="primary" sx={{ margin: 1 }} />
-                  </Badge>
-                </Icons>
-              </CardContent>
-            </Link>
-          </CardActionArea>
-        </Card>
+       
       </Stack>
     </ShowCards>
   );

@@ -33,6 +33,7 @@ const UpdatePassword = () => {
   const [verifPassword, setVerifPassword] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mes, setMes] = useState("")
   const navigateor = useNavigate();
   const dispatch = useDispatch();
   const disable = useSelector((state) => state.auth.showAlertLogin);
@@ -61,6 +62,9 @@ const UpdatePassword = () => {
   };
 
   const closeHandler = () => {
+    if (mes === "Password changed successfuly!") {
+      navigate()
+    }
     dispatch(authActions.changeAlertStateLog());
   };
 
@@ -83,11 +87,11 @@ const UpdatePassword = () => {
         }
       )
       .then((res) => {
-        // dispatch(authActions.changeLoginStatus)
-        console.log(res);
-        navigate();
+        setMes("Password changed successfuly!")
+        dispatch(authActions.changeAlertStateLog())
       })
       .catch((e) => {
+        setMes("Verify your Password!")
         dispatch(authActions.changeAlertStateLog());
       });
   };
@@ -176,10 +180,9 @@ const UpdatePassword = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Error!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Verify your Password!
+            {mes}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
