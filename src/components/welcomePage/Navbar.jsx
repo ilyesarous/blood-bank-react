@@ -31,7 +31,7 @@ const Navbar = () => {
     <Box>
       <AppBar position="static">
         <StyledToolBar variant="dense">
-          {/* {loggedin && ( */}
+          {loggedin && (
             <Icons>
               <IconButton
                 edge="start"
@@ -70,7 +70,7 @@ const Navbar = () => {
                   <Person />
                 </IconButton>
             </Icons>
-          {/* )} */}
+          )}
           <Box display={"flex"} width={"100%"} justifyContent={"right"}>
             <Text>
               <Typography color="inherit" component="div">

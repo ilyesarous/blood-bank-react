@@ -26,7 +26,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Auth />}></Route>
-          {/* {loggedin && ( */}
+          {loggedin && (
             <>
               <Route path="/welcome" element={<Body />} />
               <Route path="/blood" element={<BloodPage />} />
@@ -40,7 +40,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/add_user" element={<Signup />} />
             </>
-          {/* )} */}
+          )}
           <Route path="/update_password" element={<UpdatePassword />} />
         </Route>
       </Routes>
