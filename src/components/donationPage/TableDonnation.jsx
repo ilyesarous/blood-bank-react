@@ -119,25 +119,8 @@ const TableDonnation = () => {
     getDonnationsHandler();
   }, [getDonnationsHandler]);
 
-  const getlesvaleur = (Donation) => {
-    const d = [
-      Donation.code,
-      Donation.codePatient,
-      Donation.fullName,
-      Donation.age,
-      Donation.phoneNumber,
-      Donation.typeIdentity,
-      Donation.numIdentity,
-      Donation.sexe,
-      Donation.adress,
-      Donation.Blood,
-      Donation.etat,
-    ];
-    get(modifActions.getCode(Donation.code));
-    get(modifActions.getLastName(Donation.fullName));
-    get(modifActions.getType(Donation.typeIdentity));
-    get(modifActions.getNumerotype(Donation.numIdentity));
-    get(modifActions.getDonateur(d));
+  const getlesvaleur = (donation) => {
+    get(modifActions.getDonateur(donation));
   };
 
   return (

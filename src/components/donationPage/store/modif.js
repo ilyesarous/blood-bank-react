@@ -2,15 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
 
 const initialAjoutState = {
-  donateur: [],
+  donateur: "",
   // date: "",
-  codeD: "",
-  lastname: "",
-  type: "",
-  etat: "",
-  blood: "",
-  observation: "",
-  numerotype: "",
+  // codeD: "",
+  // lastname: "",
+  // type: "",
+  // etat: "",
+  // blood: "",
+  // observation: "",
+  // numerotype: "",
   show: false,
   selected: false,
 };
@@ -29,7 +29,6 @@ const ModifSlice = createSlice({
     },
     getCode(state, action) {
       state.codeD = action.payload;
-      console.log("el code ", state.codeD);
     },
     getLastName(state, action) {
       state.lastname = action.payload;
@@ -56,20 +55,20 @@ const ModifSlice = createSlice({
       const a = state.donateur.map((s) => s);
       console.log("tab", a);
 
-      Axios.put(`http://localhost:9005/blood-bank/donation/${state.codeD}`, {
-        code: state.codeD,
-        codePatient: a[1],
-        fullName: a[2],
-        age: a[3],
-        sexe: a[7],
-        typeIdentity: a[5],
-        numIdentity: a[6],
-        phoneNumber: a[4],
-        adress: a[8],
-        blood: state.blood,
-        observation: state.observation,
-        etat: state.etat,
-      });
+      // Axios.put(`http://localhost:9005/blood-bank/donation/${state.codeD}`, {
+      //   code: state.codeD,
+      //   codePatient: a[1],
+      //   fullName: a[2],
+      //   age: a[3],
+      //   sexe: a[7],
+      //   typeIdentity: a[5],
+      //   numIdentity: a[6],
+      //   phoneNumber: a[4],
+      //   adress: a[8],
+      //   blood: state.blood,
+      //   observation: state.observation,
+      //   etat: state.etat,
+      // });
     },
   },
 });

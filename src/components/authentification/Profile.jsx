@@ -48,6 +48,7 @@ const Profile = () => {
         code: password,
       })
       .then((res) => {
+        console.log("profile:", res.data);
        dispatch(authActions.getRole(res.data));
       });
     setEdit(true);

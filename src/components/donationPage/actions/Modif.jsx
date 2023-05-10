@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { modifActions } from "../store/modif";
 import { GetActions } from "../store/get";
+import axios from "axios";
 
 const StyleModal = styled(Modal)({
   display: "flex",
@@ -24,22 +25,23 @@ const StyleModal = styled(Modal)({
   justifyContent: "center",
 });
 
-const Modif = (props) => {
-  const md = useSelector((state) => state.modifDonation.show);
-  const lastname = useSelector((state) => state.modifDonation.lastname);
-  const typeIdentity = useSelector((state) => state.modifDonation.type);
-  const NumeroIdentity = useSelector((state) => state.modifDonation.numerotype);
-  const [State, setState] = useState("");
+const Modif = () => {
+  const show = useSelector((state) => state.modifDonation.show);
+
+  const donateur = useSelector((state) => state.modifDonation.donateur);
+  console.log("donnateur: ", donateur);
+
+  const [state, setState] = useState("");
   const [blood, setBlood] = useState("");
-  const [observation, setObservation] = useState("")
+  const [observation, setObservation] = useState("");
   const mf = useDispatch();
 
   const showCardHandler = () => {
     mf(modifActions.Showme());
   };
-  const handleObservation = e => {
+  const handleObservation = (e) => {
     setObservation(e.target.value);
-  }
+  };
   const handleBlood = (e) => {
     setBlood(e.target.value);
   };
@@ -48,11 +50,28 @@ const Modif = (props) => {
   };
   const togglerHandler = (e) => {
     e.preventDefault();
-    mf(modifActions.getstate(State));
-    mf(modifActions.getBlood(blood));
-    mf(modifActions.getObservation(observation));
-    mf(modifActions.updatDonateur());
-    mf(GetActions.modifcounteur());
+
+    axios
+      .put(`http://localhost:9005/blood-bank/donation/${donateur.code}`, {
+        code: donateur.code,
+        codePatient: donateur.codePatient,
+        fullName: donateur.fullName,
+        age: donateur.age,
+        sexe: donateur.sexe,
+        typeIdentity: donateur.typeIdentity,
+        numIdentity: donateur.numIdentity,
+        phoneNumber: donateur.phoneNumber,
+        adress: donateur.adress,
+        blood: blood,
+        observation: observation,
+        etat: state,
+      })
+      .then((res) => {
+        mf(GetActions.modifcounteur());
+      }).catch(e => {
+        console.log("error");
+      });
+
     setState("");
     mf(modifActions.Showme());
   };
@@ -62,7 +81,7 @@ const Modif = (props) => {
       <StyleModal
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
-        open={md}
+        open={show}
         onClose={showCardHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
@@ -81,19 +100,19 @@ const Modif = (props) => {
               <ListItem sx={{ display: "flex" }}>
                 <InputLabel sx={{ flex: 2 }}>Last Name:</InputLabel>
                 <Typography flex={2} justifyContent={"center"}>
-                  <u>{lastname}</u>
+                  <u>{donateur.fullName}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
                 <InputLabel sx={{ flex: 2 }}>type Identity :</InputLabel>
                 <Typography flex={2} justifyContent={"center"}>
-                  <u>{typeIdentity}</u>
+                  <u>{donateur.typeIdentity}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
                 <InputLabel sx={{ flex: 2 }}>Numero Identity :</InputLabel>
                 <Typography flex={2} justifyContent={"center"}>
-                  <u>{NumeroIdentity}</u>
+                  <u>{donateur.numIdentity}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
@@ -114,7 +133,7 @@ const Modif = (props) => {
                   <Select
                     labelId="demo-select-small"
                     id="demo-select-small"
-                    value={State}
+                    value={state}
                     label="State"
                     onChange={handleState}
                   >

@@ -122,11 +122,10 @@ const Tableadd = () => {
   const count = useSelector((state) => state.modif.counteur);
 
   const lastName = useSelector((state) => state.geet.lastNamear);
-  
+
   const CodePatient = useSelector((state) => state.geet.Code);
-  
+
   const PhoneNumber = useSelector((state) => state.geet.Numero);
- 
 
   const get = useDispatch();
 
@@ -134,47 +133,15 @@ const Tableadd = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const getlesvaleur = (Patient) => {
-    const p = [
-      Patient.code,
-      Patient.lastNameAr,
-      Patient.firstNameAr,
-      Patient.fatherNameAr,
-      Patient.grandFatherNameAr,
-      Patient.lastNameEng,
-      Patient.fullNameAr,
-      Patient.firstNameEng,
-      Patient.fatherNameEng,
-      Patient.grandFatherNameEng,
-      Patient.fullNameEng,
-      Patient.bloodCode,
-      Patient.gender,
-      Patient.adress,
-      Patient.phoneNumber,
-      Patient.email,
-      Patient.adress,
-      Patient.birthDay
-    ];
-    console.log(p);
-    get(ModifActions.modifPat(p));
-    get(ModifActions.modifBirth(p[17]));
-    get(ModifActions.modif(Patient.code));
-    get(ModifActions.modifLastName(Patient.lastNameAr));
-    get(ModifActions.modifPhone(Patient.phoneNumber));
-    get(ModifActions.modifEmail(Patient.email));
-    get(ModifActions.modifAdress(Patient.adress));
-
-
-    get(AjoutActions.getcode(Patient.code));
-    get(AjoutActions.getAdre(Patient.adress));
-    get(AjoutActions.getName(Patient.fullNameAr));
-    get(AjoutActions.getSexe(Patient.gender));
-    get(AjoutActions.getPhone(Patient.phoneNumber));
-    get(AjoutActions.add(p));
-    get(GetDonateurActions.CodePat(Patient.code));
-    
+  const getlesvaleur = (patient) => {
+    get(ModifActions.modifPat(patient));
+    // send data into history page
+    get(GetDonateurActions.CodePat(patient.code));
+    // send data into donnation page
+    get(AjoutActions.getPatient(patient));
+    get(AjoutActions.getcode(patient.code));
   };
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -244,9 +211,29 @@ const Tableadd = () => {
                         >
                           {column.id === "" ? (
                             <FormControl size="small">
-                              <Select sx={{height:"20px"}}>
-                                <MenuItem><Link to="/patients/history" style={{textDecoration: 'none', color:"black"}}>History</Link></MenuItem>
-                                <MenuItem><Link to="/patients/donnation" style={{textDecoration: 'none', color:"black"}}>Donation</Link></MenuItem>
+                              <Select sx={{ height: "20px" }}>
+                                <MenuItem>
+                                  <Link
+                                    to="/patients/history"
+                                    style={{
+                                      textDecoration: "none",
+                                      color: "black",
+                                    }}
+                                  >
+                                    History
+                                  </Link>
+                                </MenuItem>
+                                <MenuItem>
+                                  <Link
+                                    to="/patients/donnation"
+                                    style={{
+                                      textDecoration: "none",
+                                      color: "black",
+                                    }}
+                                  >
+                                    Donation
+                                  </Link>
+                                </MenuItem>
                               </Select>
                             </FormControl>
                           ) : (

@@ -144,10 +144,6 @@ const SearchBar = () => {
             </IconButton>
           </Icons>
         </Stack>
-        {/* <Search>
-          <InputBase placeholder="Search..." sx={{ flex: 2 }} />
-          <SearchOutlined color="secondary" />
-        </Search> */}
       </SearchToolBar>
     </Stack>
   );

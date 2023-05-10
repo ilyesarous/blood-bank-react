@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  FormControl,
   Input,
   InputLabel,
   List,
@@ -15,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Typography } from "@mui/material";
 import { ModifActions } from "../store/Modifredux";
-import { Stack } from "@mui/system";
+import axios from "axios";
 
 const StyleModal = styled(Modal)({
   display: "flex",
@@ -23,28 +22,47 @@ const StyleModal = styled(Modal)({
   justifyContent: "center",
 });
 
-const Modif = (props) => {
-  const codeup = useSelector((state) => state.modif.codeP);
-  const LastName = useSelector((state) => state.modif.lastName);
-  const birthday = useSelector((state) => state.modif.birth);
-  const Num = useSelector((state) => state.modif.phone);
-  const adress = useSelector((state) => state.modif.adresse);
-  const email = useSelector((state) => state.modif.email);
+const Modif = () => {
+
+  const patient = useSelector((state) => state.modif.patient);
 
   const cancel = useSelector((state) => state.modif.showUpdate);
 
   const up = useDispatch();
 
-  const [Email, setEmail] = useState("");
-  const [Adress, setAdress] = useState("");
-  const [NumberPhone, setNumber] = useState("");
+  const [Email, setEmail] = useState(patient.email);
+  const [Adress, setAdress] = useState(patient.adress);
+  const [NumberPhone, setNumber] = useState(patient.phoneNumber);
 
-  const tabPatientup = [codeup, Adress, Email, NumberPhone];
-
-  const togglerHandler = (e) => {
+  const updateHandler = (e) => {
     e.preventDefault();
-    up(ModifActions.Updat(tabPatientup));
-    up(ModifActions.modifCounteur());
+    axios
+      .put(`http://localhost:9005/blood-bank/patient/${patient.code}`, {
+        code: patient.code,
+        firstNameAr: patient.firstNameAr,
+        lastNameAr: patient.lastNameAr,
+        fatherNameAr: patient.fatherNameAr,
+        grandFatherNameAr: patient.grandFatherNameAr,
+        fullNameAr: patient.fullNameAr,
+        firstNameEng: patient.firstNameEng,
+        lastNameEng: patient.lastNameEng,
+        fatherNameEng: patient.fatherNameEng,
+        grandFatherNameEng: patient.grandFatherNameEng,
+        fullNameEng: patient.fullNameEng,
+        birthDate: patient.birthDate,
+        gender: patient.gender,
+        phoneNumber: NumberPhone,
+        adress: Adress,
+        email: Email,
+        bloodCode: patient.bloodCode,
+      })
+      .then((res) => {
+        console.log("udateted");
+        up(ModifActions.modifCounteur());
+      })
+      .catch((e) => {
+        console.log("error");
+      });
     up(ModifActions.ShowAlert());
 
     setEmail("");
@@ -55,15 +73,13 @@ const Modif = (props) => {
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  // console.log(Email);
-
   const handleAdress = (e) => {
     setAdress(e.target.value);
   };
   const handleNumber = (e) => {
     setNumber(e.target.value);
   };
-  const toggleCancelHandler = () => {
+  const closeHandler = () => {
     up(ModifActions.ShowAlert());
   };
 
@@ -73,17 +89,14 @@ const Modif = (props) => {
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
         open={cancel}
-        onClose={toggleCancelHandler}
+        onClose={closeHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box width={400} bgcolor="white" padding={3} borderRadius={5}>
           <List>
-            <form onSubmit={togglerHandler}>
+            <form onSubmit={updateHandler}>
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                <CancelOutlined
-                  sx={{ flex: 0.2 }}
-                  onClick={toggleCancelHandler}
-                />
+                <CancelOutlined sx={{ flex: 0.2 }} onClick={closeHandler} />
                 <Typography
                   variant="h6"
                   color="gray"
@@ -93,62 +106,58 @@ const Modif = (props) => {
                   Update Patient
                 </Typography>
               </ListItem>
-
-              <ListItem sx={{ display: "flex", marginTop:5 }}>
-                <InputLabel sx={{flex:1}}>Code Patient:</InputLabel>
+              <ListItem sx={{ display: "flex", marginTop: 5 }}>
+                <InputLabel sx={{ flex: 1 }}>Code Patient:</InputLabel>
                 <Typography flex={2}>
-                  <u>{codeup}</u>
+                  <u>{patient.code}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{flex:1}}>Last Name:</InputLabel>
+                <InputLabel sx={{ flex: 1 }}>Last Name:</InputLabel>
                 <Typography flex={2}>
-                  <u>{LastName}</u>
+                  <u>{patient.lastNameEng}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{flex:1}}> Birdhay:</InputLabel>
+                <InputLabel sx={{ flex: 1 }}> Birdhay:</InputLabel>
                 <Typography flex={2}>
-                  <u>{birthday}</u>
+                  <u>{patient.birthDay}</u>
                 </Typography>
               </ListItem>
 
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                  <InputLabel sx={{flex:1}}>Email:</InputLabel>
-                  <Input
-                    sx={{flex:2}}
-                    value={Email}
-                    onChange={handleEmail}
-                    placeholder={email}
-                  />
+                <InputLabel sx={{ flex: 1 }}>Email:</InputLabel>
+                <Input
+                  sx={{ flex: 2 }}
+                  type="email"
+                  onChange={handleEmail}
+                  placeholder={patient.email}
+                />
               </ListItem>
 
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                  <InputLabel sx={{flex:1}}>Adress:</InputLabel>
-                  <Input
-                    sx={{flex:2}}
-                    value={Adress}
-                    onChange={handleAdress}
-                    placeholder={adress}
-                  />
+                <InputLabel sx={{ flex: 1 }}>Adress:</InputLabel>
+                <Input
+                  sx={{ flex: 2 }}
+                  onChange={handleAdress}
+                  placeholder={patient.adress}
+                />
               </ListItem>
 
               <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                  <InputLabel sx={{flex:1}}>Phone :</InputLabel>
+                <InputLabel sx={{ flex: 1 }}>Phone :</InputLabel>
 
-                  <Input
-                    sx={{flex:2}}
-                    value={NumberPhone}
-                    onChange={handleNumber}
-                    placeholder={Num}
-                  />
+                <Input
+                  sx={{ flex: 2 }}
+                  onChange={handleNumber}
+                  placeholder={patient.phoneNumber}
+                />
               </ListItem>
 
               <ListItem sx={{ marginTop: 2, justifyContent: "right", gap: 1 }}>
-                <Button onClick={toggleCancelHandler} variant="outlined">
+                <Button onClick={closeHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>
-
                 <Button type="submit" variant="outlined">
                   <Typography>Update</Typography>
                 </Button>

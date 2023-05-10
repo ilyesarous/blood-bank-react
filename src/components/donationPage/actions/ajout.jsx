@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { AjoutActions } from "../store/ajout";
 import { GetActions } from "../store/get";
+import axios from "axios";
 
 const StyleModal = styled(Modal)({
   display: "flex",
@@ -22,23 +23,18 @@ const StyleModal = styled(Modal)({
   justifyContent: "center",
 });
 
-const Ajout = (props) => {
-  const code = useSelector((state) => state.ajoutDonation.codeP);
-
-  const adresse = useSelector((state) => state.ajoutDonation.adre);
-
-  const lastname = useSelector((state) => state.ajoutDonation.lastname);
+const Ajout = () => {
+  const patient = useSelector((state) => state.ajoutDonation.patient);
 
   const sh = useSelector((state) => state.ajoutDonation.show);
-  const count = useSelector((state) => state.getDonation.counteur);
 
   const ajou = useDispatch();
 
-  const [Age, setAge] = useState("");
+  const [age, setAge] = useState("");
   const [typeIdentity, setTypeIdentity] = useState("");
-  const [NumIdentity, setNumIdentity] = useState("");
-  const [State, setState] = useState("PENDING");
-  const Blood = "-";
+  const [numIdentity, setNumIdentity] = useState("");
+  const [state, setState] = useState("PENDING");
+  const blood = "-";
 
   const handleAge = (e) => {
     setAge(e.target.value);
@@ -50,12 +46,27 @@ const Ajout = (props) => {
     setNumIdentity(e.target.value);
   };
 
-  const tabDonation = [typeIdentity, NumIdentity, Age, Blood, State];
-
   const submitHandler = (e) => {
     e.preventDefault();
-    ajou(AjoutActions.addDonation(tabDonation));
-    ajou(GetActions.modifcounteur());
+
+    axios.post("http://localhost:9005/blood-bank/donation", {
+      fullName: patient.fullNameAr,
+      codePatient: patient.code,
+      age: age,
+      typeIdentity: typeIdentity,
+      numIdentity: numIdentity,
+      adress: patient.adress,
+      etat: state,
+      blood: blood,
+      sexe: patient.gender,
+      phoneNumber: patient.phoneNumber,
+    }).then(res => {
+      console.log("done");
+      ajou(GetActions.modifcounteur())
+    }).catch(e => {
+      console.log("error");
+    });
+
     setTypeIdentity("");
     setNumIdentity("");
     setAge("");
@@ -95,7 +106,7 @@ const Ajout = (props) => {
               >
                 <InputLabel>Code:</InputLabel>
                 <Typography>
-                  <u>{code}</u>
+                  <u>{patient.code}</u>
                 </Typography>
               </ListItem>
 
@@ -104,7 +115,7 @@ const Ajout = (props) => {
               >
                 <InputLabel>Full Name:</InputLabel>
                 <Typography>
-                  <u>{lastname}</u>
+                  <u>{patient.fullNameAr}</u>
                 </Typography>
               </ListItem>
               <ListItem
@@ -112,7 +123,7 @@ const Ajout = (props) => {
               >
                 <InputLabel>Adress:</InputLabel>
                 <Typography>
-                  <u>{adresse}</u>
+                  <u>{patient.adress}</u>
                 </Typography>
               </ListItem>
 
@@ -128,7 +139,7 @@ const Ajout = (props) => {
                 <FormControl variant="standard" sx={{ minWidth: 100 }}>
                   <InputLabel>Numero Identity : </InputLabel>
                   <Input
-                    value={NumIdentity}
+                    value={numIdentity}
                     onChange={handleNumIdentity}
                     required
                   />
@@ -138,7 +149,7 @@ const Ajout = (props) => {
               <ListItem sx={{ display: "flex", gap: 4, margin: 2 }}>
                 <FormControl variant="standard" sx={{ manWidth: 100 }}>
                   <InputLabel>age:</InputLabel>
-                  <Input value={Age} onChange={handleAge} />
+                  <Input value={age} onChange={handleAge} />
                 </FormControl>
               </ListItem>
 

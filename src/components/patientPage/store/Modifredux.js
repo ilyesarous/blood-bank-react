@@ -2,13 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
 
 const initialModifState = {
-  patient: [],
-  birth: "",
-  codeP: "",
-  lastName: "",
-  phone: "",
-  adresse: "",
-  email: "",
+  patient: "",
   counteur: 0,
   select: false,
   showUpdate: false,
@@ -31,22 +25,7 @@ const ModifSlice = createSlice({
 
     modifPat(state, action) {
       state.patient = action.payload;
-    },
-
-    modifBirth(state, action) {
-      state.birth = action.payload;
-    },
-    modifLastName(state, action) {
-      state.lastName = action.payload;
-    },
-    modifPhone(state, action) {
-      state.phone = action.payload;
-    },
-    modifEmail(state, action) {
-      state.email = action.payload;
-    },
-    modifAdress(state, action) {
-      state.adresse = action.payload;
+      console.log("state.patient: ", state.patient);
     },
     modifCounteur(state) {
       state.counteur++;
@@ -54,31 +33,6 @@ const ModifSlice = createSlice({
 
     modifBlood(state, action) {
       state.bloodcode = action.payload;
-    },
-
-    Updat(state, action) {
-      const pat = action.payload;
-      const a = state.patient.map((s) => s);
-
-      Axios.put(`http://localhost:9005/blood-bank/patient/${state.codeP}`, {
-        code: a[0],
-        firstNameAr: a[2],
-        lastNameAr: a[1],
-        fatherNameAr: a[3],
-        grandFatherNameAr: a[4],
-        fullNameAr: a[6],
-        firstNameEng: a[7],
-        lastNameEng: a[5],
-        fatherNameEng: a[8],
-        grandFatherNameEng: a[9],
-        fullNameEng: a[10],
-        birthDate: a[17],
-        gender: a[12],
-        phoneNumber: pat[3],
-        adress: pat[1],
-        email: pat[2],
-        bloodCode: a[11],
-      });
     },
   },
 });

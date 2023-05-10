@@ -37,7 +37,7 @@ import {
               size="small"
               sx={{ m: 1, minWidth: 140 }}
             >
-              <InputLabel>Date Create...</InputLabel>
+              <InputLabel>Date Create</InputLabel>
               <Input   required />
             </FormControl>
             <Icons>

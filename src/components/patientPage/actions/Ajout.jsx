@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   FormControl,
-  FormHelperText,
   Input,
   InputLabel,
   List,
@@ -33,48 +32,49 @@ const Ajout = () => {
 
   const aj = useDispatch();
   const [lastNameAr, setlastnamear] = useState("");
-  const [firstnamear, setFirstnamear] = useState("");
-  const [fathernamear, setFathernamear] = useState("");
-  const [GrandFathernamear, setGrandFathernamear] = useState("");
-  const [lastnameEng, setLastnameEng] = useState("");
-  const [FirstnameEng, setFirstnameEng] = useState("");
-  const [FathernameEng, setFathernameEng] = useState("");
-  const [GrandFathernameEng, setGrandFathernameEng] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Adress, setAdress] = useState("");
-  const [Gendre, setGender] = useState("");
-  const [NumberPhone, setNumber] = useState("");
+  const [firstNameAr, setFirstnamear] = useState("");
+  const [fatherNameAr, setFathernamear] = useState("");
+  const [grandFatherNameAr, setGrandFathernamear] = useState("");
+  const [lastNameEng, setLastnameEng] = useState("");
+  const [firstNameEng, setFirstnameEng] = useState("");
+  const [fatherNameEng, setFathernameEng] = useState("");
+  const [grandFatherNameEng, setGrandFathernameEng] = useState("");
+  const [email, setEmail] = useState("");
+  const [adress, setAdress] = useState("");
+  const [gendre, setGender] = useState("");
+  const [phoneNumber, setNumber] = useState("");
   const [blood, setBlood] = useState("");
-  const [Birdhday, setBirthday] = useState(null);
+  const [birdhday, setBirthday] = useState(null);
 
   const [types, setTypes] = useState([]);
 
-  // const [Datacreation, setdatacreation] = useState("")
-
-  const tabPatient = [
-    Adress,
-    Birdhday,
-    Email,
-    fathernamear,
-    FathernameEng,
-    firstnamear,
-    FirstnameEng,
-    Gendre,
-    GrandFathernamear,
-    GrandFathernameEng,
-    lastNameAr,
-    lastnameEng,
-    NumberPhone,
-    blood,
-  ];
-
-  // console.log(tabPatient);
-
-  const togglerHandler = (e) => {
+  const addPatient = (e) => {
     e.preventDefault();
 
-    aj(AjoutActions.addP(tabPatient));
-    aj(ModifActions.modifCounteur());
+    axios
+      .post("http://localhost:9005/blood-bank/patient", {
+        adress: adress,
+        birthDate: birdhday,
+        email: email,
+        fatherNameAr: fatherNameAr,
+        fatherNameEng: fatherNameEng,
+        firstNameAr: firstNameAr,
+        firstNameEng: firstNameEng,
+        gender: gendre,
+        grandFatherNameAr: grandFatherNameAr,
+        grandFatherNameEng: grandFatherNameEng,
+        lastNameAr: lastNameAr,
+        lastNameEng: lastNameEng,
+        phoneNumber: phoneNumber,
+        bloodCode: blood,
+      })
+      .then((res) => {
+        console.log("patient added!");
+        aj(ModifActions.modifCounteur());
+      }).catch(e => {
+        console.log("error!");
+      });
+
     aj(AjoutActions.Showme());
 
     setlastnamear("");
@@ -146,7 +146,7 @@ const Ajout = () => {
     setBlood(e.target.value);
   };
 
-  const toggleCounterHandler = () => {
+  const showAddHandler = () => {
     aj(AjoutActions.Showme());
     setlastnamear("");
     setFirstnamear("");
@@ -169,13 +169,13 @@ const Ajout = () => {
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
         open={ajt}
-        onClose={toggleCounterHandler}
+        onClose={showAddHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box width={850} bgcolor="white" p={3} borderRadius={5}>
           <Box sx={{ display: "flex" }}>
             <CancelOutlined
-              onClick={toggleCounterHandler}
+              onClick={showAddHandler}
               sx={{ marginRight: "40%" }}
             />
             <Typography variant="h6" color="gray" textAlign="center">
@@ -183,15 +183,15 @@ const Ajout = () => {
             </Typography>
           </Box>
           <List>
-            <form onSubmit={togglerHandler}>
+            <form onSubmit={addPatient}>
               <ListItem sx={{ display: "flex" }}>
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Last Name...</InputLabel>
+                    <InputLabel>Last Name Ar</InputLabel>
                     <Input
                       value={lastNameAr}
                       onChange={handleLastnamear}
-                      placeholder="Last Name Ar..."
+                      //ast Name Ar"
                       required
                     />
                   </FormControl>
@@ -199,24 +199,24 @@ const Ajout = () => {
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>First Name...</InputLabel>
+                    <InputLabel>First Name</InputLabel>
                     <Input
-                      value={firstnamear}
+                      
                       onChange={handleFirstnamear}
                       required
-                      placeholder="First Name Ar..."
+                     
                     />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Father name...</InputLabel>
+                    <InputLabel>Father name</InputLabel>
                     <Input
-                      value={fathernamear}
+                      
                       onChange={handleFathernamear}
                       required
-                      placeholder="father Name Ar..."
+                     
                     />
                   </FormControl>
                 </ListItem>
@@ -224,36 +224,35 @@ const Ajout = () => {
               <ListItem sx={{ display: "flex" }}>
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Grand Father... </InputLabel>
+                    <InputLabel>Grand Father </InputLabel>
                     <Input
-                      value={GrandFathernamear}
+                      
                       onChange={handleGrandFathernamear}
                       required
-                      placeholder="Grand father Name Ar..."
+                      
                     />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Last Name eng...</InputLabel>
+                    <InputLabel>Last Name eng</InputLabel>
                     <Input
-                      value={lastnameEng}
+                      
                       onChange={handleLastnamEng}
                       required
-                      placeholder="last Name Eng..."
                     />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>First Name eng...</InputLabel>
+                    <InputLabel>First Name eng</InputLabel>
                     <Input
-                      value={FirstnameEng}
+                      
                       onChange={handleFirstnameEng}
                       required
-                      placeholder="First Name Eng..."
+                   
                     />
                   </FormControl>
                 </ListItem>
@@ -261,24 +260,22 @@ const Ajout = () => {
               <ListItem sx={{ display: "flex" }}>
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>father Name eng...</InputLabel>
+                    <InputLabel>father Name eng</InputLabel>
                     <Input
-                      value={FathernameEng}
+                      
                       onChange={handleFathernameEng}
                       required
-                      placeholder="father Name Eng..."
                     />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Grand Father Name eng...</InputLabel>
+                    <InputLabel>Grand Father Name eng</InputLabel>
                     <Input
-                      value={GrandFathernameEng}
+                      
                       onChange={handleGrandFathernameEng}
                       required
-                      placeholder="Grand father Name Eng..."
                     />
                   </FormControl>
                 </ListItem>
@@ -309,33 +306,32 @@ const Ajout = () => {
               <ListItem sx={{ display: "flex" }}>
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Adress...</InputLabel>
+                    <InputLabel>Adress</InputLabel>
                     <Input
-                      value={Adress}
+                      
                       onChange={handleAdress}
-                      placeholder="Adress..."
+                      
                     />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Email...</InputLabel>
+                    <InputLabel>Email</InputLabel>
                     <Input
-                      value={Email}
+                      
                       onChange={handleEmail}
-                      placeholder="Email....."
+                      
                     />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ display: "flex" }}>
                   <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Phone number...</InputLabel>
+                    <InputLabel>Phone number</InputLabel>
                     <Input
-                      value={NumberPhone}
+                      
                       onChange={handleNumber}
-                      placeholder="Phone number..."
                     />
                   </FormControl>
                 </ListItem>
@@ -345,7 +341,7 @@ const Ajout = () => {
               >
                 <Stack component="form" noValidate spacing={3}>
                   <TextField
-                    value={Birdhday}
+                    
                     onChange={handleBirdhday}
                     id="date"
                     label="Birthday"
@@ -364,21 +360,20 @@ const Ajout = () => {
                   <Select
                     labelId="demo-select-small"
                     id="demo-select-small"
-                    value={Gendre}
+                    value={gendre}
                     label="Age"
                     onChange={handleGender}
                   >
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Men</MenuItem>
-                    <MenuItem value={20}>women</MenuItem>
-                    <MenuItem value={30}>lehou lehou</MenuItem>
+                    <MenuItem value={"male"}>male</MenuItem>
+                    <MenuItem value={"female"}>female</MenuItem>
                   </Select>
                 </FormControl>
               </ListItem>
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
-                <Button onClick={toggleCounterHandler} variant="outlined">
+                <Button onClick={showAddHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>
                 <Button type="submit" variant="outlined">
