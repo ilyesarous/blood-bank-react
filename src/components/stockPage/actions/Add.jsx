@@ -23,9 +23,8 @@ const StyleModal = styled(Modal)({
 });
 
 const Add = () => {
-
   const [bloodGrp, setBloodGrp] = useState("");
-  const [codeAchat,setCodeAchat] = useState("")
+  const [quantity, setQuantity] = useState("");
   const showCard = useSelector((state) => state.addStock.show);
 
   const dispatch = useDispatch();
@@ -34,28 +33,35 @@ const Add = () => {
     dispatch(addActions.showCardHandler());
   };
 
-  const handleChanges = event => {
-    setBloodGrp(event.target.value)
+  const handleChanges = (event) => {
+    setBloodGrp(event.target.value);
   };
-  const handleCodeChanges = event => {
-    setCodeAchat(event.target.value)
+  const handleCodeChanges = (event) => {
+    setQuantity(event.target.value);
   };
-
-  const submitHandler = event => {
-    event.preventDefault()
+  let i = 1;
+  const submitHandler = (event) => {
+    let code = "F",i
+    event.preventDefault();
     axios
       .post("http://localhost:9005/blood-bank/stock", {
         blood: bloodGrp,
-        codedonateur: codeAchat
+        codedonateur: code,
+        quantite: quantity,
+        version: 1
       })
       .then((res) => {
-        console.log("res.data", res);
+        // console.log("res.data", res);
         dispatch(addActions.countHandler());
-        showCardHandler()
+        showCardHandler();
+        i++
+      }).catch(e => {
+        console.log("error");
       });
-      setBloodGrp("")
-      setCodeAchat("")
-  }
+    setBloodGrp("");
+    setQuantity("");
+    
+  };
 
   return (
     <Box>
@@ -79,13 +85,13 @@ const Add = () => {
               <ListItem sx={{ display: "flex", gap: 5, margin: 2 }}>
                 <FormControl variant="standard" sx={{ minWidth: 100 }}>
                   <InputLabel>Group Blood</InputLabel>
-                  <Input onChange={handleChanges} required />
+                  <Input onChange={handleChanges} value={bloodGrp} required />
                 </FormControl>
               </ListItem>
               <ListItem sx={{ display: "flex", gap: 5, margin: 2 }}>
                 <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                  <InputLabel>Code Achat</InputLabel>
-                  <Input onChange={handleCodeChanges} required />
+                  <InputLabel>Quantity</InputLabel>
+                  <Input onChange={handleCodeChanges} value={quantity} required />
                 </FormControl>
               </ListItem>
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
