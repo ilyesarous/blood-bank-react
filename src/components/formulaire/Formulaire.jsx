@@ -65,7 +65,7 @@ const Formulaire = () => {
       response.push(event.target.value);
     }
 
-    console.log(response);
+    // console.log(response);
   };
   const navigateor = useNavigate();
 

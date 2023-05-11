@@ -160,7 +160,7 @@ const Tableadd = () => {
       const data = await blood.json();
       setPatient(data);
     } catch (error) {
-      console.log(console.error);
+      // console.log(console.error);
     }
   }, [count]);
   useEffect(() => {
@@ -232,7 +232,7 @@ const Tableadd = () => {
                                 </MenuItem>
                                 <MenuItem>
                                   <Link
-                                    to="/patients/donnation"
+                                    to="/form"
                                     style={{
                                       textDecoration: "none",
                                       color: "black",
