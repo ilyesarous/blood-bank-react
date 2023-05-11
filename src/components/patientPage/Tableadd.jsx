@@ -153,7 +153,7 @@ const Tableadd = () => {
   const getPatientDataHandler = useCallback(async () => {
     try {
       const blood = await fetch(
-        `http://localhost:9005/blood-bank/patient?lastNameAr=${lastName}&phoneNumber=${PhoneNumber}&codepatient=${CodePatient}`
+        `http://localhost:9005/blood-bank/patient?lastNameAr=&phoneNumber=&codepatient=`
       );
       if (!blood.ok) throw new Error("something went wrong!");
       const data = await blood.json();
@@ -188,7 +188,13 @@ const Tableadd = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {patients.map((row) => {
+              {patients.filter((item) => {
+              return lastName === "" ? item : item.fullNameEng.includes(lastName);
+            }).filter((item) => {
+              return PhoneNumber === "" ? item : item.phoneNumber.includes(PhoneNumber);
+            }).filter((item) => {
+              return CodePatient === "" ? item : item.code.includes(CodePatient);
+            }).map((row) => {
                 return (
                   <StyledTableRow
                     sx={{ ":focus": { backgroundColor: "#EEEEEE" } }}

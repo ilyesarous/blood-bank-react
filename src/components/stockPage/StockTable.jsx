@@ -60,7 +60,7 @@ const StockTable = () => {
   const getDataHandler = useCallback(async () => {
     try {
       console.log("blood", blood);
-      const stock = await fetch(`http://localhost:9005/blood-bank/stock?blood=${blood}`);
+      const stock = await fetch(`http://localhost:9005/blood-bank/stock?blood=`);
       if (!stock.ok) throw new Error("something went wrong!");
       const data = await stock.json();
       setStocks(data);
@@ -83,7 +83,9 @@ const StockTable = () => {
         <Table size="small" stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
+              {columns.filter((item) => {
+              return blood === "" ? item : item.blood.includes(blood);
+            }).map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}

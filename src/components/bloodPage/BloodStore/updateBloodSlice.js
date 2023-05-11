@@ -13,21 +13,19 @@ const updateSlice = createSlice({
   name: "updateBlood",
   initialState,
   reducers: {
-    updateBlood(state, action) {
-      const newBlood = action.payload;
-      axios.put(`http://localhost:9005/blood-bank/blood/${state.code}`, {
-        codeBlood: newBlood[0],
-        bloodGrp: newBlood[1],
-        rhesus: newBlood[2],
-        givenTo: newBlood[3],
-        receivedFrom: newBlood[4],
-      });
-    },
-    updateBloodStatus(state) {
-      axios.put(`http://localhost:9005/blood-bank/blood/status/${state.code}`).then(()=>{
-        console.log("updated")
-      });
-    },
+    // updateBlood(state, action) {
+    //   const newBlood = action.payload;
+      // axios.put(`http://localhost:9005/blood-bank/blood/${state.code}`, {
+      //   codeBlood: newBlood[0],
+      //   bloodGrp: newBlood[1],
+      //   rhesus: newBlood[2],
+      //   givenTo: newBlood[3],
+      //   receivedFrom: newBlood[4],
+      // });
+    // },
+    // updateBloodStatus(state) {
+     
+    // },
     showCardUpdate(state) {
       if (state.code === 0) {
         console.log("u need to pick one");

@@ -44,12 +44,12 @@ const columns = [
     align: "center",
     height: "20px",
   },
-  {
-    id: "userCreate",
-    label: "user create",
-    align: "center",
-    height: "20px",
-  },
+  // {
+  //   id: "userCreate",
+  //   label: "user create",
+  //   align: "center",
+  //   height: "20px",
+  // },
   {
     id: "date_creation",
     label: "Creation Date",
@@ -106,7 +106,7 @@ const TableDonnation = () => {
   const getDonnationsHandler = useCallback(async () => {
     try {
       const blood = await fetch(
-        `http://localhost:9005/blood-bank/donation?typeIdentity=${typeIdentity}&numIdentity=${numIdentity}`
+        `http://localhost:9005/blood-bank/donation?typeIdentity=&numIdentity=`
       );
       if (!blood.ok) throw new Error("something went wrong!");
       const data = await blood.json();
@@ -146,7 +146,11 @@ const TableDonnation = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {donnations.map((row) => {
+            {donnations.filter((item) => {
+              return typeIdentity === "" ? item : item.typeIdentity.includes(typeIdentity);
+            }).filter((item) => {
+              return numIdentity === "" ? item : item.numIdentity.includes(numIdentity);
+            }).map((row) => {
               return (
                 <StyledTableRow
                   onClick={() => getlesvaleur(row)}

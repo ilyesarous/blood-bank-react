@@ -25,22 +25,11 @@ const SearchToolBar = styled(Toolbar)({
   width: "100%",
 });
 
-// const Search = styled("div")(({ theme }) => ({
-//   backgroundColor: "white",
-//   padding: "0 10px",
-//   width: "30%",
-//   border: "1.5px solid #1D95BB",
-//   display: "flex",
-//   justifyContent: "space-between",
-//   alignItems: "center",
-//   borderRadius: theme.shape.borderRadius,
-// }));
-
 const SearchBar = () => {
   const verif = useSelector((state) => state.modif.select);
   const aj = useDispatch();
 
-  const [lastNameAr, setlastnamear] = useState("");
+  const [fullNameEng, setfullNameEng] = useState("");
   const [CodePatient, setCodePatient] = useState("");
   const [PhoneNumber, setPhoneNumber] = useState("");
 
@@ -58,17 +47,17 @@ const SearchBar = () => {
   const handlePhoneNumber = (e) => {
     setPhoneNumber(e.target.value);
   };
-  const handleLastnamear = (e) => {
-    setlastnamear(e.target.value);
+  const handlefullNameEng = (e) => {
+    setfullNameEng(e.target.value);
   };
 
   const searchHandler = () => {
     aj(GetActions.CodePat(CodePatient));
-    aj(GetActions.lastName(lastNameAr));
+    aj(GetActions.lastName(fullNameEng));
     aj(GetActions.NumTel(PhoneNumber));
     aj(ModifActions.modifCounteur());
 
-    setlastnamear("");
+    setfullNameEng("");
     setCodePatient("");
     setPhoneNumber("");
   };
@@ -108,13 +97,13 @@ const SearchBar = () => {
               justifyContent: "right",
             }}
           >
-            <InputLabel>Search by code:</InputLabel>
+            <InputLabel>Search by code</InputLabel>
             <Input value={CodePatient} onChange={handleCode} />
           </FormControl>
 
           <FormControl variant="standard">
-            <InputLabel>Search by last name:</InputLabel>
-            <Input value={lastNameAr} onChange={handleLastnamear} />
+            <InputLabel>Search by name</InputLabel>
+            <Input value={fullNameEng} onChange={handlefullNameEng} />
           </FormControl>
 
           <FormControl
@@ -125,7 +114,7 @@ const SearchBar = () => {
               justifyContent: "right",
             }}
           >
-            <InputLabel>Search by Num tel:</InputLabel>
+            <InputLabel>Search by phone</InputLabel>
             <Input value={PhoneNumber} onChange={handlePhoneNumber} />
           </FormControl>
           <Icons>

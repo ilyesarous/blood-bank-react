@@ -34,40 +34,40 @@ const UpdateBar = () => {
 
   const [bloodGrp, setBloodGrp] = useState("");
   const [givenTo, setGivenTo] = useState([]);
-  const [rhesus, setRhesus] = useState("")
+  const [rhesus, setRhesus] = useState("");
   const [receivedFrom, setRecievedFrom] = useState([]);
 
   const [allTypes, setAllTypes] = useState([]);
-  const count = useSelector(state=>state.blood.count)
+  const count = useSelector((state) => state.blood.count);
+
   const getTypes = useCallback(() => {
     axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
       setAllTypes(res.data);
     });
-   },[count])
+  }, [count]);
   useEffect(() => {
-    getTypes()
+    getTypes();
   }, [getTypes]);
 
   let ch = "-";
   let ch1 = "-";
-  if(givenTo.length > 0){
+  if (givenTo.length > 0) {
     for (let i = 0; i < givenTo.length; i++) {
       ch = ch + givenTo[i] + ",";
     }
-    ch = ch.substring(1)
+    ch = ch.substring(1);
   }
-  if(receivedFrom.length > 0){
+  if (receivedFrom.length > 0) {
     for (let i = 0; i < receivedFrom.length; i++) {
       ch1 = ch1 + receivedFrom[i] + ",";
     }
-    ch1 = ch1.substring(1)
-    if(ch1==="")
-      ch1 = "-"
+    ch1 = ch1.substring(1);
+    if (ch1 === "") ch1 = "-";
   }
   const codeBlood = useSelector((state) => state.updateBlood.code);
   const bloodGrpStore = useSelector((state) => state.updateBlood.bloodGrp);
 
-  const bloods = [codeBlood, bloodGrp, rhesus, ch, ch1];
+  // const bloods = [codeBlood, bloodGrp, rhesus, ch, ch1];
 
   const handleBloodGrpChange = (event) => {
     setBloodGrp(event.target.value);
@@ -113,24 +113,38 @@ const UpdateBar = () => {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateActions.updateBlood(bloods));
-    dispatch(bloodActions.setCount())
-    console.log("liste des blood: ", bloods);
- 
-    dispatch(updateActions.showCardUpdate());
-    setBloodGrp("");
-    setRhesus("");
-    setGivenTo("");
-    setRecievedFrom("");
- 
-  };
-  const cancelHandler = () => {
-    dispatch(updateActions.showCardUpdate());
+
+    axios
+      .put(`http://localhost:9005/blood-bank/blood/${codeBlood}`, {
+        codeBlood: codeBlood,
+        bloodGrp: bloodGrp,
+        rhesus: rhesus,
+        givenTo: ch,
+        receivedFrom: ch1,
+      })
+      .then((res) => {
+        console.log("updated");
+        dispatch(bloodActions.setCount());
+      }).catch(e => {
+        console.log("error");
+      });
+
+    // console.log("liste des blood: ", bloods);
 
     setBloodGrp("");
     setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
+    dispatch(updateActions.showCardUpdate());
+  };
+
+  const cancelHandler = () => {
+    setBloodGrp("");
+    setRhesus("");
+    setGivenTo("");
+    setRecievedFrom("");
+
+    dispatch(updateActions.showCardUpdate());
   };
 
   return (
@@ -148,16 +162,19 @@ const UpdateBar = () => {
             borderRadius: 5,
             paddingLeft: 3,
             paddingRight: 2,
-            
           }}
         >
           <form onSubmit={updateHandler}>
             <List>
-              <ListItem sx={{display:"flex", justifyContent:"center"}}>
-                <Typography variant="h4" sx={{fontWeight: "bold"}}>Update</Typography>
+              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Update
+                </Typography>
               </ListItem>
-              <ListItem sx={{display:"flex", justifyContent:"center"}}>
-                <Typography variant="h6" color={"#6B728E"}>Code Blood: {codeBlood}</Typography>
+              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                <Typography variant="h6" color={"#6B728E"}>
+                  Code Blood: {codeBlood}
+                </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex", width: "100%" }}>
                 <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>

@@ -13,6 +13,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "./BloodStore/updateBloodSlice";
+import axios from "axios";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -57,7 +58,7 @@ const DataTable = () => {
   const getBloodDataHandler = useCallback(async () => {
     try {
       const blood = await fetch(
-        `http://localhost:9005/blood-bank/blood?group=${group}&given=${given}&receive=${receive}`
+        `http://localhost:9005/blood-bank/blood?group=&given=&receive=`
       );
       if (!blood.ok) throw new Error("something went wrong!");
       const data = await blood.json();
@@ -72,9 +73,14 @@ const DataTable = () => {
   }, [getBloodDataHandler]);
 
   const changeActiveStateHandler = (id, e) => {
-    console.log(id, ": ", typeof id);
     dispatch(updateActions.getCodeBlood(id));
-    dispatch(updateActions.updateBloodStatus());
+
+    axios
+      .put(`http://localhost:9005/blood-bank/blood/status/${id}`)
+      .then(() => {
+        console.log("status updated");
+      })
+      .catch((e) => console.log("error"));
   };
 
   const getBloodCode = (row) => {
@@ -103,7 +109,13 @@ const DataTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {bloods.map((row) => {
+            {bloods.filter((item) => {
+              return receive === "" ? item : item.receivedFrom.includes(receive);
+            }).filter(item => {
+              return given === "" ? item : item.givenTo.includes(given);
+            }).filter(item => {
+              return group === "" ? item : item.bloodGrp.includes(group);
+            }).map((row) => {
               return (
                 <StyledTableRow
                   hover
