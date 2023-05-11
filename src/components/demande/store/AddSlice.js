@@ -9,8 +9,8 @@ const addSlice = createSlice({
     addCount(state) {
       state.count++;
     },
-    subtractCount(state, action) {
-      state.count = action.payload;
+    subtractCount(state) {
+      state.count--;
     },
     setSelected(state) {
       state.selected = !state.selected;

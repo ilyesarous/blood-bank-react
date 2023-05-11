@@ -117,7 +117,7 @@ const SearchBar = () => {
             size="small"
             sx={{ m: 1, minWidth: 140 }}
           >
-            <InputLabel id="demo-select-small">Numero Identity...</InputLabel>
+            <InputLabel id="demo-select-small">Numero Identity</InputLabel>
             <Input value={NumIdentity} onChange={handlenumIdentity} required />
           </FormControl>
           <FormControl
@@ -125,7 +125,7 @@ const SearchBar = () => {
             size="small"
             sx={{ m: 1, minWidth: 140 }}
           >
-            <InputLabel>Type Identity...</InputLabel>
+            <InputLabel>Type Identity</InputLabel>
             <Input
               value={TypeIdentity}
               onChange={handletypeIdentity}
