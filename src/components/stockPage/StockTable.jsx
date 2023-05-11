@@ -83,9 +83,7 @@ const StockTable = () => {
         <Table size="small" stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.filter((item) => {
-              return blood === "" ? item : item.blood.includes(blood);
-            }).map((column) => (
+              {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
@@ -101,7 +99,9 @@ const StockTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {stocks.map((row) => {
+            {stocks.filter((item) => {
+              return blood === "" ? item : item.blood.includes(blood);
+            }).map((row) => {
               return (
                 <StyledTableRow
                   hover
