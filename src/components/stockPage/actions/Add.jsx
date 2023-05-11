@@ -51,7 +51,6 @@ const Add = () => {
         version: 1
       })
       .then((res) => {
-        // console.log("res.data", res);
         dispatch(addActions.countHandler());
         showCardHandler();
         i++

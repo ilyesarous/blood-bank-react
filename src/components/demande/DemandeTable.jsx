@@ -67,7 +67,7 @@ const DemandeTable = () => {
 
   const [open, setOpen] = useState(false);
 
-  const AcceptedHandler = (tab, e) => {
+  const AcceptedHandler = (tab) => {
     // e.preventDefault();
     // dispatch(addActions.addCount());
     axios
@@ -82,6 +82,7 @@ const DemandeTable = () => {
         usercreate: tab.usercreate,
         createDate: tab.createDate,
         nameMedecin: tab.nameMedecin,
+        nameService: tab.nameService,
         id: tab.id,
       })
       .then((res) => {
@@ -92,6 +93,7 @@ const DemandeTable = () => {
           setMes("quantity has been decreased!");
         }
         dispatch(addActions.addCount());
+        // dispatch(addActions.subtractCount(0));
       })
       .catch(setMes("Blood does not exist in the stock!"))
       .finally(() => {
@@ -112,12 +114,14 @@ const DemandeTable = () => {
         status: tab.status,
         usercreate: tab.usercreate,
         createDate: tab.createDate,
+        nameService: tab.nameService,
         nameMedecin: tab.nameMedecin,
         id: tab.id,
       })
       .then((res) => {
         setMes("Request has been rejected!");
-        dispatch(addActions.subtractCount());
+        dispatch(addActions.addCount())
+        // dispatch(addActions.subtractCount(0));
       })
       .finally(() => {
         setOpen(true);
@@ -174,7 +178,7 @@ const DemandeTable = () => {
                   <TableCell align="center">
                     <Stack flexDirection={"row"}>
                       <IconButton
-                        onClick={(e) => AcceptedHandler(tab, e)}
+                        onClick={() => AcceptedHandler(tab)}
                         sx={{
                           ":hover": {
                             backgroundColor: "#1D95BB",

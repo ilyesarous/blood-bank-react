@@ -11,7 +11,6 @@ import {
     Stack,
     styled,
     Toolbar,
-    Typography,
   } from "@mui/material";
 
   import { Icons } from "../../theme/styles";
@@ -38,7 +37,7 @@ import {
               sx={{ m: 1, minWidth: 140 }}
             >
               <InputLabel>Date Create</InputLabel>
-              <Input   required />
+              <Input required />
             </FormControl>
             <Icons>
               <IconButton
