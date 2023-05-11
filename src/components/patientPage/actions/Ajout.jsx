@@ -364,9 +364,6 @@ const Ajout = () => {
                     label="Age"
                     onChange={handleGender}
                   >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
                     <MenuItem value={"male"}>male</MenuItem>
                     <MenuItem value={"female"}>female</MenuItem>
                   </Select>

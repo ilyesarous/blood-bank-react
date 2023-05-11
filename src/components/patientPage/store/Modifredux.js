@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Axios from "axios";
 
 const initialModifState = {
   patient: "",
   counteur: 0,
+  codeP : "",
   select: false,
   showUpdate: false,
 };
@@ -22,7 +22,9 @@ const ModifSlice = createSlice({
     modif(state, action) {
       state.codeP = action.payload;
     },
-
+    getCodePatient(state, action){
+      state.codeP = action.payload
+    },
     modifPat(state, action) {
       state.patient = action.payload;
       console.log("state.patient: ", state.patient);

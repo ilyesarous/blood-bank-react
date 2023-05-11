@@ -140,6 +140,7 @@ const Tableadd = () => {
     // send data into donnation page
     get(AjoutActions.getPatient(patient));
     get(AjoutActions.getcode(patient.code));
+    get(ModifActions.getCodePatient(patient.code))
   };
   const handleChangePage = (newPage) => {
     setPage(newPage);
