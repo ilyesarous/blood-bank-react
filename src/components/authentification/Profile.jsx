@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Settings } from "@mui/icons-material";
 import { Box, Button, Divider, Input, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./store/authSlice";
 
@@ -16,11 +16,20 @@ const PageName = styled(Box)({
 
 const Profile = () => {
   const role = useSelector((state) => state.auth.role);
+  // const [role, setRoles] = useState("")
+  // console.log("role: ", role);
   const [isDisabled, setIsDisabled] = useState(true);
   const [edit, setEdit] = useState(true);
   const [name, setName] = useState(role.name);
   const [password, setPassword] = useState(role.code);
   const dispatch = useDispatch()
+
+
+  // useEffect(()=>{
+  //    const roleLS= window.localStorage.getItem("role")
+  //    setRoles(JSON.parse(roleLS))
+  //   //  console.log(role);
+  // }, [])
 
   const profileItems = [
     { label: "Email", variable: role.adress },

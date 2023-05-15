@@ -25,7 +25,7 @@ const StyleModal = styled(Modal)({
 const Add = () => {
   const [bloodGrp, setBloodGrp] = useState("");
   const [quantity, setQuantity] = useState("");
-  const showCard = useSelector((state) => state.addStock.show);
+  const show = useSelector((state) => state.addStock.show);
 
   const dispatch = useDispatch();
 
@@ -39,21 +39,18 @@ const Add = () => {
   const handleCodeChanges = (event) => {
     setQuantity(event.target.value);
   };
-  let i = 1;
   const submitHandler = (event) => {
-    let code = "F",i
     event.preventDefault();
     axios
       .post("http://localhost:9005/blood-bank/stock", {
         blood: bloodGrp,
-        codedonateur: code,
+        codedonateur: "F",
         quantite: quantity,
         version: 1
       })
       .then((res) => {
         dispatch(addActions.countHandler());
         showCardHandler();
-        i++
       }).catch(e => {
         console.log("error");
       });
@@ -64,36 +61,35 @@ const Add = () => {
 
   return (
     <Box>
-      <StyleModal
-        aria-labelledby="modal-title"
-        aria-describedby="modal-desc"
-        open={showCard}
-        onClose={showCardHandler}
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <Box bgcolor="white" p={3} borderRadius={5}>
+    <StyleModal
+      aria-labelledby="modal-title"
+      aria-describedby="modal-desc"
+      open={show}
+      onClose={showCardHandler}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <Box width="400px" bgcolor="white" p={3} borderRadius={5}>
+        <Box sx={{ display: "flex" }}>
+          <CancelOutlined
+            onClick={showCardHandler}
+            sx={{ marginRight: "25%" }}
+          />
+          <Typography variant="h6" color="gray" textAlign="center">
+            Update Patient
+          </Typography>
+        </Box>
           <List>
             <form onSubmit={submitHandler}>
-              <ListItem sx={{ display: "flex", gap: 3 }}>
-                <CancelOutlined onClick={showCardHandler} />
-                <Typography variant="h6" color="gray" textAlign="center">
-                  Add to Stock
-                </Typography>
-              </ListItem>
 
-              <ListItem sx={{ display: "flex", gap: 5, margin: 2 }}>
-                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                  <InputLabel>Group Blood</InputLabel>
-                  <Input onChange={handleChanges} value={bloodGrp} required />
-                </FormControl>
+              <ListItem sx={{ display: "flex", mt: 2}}>
+                  <InputLabel sx={{flex:2}}>Blood Group</InputLabel>
+                  <Input onChange={handleChanges} sx={{flex:2}} value={bloodGrp} required />
               </ListItem>
-              <ListItem sx={{ display: "flex", gap: 5, margin: 2 }}>
-                <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                  <InputLabel>Quantity</InputLabel>
-                  <Input onChange={handleCodeChanges} value={quantity} required />
-                </FormControl>
+              <ListItem sx={{ display: "flex"}}>
+                  <InputLabel sx={{flex:2}}>Quantity</InputLabel>
+                  <Input onChange={handleCodeChanges} sx={{flex:2}} value={quantity} required />
               </ListItem>
-              <ListItem sx={{ justifyContent: "right", gap: 3 }}>
+              <ListItem sx={{ justifyContent: "right", gap: 3, mt: 2 }}>
                 <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>

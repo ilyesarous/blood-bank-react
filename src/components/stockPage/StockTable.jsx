@@ -31,23 +31,24 @@ const columns = [
   },
   {
     id: "codedonateur",
-    label: "Code Donation",
+    label: "Donation's code",
     align: "center",
   },
   {
     id: "dateperime",
-    label: "Date Perime",
+    label: "Expiration date",
     align: "center",
   },
   {
     id: "quantite",
     label: "Qantity",
     align: "center",
-  },{
-    id: "version",
-    label: "Version",
-    align: "center",
   },
+  // {
+  //   id: "version",
+  //   label: "Version",
+  //   align: "center",
+  // },
 ];
 
 const StockTable = () => {

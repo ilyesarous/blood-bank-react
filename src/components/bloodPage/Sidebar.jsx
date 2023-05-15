@@ -229,7 +229,7 @@ const Sidebar = () => {
 
               <ListItem>
                 <ListItemText>
-                  <Typography>Given to</Typography>
+                  <Typography>Donor</Typography>
                   <FormControl>
                     <FormGroup
                       onChange={handleGivenTo}
@@ -250,7 +250,7 @@ const Sidebar = () => {
               </ListItem>
               <ListItem>
                 <ListItemText>
-                  <Typography>Received From</Typography>
+                  <Typography>Receiver</Typography>
                   <FormControl>
                     <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
                       {allTypes.map((g) => (

@@ -19,12 +19,11 @@ import { Link } from "react-router-dom";
 import { Icons, ShowCards } from "../../theme/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { addActions } from "../demande/store/AddSlice";
-// import { useState } from "react";
 
 
 const Cards = () => {
 
-  // const [isShown, setIsShown] = useState(true)
+  const role = useSelector((state) => state.auth.role);
 
   const cards = [
     {
@@ -32,47 +31,53 @@ const Cards = () => {
       text: "Blood",
       icon: <Bloodtype color="primary" sx={{ margin: 1 }} />,
       link: "/blood",
+      role: "data responsable"
     },
     {
       id: 2,
       text: "Patients",
       icon: <People color="primary" sx={{ margin: 1 }} />,
       link: "/patients",
+      role: "data responsable"
     },
     {
       id: 3,
       text: "Donations",
       icon: <VolunteerActivism color="primary" sx={{ margin: 1 }} />,
       link: "/patients/donnation",
+      role: "data responsable"
     },
     {
       id: 4,
       text: "Stock",
       icon: <Inventory color="primary" sx={{ margin: 1 }} />,
       link: "/stock",
+      role: "stock responsable"
     },
     {
       id: 5,
       text: "Request Form",
       icon: <Receipt color="primary" sx={{ margin: 1 }} />,
       link: "/demande_form",
+      role: "doctor, request responsable"
     },
     {
       id: 6,
       text: "Request Table",
       icon: <TableRows color="primary" sx={{ margin: 1 }} />,
       link: "/demande_table",
+      role: "doctor, request responsable"
     },
     {
       id: 7,
       text: "Create new user",
       icon: <PersonAdd color="primary" sx={{ margin: 1 }} />,
       link: "/add_user",
+      role: ""
     },
   
   ];
 
-  // const role = useSelector((state) => state.auth.role);
   const count = useSelector((state) => state.addDemande.count);
  
   const dispatch = useDispatch();
@@ -89,8 +94,10 @@ const Cards = () => {
         justifyContent={"center"}
         width={"100%"}
       >
-        {cards.map((card) => (
-          <Card key={card.text} sx={{ width: { sm: "100%", md: "17%" } }}>
+        {cards.filter( item => {
+          return role.role === "admin" ? item : item.role.includes(role.role)
+        }).map((card) => (
+          <Card key={card.text} sx={{ width: { sm: "100%", md: "17%", xs: "100%" } }}>
             <CardActionArea sx={{ padding: 1 }}>
               <Link to={card.link} style={{ textDecoration: "none" }}>
                 <CardContent>

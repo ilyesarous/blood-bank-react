@@ -22,7 +22,7 @@ const columns = [
   { id: "code", label: "Code", align: "center", height: "20px" },
   {
     id: "codePatient",
-    label: "code patient",
+    label: "Patient code",
     align: "center",
     height: "20px",
   },
@@ -44,12 +44,6 @@ const columns = [
     align: "center",
     height: "20px",
   },
-  // {
-  //   id: "userCreate",
-  //   label: "user create",
-  //   align: "center",
-  //   height: "20px",
-  // },
   {
     id: "date_creation",
     label: "Creation Date",
@@ -57,20 +51,8 @@ const columns = [
     height: "20px",
   },
   {
-    id: "typeIdentity",
-    label: "Identity type",
-    align: "center",
-    height: "20px",
-  },
-  {
-    id: "numIdentity",
-    label: "Num identity",
-    align: "center",
-    height: "20px",
-  },
-  {
     id: "sexe",
-    label: "Sexe",
+    label: "Gender",
     align: "center",
     height: "20px",
   },
@@ -88,7 +70,7 @@ const columns = [
   },
   {
     id: "etat",
-    label: "Etat",
+    label: "Status",
     align: "center",
     height: "20px",
   },

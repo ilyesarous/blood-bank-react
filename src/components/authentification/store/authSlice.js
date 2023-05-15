@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { role: "", showAlertLogin: false, showAlertSignUp: false, isLoggedIn: false };
+const role = localStorage.getItem("role") !== null ? JSON.parse(localStorage.getItem("role")) : "";
+
+const initialState = { role: role, showAlertLogin: false, showAlertSignUp: false, isLoggedIn: false };
 
 const authSlice = createSlice({
   name: "auth",
@@ -8,6 +10,7 @@ const authSlice = createSlice({
   reducers: {
     getRole(state, action) {
       state.role = action.payload;
+      localStorage.setItem("role", JSON.stringify(state.role))
     },
     changeAlertStateLog(state){
         state.showAlertLogin = !state.showAlertLogin

@@ -1,13 +1,13 @@
 
 import { Settings } from "@mui/icons-material";
 import { Box, Stack, styled, Typography } from "@mui/material";
-// import SearchBarHistory from "../HistoryPage/SearchBarHistory";
+import SearchBarHistory from "../HistoryPage/SearchBarHistory";
 import TableHistory from "../HistoryPage/TableHistory";
 
 const PageName = styled(Box)({
   display: "flex",
-  margin: 50,
-  // marginBottom: 30,
+  marginRight: 50,
+  marginBottom: 30,
   justifyContent: "end",
   alignItems: "center",
   gap: 10
@@ -16,7 +16,7 @@ const PageName = styled(Box)({
 function HistoryPage() {
   return (
     <Stack sx={{ Width: "100%" }}>
-      {/* <SearchBarHistory /> */}
+      <SearchBarHistory />
       <PageName>
         <Typography variant="h5" color="lightgrey" component="div">
           History Page

@@ -18,15 +18,15 @@ import Profile from "./components/authentification/Profile";
 import UpdatePassword from "./components/authentification/UpdatePassword";
 
 function App() {
-  const loggedin = useSelector((state) => state.auth.isLoggedIn);
-
+  // const loggedin = useSelector((state) => state.auth.isLoggedIn);
+  const logInLS = window.localStorage.getItem("isLoggedIn")
   return (
     <Box>
       <Navbar />
       <Routes>
         <Route path="/">
-          <Route index element={<Auth />}></Route>
-          {loggedin && (
+          <Route index element={ <Auth />}></Route>
+          {logInLS && (
             <>
               <Route path="/welcome" element={<Body />} />
               <Route path="/blood" element={<BloodPage />} />

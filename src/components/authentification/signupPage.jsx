@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  Email,
-  Person
-} from "@mui/icons-material";
+import { AssignmentInd, Email, Person } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -11,11 +8,15 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
   Input,
+  InputLabel,
   List,
   ListItem,
   ListItemIcon,
   ListSubheader,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
@@ -33,12 +34,11 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [mes, setMes] = useState("");
+  const [title, setTitle] = useState("")
   const [role, setRole] = useState("");
   const navigateor = useNavigate();
   const dispatch = useDispatch();
   const disable = useSelector((state) => state.auth.showAlertSignUp);
-
-
 
   const getEmail = (e) => {
     setEmail(e.target.value);
@@ -51,7 +51,7 @@ const Signup = () => {
   };
 
   const closeHandler = () => {
-    if(mes === "Verify email by the link sent on your email address"){
+    if (mes === "Verify email by the link sent on your email address") {
       navigate();
     }
     dispatch(authActions.changeAlertStateSign());
@@ -71,10 +71,12 @@ const Signup = () => {
       })
       .then((res) => {
         setMes(res.data);
+        setTitle("Email Sent!")
         dispatch(authActions.changeAlertStateSign());
       })
       .catch(() => {
         dispatch(authActions.changeAlertStateSign());
+        setTitle("Login failed!")
         setMes("this Email already exists");
       });
   };
@@ -122,14 +124,29 @@ const Signup = () => {
           </ListItem>
           <ListItem alignItems="flex-start">
             <ListItemIcon>
-              <Person />
+              <AssignmentInd />
             </ListItemIcon>
-            <Input
-              placeholder="set Role"
-              type="text"
-              onChange={getRole}
-              required
-            />
+            <FormControl fullWidth>
+              <InputLabel id="demo-select-small" sx={{ flex: 2 }}>
+                Role
+              </InputLabel>
+              <Select
+                variant="standard"
+                labelId="demo-select-small"
+                id="demo-select-small"
+                value={role}
+                label="Role"
+                onChange={getRole}
+              >
+                <MenuItem value="admin">Admin</MenuItem>
+                <MenuItem value="doctor">Doctor</MenuItem>
+                <MenuItem value="request responsable">
+                  Request Responsable
+                </MenuItem>
+                <MenuItem value="data responsable">Data Responsable</MenuItem>
+                <MenuItem value="stock responsable">Stock Responsable</MenuItem>
+              </Select>
+            </FormControl>
           </ListItem>
 
           <ListItem sx={{ justifyContent: "center" }}>
@@ -146,7 +163,7 @@ const Signup = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Login failed!"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {mes}

@@ -31,8 +31,12 @@ const StyleModal = styled(Modal)(({ theme }) => ({
 
 const UpdateBar = () => {
   let i = 0;
+  const codeBlood = useSelector((state) => state.updateBlood.code);
+  const bloodGrpStore = useSelector((state) => state.updateBlood.bloodGrp);
+  // const blood = useSelector((state) => state.updateBlood.blood);
+  // const bloodRhesus = useSelector((state) => state.updateBlood.rhesus);
 
-  const [bloodGrp, setBloodGrp] = useState("");
+  const [bloodGrp, setBloodGrp] = useState(bloodGrpStore);
   const [givenTo, setGivenTo] = useState([]);
   const [rhesus, setRhesus] = useState("");
   const [receivedFrom, setRecievedFrom] = useState([]);
@@ -64,10 +68,6 @@ const UpdateBar = () => {
     ch1 = ch1.substring(1);
     if (ch1 === "") ch1 = "-";
   }
-  const codeBlood = useSelector((state) => state.updateBlood.code);
-  const bloodGrpStore = useSelector((state) => state.updateBlood.bloodGrp);
-
-  // const bloods = [codeBlood, bloodGrp, rhesus, ch, ch1];
 
   const handleBloodGrpChange = (event) => {
     setBloodGrp(event.target.value);
@@ -113,7 +113,6 @@ const UpdateBar = () => {
 
   const updateHandler = (e) => {
     e.preventDefault();
-
     axios
       .put(`http://localhost:9005/blood-bank/blood/${codeBlood}`, {
         codeBlood: codeBlood,
@@ -125,11 +124,10 @@ const UpdateBar = () => {
       .then((res) => {
         console.log("updated");
         dispatch(bloodActions.setCount());
-      }).catch(e => {
+      })
+      .catch((e) => {
         console.log("error");
       });
-
-    // console.log("liste des blood: ", bloods);
 
     setBloodGrp("");
     setRhesus("");
@@ -180,19 +178,18 @@ const UpdateBar = () => {
                 <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
                   <InputLabel>Blood Group</InputLabel>
                   <Input
-                    value={bloodGrp}
                     onChange={handleBloodGrpChange}
                     label="Blood Group"
                     name="bloodGrp"
-                    required
-                    error={bloodGrp === ""}
+                    // required
+                    // error={bloodGrp === ""}
                     placeholder={bloodGrpStore}
                   />
-                  {bloodGrp === "" && (
+                  {/* {bloodGrp === "" && (
                     <FormHelperText error={bloodGrp === ""}>
                       Blood group is required
                     </FormHelperText>
-                  )}
+                  )} */}
                 </FormControl>
               </ListItem>
               <ListItem>
@@ -218,16 +215,16 @@ const UpdateBar = () => {
                       label="-"
                     />
                   </RadioGroup>
-                  {rhesus === "" && (
+                  {/* {rhesus === "" && (
                     <FormHelperText error={rhesus === ""}>
                       Blood type is required
                     </FormHelperText>
-                  )}
-                  {!alert && (
+                  )} */}
+                  {/* {!alert && (
                     <FormHelperText error={alert}>
                       Already exists
                     </FormHelperText>
-                  )}
+                  )} */}
                 </FormControl>
               </ListItem>
 
@@ -278,7 +275,7 @@ const UpdateBar = () => {
                 <Button
                   variant="outlined"
                   type="submit"
-                  disabled={bloodGrp === "" || rhesus === ""}
+                  // disabled={bloodGrp === "" || rhesus === ""}
                 >
                   Update
                 </Button>

@@ -1,6 +1,11 @@
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   Input,
   InputLabel,
@@ -12,9 +17,8 @@ import {
   styled,
   TextField,
 } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CancelOutlined } from "@mui/icons-material";
-import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { AjoutActions } from "../store/Ajoutredux";
@@ -28,13 +32,10 @@ const StyleModal = styled(Modal)({
 });
 
 const Ajout = () => {
-  const ajt = useSelector((state) => state.ajout.show);
+  const show = useSelector((state) => state.ajout.show);
 
   const aj = useDispatch();
-  const [lastNameAr, setlastnamear] = useState("");
-  const [firstNameAr, setFirstnamear] = useState("");
-  const [fatherNameAr, setFathernamear] = useState("");
-  const [grandFatherNameAr, setGrandFathernamear] = useState("");
+
   const [lastNameEng, setLastnameEng] = useState("");
   const [firstNameEng, setFirstnameEng] = useState("");
   const [fatherNameEng, setFathernameEng] = useState("");
@@ -43,10 +44,11 @@ const Ajout = () => {
   const [adress, setAdress] = useState("");
   const [gendre, setGender] = useState("");
   const [phoneNumber, setNumber] = useState("");
-  const [blood, setBlood] = useState("");
+  const [typeIdentity, setTypeIdentity] = useState("");
   const [birdhday, setBirthday] = useState(null);
+  const [numIdentity, setNumIdentity] = useState("");
 
-  const [types, setTypes] = useState([]);
+  const verif = useSelector(state => state.ajout.showAlert)
 
   const addPatient = (e) => {
     e.preventDefault();
@@ -56,31 +58,25 @@ const Ajout = () => {
         adress: adress,
         birthDate: birdhday,
         email: email,
-        fatherNameAr: fatherNameAr,
         fatherNameEng: fatherNameEng,
-        firstNameAr: firstNameAr,
         firstNameEng: firstNameEng,
         gender: gendre,
-        grandFatherNameAr: grandFatherNameAr,
         grandFatherNameEng: grandFatherNameEng,
-        lastNameAr: lastNameAr,
         lastNameEng: lastNameEng,
         phoneNumber: phoneNumber,
-        bloodCode: blood,
+        typeIdentity: typeIdentity,
+        numIdentity: numIdentity,
       })
       .then((res) => {
         console.log("patient added!");
         aj(ModifActions.modifCounteur());
-      }).catch(e => {
+        aj(AjoutActions.Showme());
+      })
+      .catch((e) => {
+        closeHandler()
         console.log("error!");
       });
 
-    aj(AjoutActions.Showme());
-
-    setlastnamear("");
-    setFirstnamear("");
-    setFathernamear("");
-    setGrandFathernamear("");
     setLastnameEng("");
     setFirstnameEng("");
     setFathernameEng("");
@@ -89,35 +85,19 @@ const Ajout = () => {
     setAdress("");
     setGender("");
     setNumber("");
-    setBlood("");
+    setTypeIdentity("");
+    setNumIdentity("");
     setBirthday(null);
   };
 
-  const getTypes = useCallback(() => {
-    axios.get("http://localhost:9005/blood-bank/blood/type").then((res) => {
-      setTypes(res.data);
-    });
-  }, []);
-  useEffect(() => {
-    getTypes();
-  }, [getTypes]);
+  const closeHandler = () => {
+    aj(AjoutActions.ShowAlert())
+  }
 
   const handleBirdhday = (e) => {
     setBirthday(e.target.value);
   };
 
-  const handleLastnamear = (e) => {
-    setlastnamear(e.target.value);
-  };
-  const handleFirstnamear = (e) => {
-    setFirstnamear(e.target.value);
-  };
-  const handleFathernamear = (e) => {
-    setFathernamear(e.target.value);
-  };
-  const handleGrandFathernamear = (e) => {
-    setGrandFathernamear(e.target.value);
-  };
   const handleLastnamEng = (e) => {
     setLastnameEng(e.target.value);
   };
@@ -142,16 +122,18 @@ const Ajout = () => {
   const handleNumber = (e) => {
     setNumber(e.target.value);
   };
-  const handleBlood = (e) => {
-    setBlood(e.target.value);
+  const handleNumIdentity = (e) => {
+    setNumIdentity(e.target.value);
+  };
+  const handleIdentityType = (e) => {
+    setTypeIdentity(e.target.value);
   };
 
-  const showAddHandler = () => {
+
+
+  const showCardHandler = () => {
     aj(AjoutActions.Showme());
-    setlastnamear("");
-    setFirstnamear("");
-    setFathernamear("");
-    setGrandFathernamear("");
+
     setLastnameEng("");
     setFirstnameEng("");
     setFathernameEng("");
@@ -160,7 +142,8 @@ const Ajout = () => {
     setAdress("");
     setGender("");
     setNumber("");
-    setBlood("");
+    setTypeIdentity("");
+    setNumIdentity("");
   };
 
   return (
@@ -168,15 +151,15 @@ const Ajout = () => {
       <StyleModal
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
-        open={ajt}
-        onClose={showAddHandler}
+        open={show}
+        onClose={showCardHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Box width={850} bgcolor="white" p={3} borderRadius={5}>
-          <Box sx={{ display: "flex" }}>
+        <Box width="750px" bgcolor="white" p={3} borderRadius={5}>
+          <Box sx={{ display: "flex", gap: 11 }}>
             <CancelOutlined
-              onClick={showAddHandler}
-              sx={{ marginRight: "40%" }}
+              onClick={showCardHandler}
+              sx={{ marginRight: "25%" }}
             />
             <Typography variant="h6" color="gray" textAlign="center">
               Add Patient
@@ -185,199 +168,144 @@ const Ajout = () => {
           <List>
             <form onSubmit={addPatient}>
               <ListItem sx={{ display: "flex" }}>
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Last Name Ar</InputLabel>
-                    <Input
-                      value={lastNameAr}
-                      onChange={handleLastnamear}
-                      //ast Name Ar"
-                      required
-                    />
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
+                    <InputLabel>Last name</InputLabel>
+                    <Input onChange={handleLastnamEng} value={lastNameEng} required />
                   </FormControl>
                 </ListItem>
 
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>First Name</InputLabel>
-                    <Input
-                      
-                      onChange={handleFirstnamear}
-                      required
-                     
-                    />
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
+                    <InputLabel>First name </InputLabel>
+                    <Input onChange={handleFirstnameEng} value={firstNameEng} required />
                   </FormControl>
                 </ListItem>
 
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Father name</InputLabel>
-                    <Input
-                      
-                      onChange={handleFathernamear}
-                      required
-                     
-                    />
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
+                    <InputLabel>Father's name </InputLabel>
+                    <Input onChange={handleFathernameEng} value={fatherNameEng} required />
                   </FormControl>
                 </ListItem>
               </ListItem>
+
               <ListItem sx={{ display: "flex" }}>
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Grand Father </InputLabel>
-                    <Input
-                      
-                      onChange={handleGrandFathernamear}
-                      required
-                      
-                    />
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
+                    <InputLabel>Grand father's name</InputLabel>
+                    <Input onChange={handleGrandFathernameEng} value={grandFatherNameEng} required />
                   </FormControl>
                 </ListItem>
 
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Last Name eng</InputLabel>
-                    <Input
-                      
-                      onChange={handleLastnamEng}
-                      required
-                    />
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
+                    <InputLabel>Identity type</InputLabel>
+                    <Input onChange={handleIdentityType} value={typeIdentity} required />
                   </FormControl>
                 </ListItem>
 
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>First Name eng</InputLabel>
-                    <Input
-                      
-                      onChange={handleFirstnameEng}
-                      required
-                   
-                    />
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
+                    <InputLabel>Identity number</InputLabel>
+                    <Input onChange={handleNumIdentity} value={numIdentity} required />
                   </FormControl>
                 </ListItem>
+
               </ListItem>
+
               <ListItem sx={{ display: "flex" }}>
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>father Name eng</InputLabel>
-                    <Input
-                      
-                      onChange={handleFathernameEng}
-                      required
-                    />
-                  </FormControl>
-                </ListItem>
 
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Grand Father Name eng</InputLabel>
-                    <Input
-                      
-                      onChange={handleGrandFathernameEng}
-                      required
-                    />
-                  </FormControl>
-                </ListItem>
-
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl
-                    sx={{ m: 1, minWidth: 120, marginRight: "50%" }}
-                    size="small"
-                    variant="standard"
-                  >
-                    <InputLabel id="demo-select-small">Blood</InputLabel>
-                    <Select
-                      labelId="demo-select-small"
-                      id="demo-select-small"
-                      value={blood}
-                      label="State"
-                      onChange={handleBlood}
-                    >
-                      {types.map((type) => (
-                        <MenuItem key={type} value={type}>
-                          {type}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </ListItem>
-              </ListItem>
-              <ListItem sx={{ display: "flex" }}>
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
-                    <InputLabel>Adress</InputLabel>
-                    <Input
-                      
-                      onChange={handleAdress}
-                      
-                    />
-                  </FormControl>
-                </ListItem>
-
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
+              <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
                     <InputLabel>Email</InputLabel>
-                    <Input
-                      
-                      onChange={handleEmail}
-                      
-                    />
+                    <Input onChange={handleEmail} value={email} required/>
                   </FormControl>
                 </ListItem>
 
-                <ListItem sx={{ display: "flex" }}>
-                  <FormControl variant="standard" sx={{ minWidth: 100 }}>
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
+                    <InputLabel>Adress</InputLabel>
+                    <Input onChange={handleAdress} value={adress} required />
+                  </FormControl>
+                </ListItem>
+
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl variant="standard">
                     <InputLabel>Phone number</InputLabel>
-                    <Input
-                      
-                      onChange={handleNumber}
-                    />
+                    <Input onChange={handleNumber} value={phoneNumber} required />
                   </FormControl>
                 </ListItem>
               </ListItem>
-              <ListItem
-                sx={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <Stack component="form" noValidate spacing={3}>
+
+              <ListItem>
+
+              <ListItem sx={{ flex: 1 }}>
                   <TextField
-                    
                     onChange={handleBirdhday}
                     id="date"
                     label="Birthday"
                     type="date"
-                    sx={{ width: 220 }}
+                    variant="standard"
+                    sx={{ minWidth: 180 }}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
-                </Stack>
-                <FormControl
-                  sx={{ m: 1, minWidth: 120, marginRight: "50%" }}
-                  size="small"
-                >
-                  <InputLabel id="demo-select-small">Gendre</InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={gendre}
-                    label="Age"
-                    onChange={handleGender}
+                </ListItem>
+
+                <ListItem sx={{ flex: 1 }}>
+                  <FormControl
+                    sx={{ minWidth: 180 }}
+                    size="small"
+                    variant="standard"
                   >
-                    <MenuItem value={"male"}>male</MenuItem>
-                    <MenuItem value={"female"}>female</MenuItem>
-                  </Select>
-                </FormControl>
+                    <InputLabel id="demo-select-small">Gendre</InputLabel>
+                    <Select
+                      labelId="demo-select-small"
+                      id="demo-select-small"
+                      value={gendre}
+                      label="Age"
+                      onChange={handleGender}
+                    >
+                      <MenuItem value={"male"}>male</MenuItem>
+                      <MenuItem value={"female"}>female</MenuItem>
+                    </Select>
+                  </FormControl>
+                </ListItem>
+
               </ListItem>
+
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
-                <Button onClick={showAddHandler} variant="outlined">
+                <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>
                 <Button type="submit" variant="outlined">
                   <Typography>Add</Typography>
                 </Button>
               </ListItem>
+              <Dialog
+                  open={verif}
+                  onClose={closeHandler}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Error!"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      This Patient already exists
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={closeHandler} autoFocus>
+                      Ok
+                    </Button>
+                  </DialogActions>
+                </Dialog>
             </form>
+            
           </List>
         </Box>
       </StyleModal>

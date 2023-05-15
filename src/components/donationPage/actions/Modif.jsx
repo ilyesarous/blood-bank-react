@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  FormControl,
   Input,
   InputLabel,
   List,
@@ -68,7 +67,8 @@ const Modif = () => {
       })
       .then((res) => {
         mf(GetActions.modifcounteur());
-      }).catch(e => {
+      })
+      .catch((e) => {
         console.log("error");
       });
 
@@ -98,21 +98,9 @@ const Modif = () => {
           <List>
             <form onSubmit={togglerHandler}>
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{ flex: 2 }}>Last Name:</InputLabel>
+                <InputLabel sx={{ flex: 2 }}>Full Name:</InputLabel>
                 <Typography flex={2} justifyContent={"center"}>
                   <u>{donateur.fullName}</u>
-                </Typography>
-              </ListItem>
-              <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{ flex: 2 }}>type Identity :</InputLabel>
-                <Typography flex={2} justifyContent={"center"}>
-                  <u>{donateur.typeIdentity}</u>
-                </Typography>
-              </ListItem>
-              <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{ flex: 2 }}>Numero Identity :</InputLabel>
-                <Typography flex={2} justifyContent={"center"}>
-                  <u>{donateur.numIdentity}</u>
                 </Typography>
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
@@ -120,31 +108,30 @@ const Modif = () => {
                 <Input onChange={handleBlood} sx={{ flex: 2 }} />
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
+                
+                <InputLabel id="demo-select-small" sx={{ flex: 2 }}>
+                  State
+                </InputLabel>
+                <Select
+                  variant="standard"
+                  sx={{ flex: 2 }}
+                  labelId="demo-select-small"
+                  id="demo-select-small"
+                  value={state}
+                  label="State"
+                  onChange={handleState}
+                >
+                  <MenuItem value="SOLVED">SOLVED</MenuItem>
+                  <MenuItem value="REJECTED">REJECTED</MenuItem>
+                </Select>
+              </ListItem>
+              <ListItem sx={{ display: "flex" }}>
                 <InputLabel sx={{ flex: 2 }}>Observation:</InputLabel>
                 <Input onChange={handleObservation} sx={{ flex: 2 }} />
               </ListItem>
-              <ListItem sx={{ display: "flex" }}>
-                <FormControl
-                  sx={{ minWidth: 120 }}
-                  size="small"
-                  variant="standard"
-                >
-                  <InputLabel id="demo-select-small">State</InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={state}
-                    label="State"
-                    onChange={handleState}
-                  >
-                    <MenuItem value="SOLVED">SOLVED</MenuItem>
-                    <MenuItem value="REJECTED">REJECTED</MenuItem>
-                    <MenuItem value="PENDING">PENDING</MenuItem>
-                  </Select>
-                </FormControl>
-              </ListItem>
+              
 
-              <ListItem sx={{ justifyContent: "right", gap: 3 }}>
+              <ListItem sx={{ justifyContent: "right", gap: 3, mt:2 }}>
                 <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>

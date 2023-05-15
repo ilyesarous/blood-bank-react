@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
-  bloods: [],
+  blood: "",
   showUpdate: false,
   selected: false,
   code: 0,
@@ -13,19 +12,6 @@ const updateSlice = createSlice({
   name: "updateBlood",
   initialState,
   reducers: {
-    // updateBlood(state, action) {
-    //   const newBlood = action.payload;
-      // axios.put(`http://localhost:9005/blood-bank/blood/${state.code}`, {
-      //   codeBlood: newBlood[0],
-      //   bloodGrp: newBlood[1],
-      //   rhesus: newBlood[2],
-      //   givenTo: newBlood[3],
-      //   receivedFrom: newBlood[4],
-      // });
-    // },
-    // updateBloodStatus(state) {
-     
-    // },
     showCardUpdate(state) {
       if (state.code === 0) {
         console.log("u need to pick one");
@@ -34,6 +20,9 @@ const updateSlice = createSlice({
         state.showUpdate = !state.showUpdate;
         state.selected = false
       }
+    },
+    getBlood(state, action) {
+      state.blood = action.payload
     },
     getCodeBlood(state, action) {
       state.code = action.payload

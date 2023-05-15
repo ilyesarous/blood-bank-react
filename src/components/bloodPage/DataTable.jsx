@@ -22,7 +22,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const columns = [
-  { id: "active", label: "Active", align: "center", height: "20px" },
+  { id: "active", label: "Status", align: "center", height: "20px" },
   { id: "codeBlood", label: "Blood code", align: "center", height: "20px" },
   { id: "bloodGrp", label: "Blood group", align: "center", height: "20px" },
   {
@@ -33,13 +33,13 @@ const columns = [
   },
   {
     id: "givenTo",
-    label: "Given to",
+    label: "Donor",
     align: "center",
     height: "20px",
   },
   {
     id: "receivedFrom",
-    label: "Received from",
+    label: "Receiver",
     align: "center",
     height: "20px",
   },
@@ -84,6 +84,7 @@ const DataTable = () => {
   };
 
   const getBloodCode = (row) => {
+    dispatch(updateActions.getBlood(row))
     dispatch(updateActions.getCodeBlood(row.codeBlood));
     dispatch(updateActions.getBloodGrp(row.bloodGrp));
     dispatch(updateActions.getRhesus(row.rhesus));
@@ -110,6 +111,8 @@ const DataTable = () => {
           </TableHead>
           <TableBody>
             {bloods.filter((item) => {
+              return item.bloodGrp !== "-";
+            }).filter((item) => {
               return receive === "" ? item : item.receivedFrom.includes(receive);
             }).filter(item => {
               return given === "" ? item : item.givenTo.includes(given);

@@ -98,7 +98,7 @@ const SearchBar = () => {
             size="small"
             sx={{ m: 1, minWidth: 140 }}
           >
-            <InputLabel id="demo-select-small">Received From</InputLabel>
+            <InputLabel id="demo-select-small">Receiver</InputLabel>
             <Input value={receivedFrom} onChange={handleReceivedFrom} />
           </FormControl>
           <FormControl
@@ -106,7 +106,7 @@ const SearchBar = () => {
             size="small"
             sx={{ m: 1, minWidth: 140 }}
           >
-            <InputLabel>Given To</InputLabel>
+            <InputLabel>Donor</InputLabel>
             <Input value={givenTo} onChange={handleGivenTo} />
           </FormControl>
           <FormControl

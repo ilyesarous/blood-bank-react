@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialAjoutState = { show: false };
+const initialAjoutState = { show: false, showAlert: false };
 const AjoutSlice = createSlice({
   name: "ajout",
   initialState: initialAjoutState,
@@ -8,6 +8,9 @@ const AjoutSlice = createSlice({
     Showme(state) {
       state.show = !state.show;
     },
+    ShowAlert(state){
+      state.showAlert = !state.showAlert
+    }
   },
 });
 

@@ -7,8 +7,9 @@ import { fullScreenActions } from "../bloodPage/BloodStore/FullScreen";
 import { authActions } from "../authentification/store/authSlice";
 
 const Navbar = () => {
-  const loggedin = useSelector((state) => state.auth.isLoggedIn);
-  const name = useSelector(state => state.auth.role)
+
+  const loggedin = window.localStorage.getItem("isLoggedIn")
+  const role = useSelector((state) => state.auth.role);
   const dispatch = useDispatch();
   const navigateor = useNavigate();
 
@@ -21,11 +22,13 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch(authActions.changeLogoutStatus());
+    window.localStorage.removeItem("role")
+    window.localStorage.removeItem("isLoggedIn")
     navigateor("/");
   };
   const goToProfile = () => {
     navigateor("/profile");
-  }
+  };
 
   return (
     <Box>
@@ -61,14 +64,14 @@ const Navbar = () => {
                   <Home />
                 </IconButton>
               </Link>
-                <Typography>{name.name}.clinisys</Typography>
-                <IconButton
-                  color="inherit"
-                  aria-label="menu"
-                  onClick={goToProfile}
-                >
-                  <Person />
-                </IconButton>
+              <Typography>{role.name}.clinisys</Typography>
+              <IconButton
+                color="inherit"
+                aria-label="menu"
+                onClick={goToProfile}
+              >
+                <Person />
+              </IconButton>
             </Icons>
           )}
           <Box display={"flex"} width={"100%"} justifyContent={"right"}>

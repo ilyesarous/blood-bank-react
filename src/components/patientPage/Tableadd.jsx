@@ -37,31 +37,6 @@ const columns = [
     align: "center",
   },
   {
-    id: "lastNameAr",
-    label: "Last Name ",
-    align: "center",
-  },
-  {
-    id: "firstNameAr",
-    label: "First Name",
-    align: "center",
-  },
-  {
-    id: "fatherNameAr",
-    label: "Father  ",
-    align: "center",
-  },
-  {
-    id: "grandFatherNameAr",
-    label: "Grand Father",
-    align: "center",
-  },
-  {
-    id: "fullNameAr",
-    label: "Full Name",
-    align: "center",
-  },
-  {
     id: "lastNameEng",
     label: "Last Name",
     align: "center",
@@ -72,18 +47,18 @@ const columns = [
     align: "center",
   },
   {
-    id: "fatherNameEng",
-    label: "Father ",
-    align: "center",
-  },
-  {
-    id: "grandFatherNameEng",
-    label: "Grand Father",
-    align: "center",
-  },
-  {
     id: "fullNameEng",
     label: "Full Name",
+    align: "center",
+  },
+  {
+    id: "typeIdentity",
+    label: "Identity type",
+    align: "center",
+  },
+  {
+    id: "numIdentity",
+    label: "Identity number",
     align: "center",
   },
   {
@@ -108,7 +83,7 @@ const columns = [
   },
   {
     id: "birthDay",
-    label: "BirthDate",
+    label: "Birthday",
     align: "center",
   },
   {
@@ -116,6 +91,7 @@ const columns = [
     label: "Gender",
     align: "center",
   },
+  
 ];
 
 const Tableadd = () => {

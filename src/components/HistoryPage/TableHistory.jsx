@@ -22,7 +22,7 @@ const columns = [
  
   {
     id: "codePatient",
-    label: "code patient",
+    label: "Patient code",
     align: "center",
   },
   {
@@ -42,7 +42,7 @@ const columns = [
   },
   {
     id: "state",
-    label: "state",
+    label: "State",
     align: "center",
   },
 ];

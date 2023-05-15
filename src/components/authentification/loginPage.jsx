@@ -12,10 +12,10 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListSubheader
+  ListSubheader,
 } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./store/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +32,7 @@ const Auth = () => {
   const [icon, setIcon] = useState(<Visibility />);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const role = useSelector((state) => state.auth.role);
   const navigateor = useNavigate();
   const dispatch = useDispatch();
   const disable = useSelector((state) => state.auth.showAlertLogin);
@@ -46,6 +47,8 @@ const Auth = () => {
       setIcon(<Visibility />);
     }
   };
+
+
 
   const getPassword = (e) => {
     setPassword(e.target.value);
@@ -63,6 +66,7 @@ const Auth = () => {
     navigateor("/welcome");
   };
 
+
   const login = (e) => {
     e.preventDefault();
 
@@ -71,8 +75,10 @@ const Auth = () => {
         `http://localhost:9005/blood-bank/authentification/${email}/${password}`
       )
       .then((res) => {
-        dispatch(authActions.getRole(res.data));
+        dispatch(authActions.getRole(res.data))
+        // window.localStorage.setItem("role", JSON.stringify(res.data))
         dispatch(authActions.changeLoginStatus());
+        window.localStorage.setItem("isLoggedIn", true);
         navigate();
       })
       .catch((e) => {
@@ -137,7 +143,6 @@ const Auth = () => {
               Login
             </Button>
           </ListItem>
-  
         </List>
       </form>
 

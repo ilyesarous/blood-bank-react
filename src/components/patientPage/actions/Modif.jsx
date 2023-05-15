@@ -23,10 +23,9 @@ const StyleModal = styled(Modal)({
 });
 
 const Modif = () => {
-
   const patient = useSelector((state) => state.modif.patient);
 
-  const cancel = useSelector((state) => state.modif.showUpdate);
+  const show = useSelector((state) => state.modif.showUpdate);
 
   const up = useDispatch();
 
@@ -79,7 +78,7 @@ const Modif = () => {
   const handleNumber = (e) => {
     setNumber(e.target.value);
   };
-  const closeHandler = () => {
+  const showCardHandler = () => {
     up(ModifActions.ShowAlert());
   };
 
@@ -88,25 +87,23 @@ const Modif = () => {
       <StyleModal
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
-        open={cancel}
-        onClose={closeHandler}
+        open={show}
+        onClose={showCardHandler}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Box width={400} bgcolor="white" padding={3} borderRadius={5}>
+        <Box width="400px" bgcolor="white" p={3} borderRadius={5}>
+          <Box sx={{ display: "flex" }}>
+            <CancelOutlined
+              onClick={showCardHandler}
+              sx={{ marginRight: "25%" }}
+            />
+            <Typography variant="h6" color="gray" textAlign="center">
+              Update Patient
+            </Typography>
+          </Box>
           <List>
             <form onSubmit={updateHandler}>
-              <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                <CancelOutlined sx={{ flex: 0.2 }} onClick={closeHandler} />
-                <Typography
-                  variant="h6"
-                  color="gray"
-                  textAlign="center"
-                  sx={{ flex: 2, alignItems: "center" }}
-                >
-                  Update Patient
-                </Typography>
-              </ListItem>
-              <ListItem sx={{ display: "flex", marginTop: 5 }}>
+              <ListItem sx={{ display: "flex", marginTop: 2 }}>
                 <InputLabel sx={{ flex: 1 }}>Code Patient:</InputLabel>
                 <Typography flex={2}>
                   <u>{patient.code}</u>
@@ -155,7 +152,7 @@ const Modif = () => {
               </ListItem>
 
               <ListItem sx={{ marginTop: 2, justifyContent: "right", gap: 1 }}>
-                <Button onClick={closeHandler} variant="outlined">
+                <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>
                 <Button type="submit" variant="outlined">
