@@ -11,6 +11,8 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modifActions } from "./store/modif";
+import BonBefore from "./actions/bonBefore" ;
+import BonAfter from "./actions/BonAfter";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -33,8 +35,8 @@ const columns = [
     height: "20px",
   },
   {
-    id: "age",
-    label: "Age",
+    id: "tension",
+    label: "Tension",
     align: "center",
     height: "20px",
   },
@@ -162,6 +164,8 @@ const TableDonnation = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <BonBefore/>
+      <BonAfter/>
     </Stack>
   );
 };

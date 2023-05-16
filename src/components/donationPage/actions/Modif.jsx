@@ -26,9 +26,7 @@ const StyleModal = styled(Modal)({
 
 const Modif = () => {
   const show = useSelector((state) => state.modifDonation.show);
-
   const donateur = useSelector((state) => state.modifDonation.donateur);
-  console.log("donnateur: ", donateur);
 
   const [state, setState] = useState("");
   const [blood, setBlood] = useState("");
@@ -67,13 +65,16 @@ const Modif = () => {
       })
       .then((res) => {
         mf(GetActions.modifcounteur());
+        if (state === "SOLVED") {
+          mf(modifActions.showBonAfter());
+        }
+        mf(modifActions.Showme());
       })
       .catch((e) => {
         console.log("error");
       });
 
     setState("");
-    mf(modifActions.Showme());
   };
 
   return (
@@ -108,7 +109,6 @@ const Modif = () => {
                 <Input onChange={handleBlood} sx={{ flex: 2 }} />
               </ListItem>
               <ListItem sx={{ display: "flex" }}>
-                
                 <InputLabel id="demo-select-small" sx={{ flex: 2 }}>
                   State
                 </InputLabel>
@@ -129,9 +129,8 @@ const Modif = () => {
                 <InputLabel sx={{ flex: 2 }}>Observation:</InputLabel>
                 <Input onChange={handleObservation} sx={{ flex: 2 }} />
               </ListItem>
-              
 
-              <ListItem sx={{ justifyContent: "right", gap: 3, mt:2 }}>
+              <ListItem sx={{ justifyContent: "right", gap: 3, mt: 2 }}>
                 <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>

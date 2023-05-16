@@ -29,7 +29,7 @@ const Ajout = () => {
 
   const ajou = useDispatch();
 
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState(0);
   const [state, setState] = useState("PENDING");
 
   const handleAge = (e) => {
@@ -43,30 +43,30 @@ const Ajout = () => {
       .post("http://localhost:9005/blood-bank/donation", {
         fullName: patient.fullNameEng,
         codePatient: patient.code,
-        age: age,
+        tension: age,
         adress: patient.adress,
         etat: state,
-        blood: patient.blood,
+        blood: "--",
         sexe: patient.gender,
         phoneNumber: patient.phoneNumber,
       })
       .then((res) => {
         console.log("done");
         ajou(GetActions.modifcounteur());
+        ajou(AjoutActions.showBonBefore());
+        ajou(AjoutActions.Showme());
       })
       .catch((e) => {
         console.log("error");
       });
 
-   
     setAge("");
     setState("");
-    ajou(AjoutActions.Showme());
   };
 
   const showCardHandler = () => {
     ajou(AjoutActions.Showme());
-    
+
     setAge("");
     setState("");
   };
@@ -92,7 +92,6 @@ const Ajout = () => {
           </Box>
           <List>
             <form onSubmit={submitHandler}>
-            
               <ListItem sx={{ display: "flex" }}>
                 <InputLabel sx={{ flex: 2 }}>Code:</InputLabel>
                 <Typography sx={{ flex: 2 }}>
@@ -114,7 +113,7 @@ const Ajout = () => {
               </ListItem>
 
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{ flex: 2 }}>age:</InputLabel>
+                <InputLabel sx={{ flex: 2 }}>tension:</InputLabel>
                 <Input
                   sx={{ flex: 2 }}
                   value={age}
@@ -123,7 +122,7 @@ const Ajout = () => {
                 />
               </ListItem>
 
-              <ListItem sx={{ justifyContent: "right", gap: 3, mt:2 }}>
+              <ListItem sx={{ justifyContent: "right", gap: 3, mt: 2 }}>
                 <Button onClick={showCardHandler} variant="outlined">
                   <Typography>cancel</Typography>
                 </Button>

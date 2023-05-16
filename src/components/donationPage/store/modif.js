@@ -4,14 +4,14 @@ const initialAjoutState = {
   donateur: "",
   show: false,
   selected: false,
+  showBon: false
 };
 const ModifSlice = createSlice({
   name: "modif",
   initialState: initialAjoutState,
   reducers: {
     Showme(state) {
-      // state.show = !state.show;
-      if(state.lastname === ""){
+      if(state.donateur === ""){
         state.selected = true
       }else {
         state.selected = false
@@ -21,6 +21,9 @@ const ModifSlice = createSlice({
     getDonateur(state, action) {
       state.donateur = action.payload;
     },
+    showBonAfter(state){
+      state.showBon =! state.showBon
+    }
   },
 });
 

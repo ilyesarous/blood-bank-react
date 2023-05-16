@@ -5,6 +5,7 @@ const initialAjoutState = {
   codeP: "",
   show: false,
   selected: false,
+  showBonBefore: false
 };
 const AjoutSlice = createSlice({
   name: "ajout",
@@ -17,6 +18,9 @@ const AjoutSlice = createSlice({
         state.selected = false;
         state.show = !state.show;
       }
+    },
+    showBonBefore(state){
+      state.showBonBefore = !state.showBonBefore
     },
     closeAlertHandler(state) {
       state.selected = !state.selected;
