@@ -5,7 +5,8 @@ const initialAjoutState = {
   codeP: "",
   show: false,
   selected: false,
-  showBonBefore: false
+  showBonBefore: false,
+  showError: false
 };
 const AjoutSlice = createSlice({
   name: "ajout",
@@ -31,6 +32,9 @@ const AjoutSlice = createSlice({
     getPatient(state, action) {
       state.patient = action.payload;
     },
+    showError(state){
+      state.showError = !state.showError
+    }
   },
 });
 

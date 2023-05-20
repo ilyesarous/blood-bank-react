@@ -1,6 +1,11 @@
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Input,
   InputLabel,
   List,
@@ -26,6 +31,7 @@ const Ajout = () => {
   const patient = useSelector((state) => state.ajoutDonation.patient);
 
   const show = useSelector((state) => state.ajoutDonation.show);
+  const verif = useSelector((state) => state.ajoutDonation.showError);
 
   const ajou = useDispatch();
 
@@ -70,6 +76,10 @@ const Ajout = () => {
     setAge("");
     setState("");
   };
+
+  const closeHandler = () => {
+    ajou(AjoutActions.showError())
+  }
 
   return (
     <Box>
@@ -116,7 +126,7 @@ const Ajout = () => {
                 <InputLabel sx={{ flex: 2 }}>tension:</InputLabel>
                 <Input
                   sx={{ flex: 2 }}
-                  value={age}
+                  // value={age}
                   onChange={handleAge}
                   required
                 />
@@ -131,6 +141,26 @@ const Ajout = () => {
                 </Button>
               </ListItem>
             </form>
+            <Dialog
+                  open={verif}
+                  onClose={closeHandler}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Error!"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      There was a problem!
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={closeHandler} autoFocus>
+                      Ok
+                    </Button>
+                  </DialogActions>
+                </Dialog>
           </List>
         </Box>
       </StyleModal>

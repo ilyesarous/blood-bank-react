@@ -107,7 +107,7 @@ const SearchBar = () => {
             <UpdateOutlined />
           </Button>
           {selected && (
-            <Alert severity="warning">you need to select a blood</Alert>
+            <Alert severity="warning">you need to select a donation</Alert>
           )}
         </Stack>
 
