@@ -41,11 +41,11 @@ const SearchBar = () => {
 
   const ajout = useDispatch();
 
-  const handletypeIdentity = (e) => {
+  const handlePhoneNumber = (e) => {
     setTypeIdentity(e.target.value);
   };
 
-  const handlenumIdentity = (e) => {
+  const handleName = (e) => {
     setNumIdentity(e.target.value);
   };
 
@@ -117,18 +117,18 @@ const SearchBar = () => {
             size="small"
             sx={{ m: 1, minWidth: 140 }}
           >
-            <InputLabel id="demo-select-small">Numero Identity</InputLabel>
-            <Input value={NumIdentity} onChange={handlenumIdentity} required />
+            <InputLabel id="demo-select-small">Name</InputLabel>
+            <Input value={NumIdentity} onChange={handleName} />
           </FormControl>
           <FormControl
             variant="standard"
             size="small"
             sx={{ m: 1, minWidth: 140 }}
           >
-            <InputLabel>Type Identity</InputLabel>
+            <InputLabel>Phone Number</InputLabel>
             <Input
               value={TypeIdentity}
-              onChange={handletypeIdentity}
+              onChange={handlePhoneNumber}
               required
             />
           </FormControl>

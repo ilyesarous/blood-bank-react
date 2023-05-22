@@ -169,7 +169,7 @@ const Tableadd = () => {
               return lastName === "" ? item : item.fullNameEng.includes(lastName);
             }).filter((item) => {
               return PhoneNumber === "" ? item : item.phoneNumber.includes(PhoneNumber);
-            }).filter((item) => {
+            }).filter((item) => { 
               return CodePatient === "" ? item : item.code.includes(CodePatient);
             }).map((row) => {
                 return (

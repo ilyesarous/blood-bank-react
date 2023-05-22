@@ -24,7 +24,7 @@ const SearchBarHistory = () => {
   const navigator = useNavigate();
   
   const addDonation = () => {
-    navigator("/patients/donnation");
+    navigator("/form");
   };
   return (
     <Stack alignItems={"center"}>

@@ -131,9 +131,9 @@ const TableDonnation = () => {
           </TableHead>
           <TableBody>
             {donnations.filter((item) => {
-              return typeIdentity === "" ? item : item.typeIdentity.includes(typeIdentity);
+              return typeIdentity === "" ? item : item.phoneNumber.includes(typeIdentity);
             }).filter((item) => {
-              return numIdentity === "" ? item : item.numIdentity.includes(numIdentity);
+              return numIdentity === "" ? item : item.fullName.includes(numIdentity);
             }).map((row) => {
               return (
                 <StyledTableRow

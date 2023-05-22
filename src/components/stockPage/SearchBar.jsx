@@ -48,6 +48,8 @@ const SearchBar = () => {
   const searchHandler = () => {
     dispatch(addActions.getBlood(blood))
     dispatch(addActions.countHandler())
+
+    setBlood("")
   }
 
   const deleteHandler = () => {
@@ -90,7 +92,7 @@ const SearchBar = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel id="demo-select-small">Blood Group</InputLabel>
-            <Input onChange={getBloodHandler}/>
+            <Input onChange={getBloodHandler} value={blood}/>
           </FormControl>
           
           <Icons>
