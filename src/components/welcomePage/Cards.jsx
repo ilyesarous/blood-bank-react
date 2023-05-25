@@ -59,14 +59,14 @@ const Cards = () => {
       text: "Request Form",
       icon: <Receipt color="primary" sx={{ margin: 1 }} />,
       link: "/demande_form",
-      role: "doctor, request responsable"
+      role: "doctor, stock responsable"
     },
     {
       id: 6,
       text: "Request Table",
       icon: <TableRows color="primary" sx={{ margin: 1 }} />,
       link: "/demande_table",
-      role: "doctor, request responsable"
+      role: "doctor, stock responsable"
     },
     {
       id: 7,

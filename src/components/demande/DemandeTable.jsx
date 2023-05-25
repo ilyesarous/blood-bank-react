@@ -48,6 +48,8 @@ const DemandeTable = () => {
   const [mes, setMes] = useState("");
   const count = useSelector((state) => state.addDemande.count);
   const dispatch = useDispatch();
+  const role = useSelector((state) => state.auth.role);
+
   const getDemandeDataHandler = useCallback(async () => {
     try {
       const demande = await fetch(
@@ -102,7 +104,6 @@ const DemandeTable = () => {
   };
 
   const RejectedHandler = (tab) => {
-    
     axios
       .put(`http://localhost:9005/blood-bank/demandeeee/rej/${tab.code}`, {
         code: tab.code,
@@ -120,7 +121,7 @@ const DemandeTable = () => {
       })
       .then((res) => {
         setMes("Request has been rejected!");
-        dispatch(addActions.addCount())
+        dispatch(addActions.addCount());
         // dispatch(addActions.subtractCount(0));
       })
       .finally(() => {
@@ -177,17 +178,19 @@ const DemandeTable = () => {
                   ))}
                   <TableCell align="center">
                     <Stack flexDirection={"row"}>
-                      <IconButton
-                        onClick={() => AcceptedHandler(tab)}
-                        sx={{
-                          ":hover": {
-                            backgroundColor: "#1D95BB",
-                            color: "white",
-                          },
-                        }}
-                      >
-                        <Check />
-                      </IconButton>
+                      {role.role !== "doctor" && (
+                        <IconButton
+                          onClick={() => AcceptedHandler(tab)}
+                          sx={{
+                            ":hover": {
+                              backgroundColor: "#1D95BB",
+                              color: "white",
+                            },
+                          }}
+                        >
+                          <Check />
+                        </IconButton>
+                      )}
                       <IconButton
                         onClick={() => RejectedHandler(tab)}
                         sx={{

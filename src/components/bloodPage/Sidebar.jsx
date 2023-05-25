@@ -114,7 +114,7 @@ const Sidebar = () => {
     setGivenTo("");
     setRecievedFrom("");
   };
-  
+
   const addHandler = (e) => {
     e.preventDefault();
 
@@ -131,7 +131,7 @@ const Sidebar = () => {
         dispatch(bloodActions.showCard());
       })
       .catch((e) => {
-        dispatch(bloodActions.setAlert())
+        dispatch(bloodActions.setAlert());
       });
 
     setBloodGrp("");
@@ -141,8 +141,8 @@ const Sidebar = () => {
   };
 
   const closeHandler = () => {
-    dispatch(bloodActions.setAlert())
-  }
+    dispatch(bloodActions.setAlert());
+  };
 
   const cancelHandler = () => {
     dispatch(bloodActions.showCard());
@@ -235,15 +235,19 @@ const Sidebar = () => {
                       onChange={handleGivenTo}
                       sx={{ display: "flex", flexDirection: "row" }}
                     >
-                      {allTypes.map((g) => (
-                        <FormControlLabel
-                          key={i++}
-                          control={<Checkbox />}
-                          label={g}
-                          value={g}
-                          name="givenTo"
-                        />
-                      ))}
+                      {allTypes
+                        .filter((item) => {
+                          return item !== "--";
+                        })
+                        .map((g) => (
+                          <FormControlLabel
+                            key={i++}
+                            control={<Checkbox />}
+                            label={g}
+                            value={g}
+                            name="givenTo"
+                          />
+                        ))}
                     </FormGroup>
                   </FormControl>
                 </ListItemText>
@@ -253,16 +257,20 @@ const Sidebar = () => {
                   <Typography>Receiver</Typography>
                   <FormControl>
                     <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
-                      {allTypes.map((g) => (
-                        <FormControlLabel
-                          onChange={handleReceivedFrom}
-                          key={i++}
-                          control={<Checkbox />}
-                          name="receivedFrom"
-                          label={g}
-                          value={g}
-                        />
-                      ))}
+                      {allTypes
+                        .filter((item) => {
+                          return item !== "--";
+                        })
+                        .map((g) => (
+                          <FormControlLabel
+                            onChange={handleReceivedFrom}
+                            key={i++}
+                            control={<Checkbox />}
+                            name="receivedFrom"
+                            label={g}
+                            value={g}
+                          />
+                        ))}
                     </FormGroup>
                   </FormControl>
                 </ListItemText>
@@ -284,9 +292,7 @@ const Sidebar = () => {
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
                 >
-                  <DialogTitle id="alert-dialog-title">
-                    {"Error!"}
-                  </DialogTitle>
+                  <DialogTitle id="alert-dialog-title">{"Error!"}</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                       This blood group already exists

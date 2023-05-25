@@ -5,16 +5,12 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
-  FormHelperText,
-  FormLabel,
   Input,
   InputLabel,
   List,
   ListItem,
   ListItemText,
   Modal,
-  Radio,
-  RadioGroup,
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
@@ -33,12 +29,10 @@ const UpdateBar = () => {
   let i = 0;
   const codeBlood = useSelector((state) => state.updateBlood.code);
   const bloodGrpStore = useSelector((state) => state.updateBlood.bloodGrp);
-  // const blood = useSelector((state) => state.updateBlood.blood);
-  // const bloodRhesus = useSelector((state) => state.updateBlood.rhesus);
+  const bloodRhesus = useSelector((state) => state.updateBlood.rhesus);
 
-  const [bloodGrp, setBloodGrp] = useState(bloodGrpStore);
   const [givenTo, setGivenTo] = useState([]);
-  const [rhesus, setRhesus] = useState("");
+
   const [receivedFrom, setRecievedFrom] = useState([]);
 
   const [allTypes, setAllTypes] = useState([]);
@@ -69,19 +63,6 @@ const UpdateBar = () => {
     if (ch1 === "") ch1 = "-";
   }
 
-  const handleBloodGrpChange = (event) => {
-    setBloodGrp(event.target.value);
-  };
-  const handleRhesusChange = (event) => {
-    if (event.target.value === "positive") {
-      setRhesus("+");
-    } else {
-      setRhesus("-");
-    }
-
-    console.log("rhesus: ", rhesus);
-  };
-
   const handleGivenTo = (event) => {
     const index = givenTo.indexOf(event.target.value);
     if (index === -1) setGivenTo([...givenTo, event.target.value]);
@@ -105,8 +86,7 @@ const UpdateBar = () => {
   const dispatch = useDispatch();
   const showHandler = () => {
     dispatch(updateActions.showCardUpdate());
-    setBloodGrp("");
-    setRhesus("");
+  
     setGivenTo("");
     setRecievedFrom("");
   };
@@ -116,8 +96,8 @@ const UpdateBar = () => {
     axios
       .put(`http://localhost:9005/blood-bank/blood/${codeBlood}`, {
         codeBlood: codeBlood,
-        bloodGrp: bloodGrp,
-        rhesus: rhesus,
+        bloodGrp: bloodGrpStore,
+        rhesus: bloodRhesus,
         givenTo: ch,
         receivedFrom: ch1,
       })
@@ -129,16 +109,12 @@ const UpdateBar = () => {
         console.log("error");
       });
 
-    setBloodGrp("");
-    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
     dispatch(updateActions.showCardUpdate());
   };
 
   const cancelHandler = () => {
-    setBloodGrp("");
-    setRhesus("");
     setGivenTo("");
     setRecievedFrom("");
 
@@ -176,94 +152,61 @@ const UpdateBar = () => {
               </ListItem>
               <ListItem sx={{ display: "flex", width: "100%" }}>
                 <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
-                  <InputLabel>Blood Group</InputLabel>
+                  <InputLabel>Blood</InputLabel>
                   <Input
-                    onChange={handleBloodGrpChange}
                     label="Blood Group"
                     name="bloodGrp"
-                    // required
-                    // error={bloodGrp === ""}
-                    placeholder={bloodGrpStore}
+                    value={bloodGrpStore + bloodRhesus}
+                    disabled
                   />
-                  {/* {bloodGrp === "" && (
-                    <FormHelperText error={bloodGrp === ""}>
-                      Blood group is required
-                    </FormHelperText>
-                  )} */}
-                </FormControl>
-              </ListItem>
-              <ListItem>
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                  <FormLabel id="demo-row-radio-buttons-group-label">
-                    Blood Type
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    onClick={handleRhesusChange}
-                    sx={{ display: "flex", gap: 5 }}
-                  >
-                    <FormControlLabel
-                      value="positive"
-                      control={<Radio />}
-                      label="+"
-                    />
-                    <FormControlLabel
-                      value="negative"
-                      control={<Radio />}
-                      label="-"
-                    />
-                  </RadioGroup>
-                  {/* {rhesus === "" && (
-                    <FormHelperText error={rhesus === ""}>
-                      Blood type is required
-                    </FormHelperText>
-                  )} */}
-                  {/* {!alert && (
-                    <FormHelperText error={alert}>
-                      Already exists
-                    </FormHelperText>
-                  )} */}
+                 
                 </FormControl>
               </ListItem>
 
               <ListItem>
                 <ListItemText>
-                  <Typography>Given to</Typography>
+                  <Typography>Donor</Typography>
                   <FormControl>
                     <FormGroup
                       onChange={handleGivenTo}
                       sx={{ display: "flex", flexDirection: "row" }}
                     >
-                      {allTypes.map((g) => (
-                        <FormControlLabel
-                          key={i++}
-                          control={<Checkbox />}
-                          label={g}
-                          value={g}
-                          name="givenTo"
-                        />
-                      ))}
+                      {allTypes
+                        .filter((item) => {
+                          return item !== "--";
+                        })
+                        .map((g) => (
+                          <FormControlLabel
+                            key={i++}
+                            control={<Checkbox />}
+                            label={g}
+                            value={g}
+                            name="givenTo"
+                          />
+                        ))}
                     </FormGroup>
                   </FormControl>
                 </ListItemText>
               </ListItem>
               <ListItem>
                 <ListItemText>
-                  <Typography>Received From</Typography>
+                  <Typography>Receiver</Typography>
                   <FormControl>
                     <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
-                      {allTypes.map((g) => (
-                        <FormControlLabel
-                          onChange={handleReceivedFrom}
-                          key={i++}
-                          control={<Checkbox />}
-                          name="receivedFrom"
-                          label={g}
-                          value={g}
-                        />
-                      ))}
+                      {allTypes
+                        .filter((item) => {
+                          return item !== "--";
+                        })
+                        .map((g) => (
+                          <FormControlLabel
+                            onChange={handleReceivedFrom}
+                            key={i++}
+                            control={<Checkbox />}
+                            name="receivedFrom"
+                            label={g}
+                            value={g}
+                          />
+                        ))}
                     </FormGroup>
                   </FormControl>
                 </ListItemText>
@@ -275,7 +218,6 @@ const UpdateBar = () => {
                 <Button
                   variant="outlined"
                   type="submit"
-                  // disabled={bloodGrp === "" || rhesus === ""}
                 >
                   Update
                 </Button>

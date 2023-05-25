@@ -38,11 +38,6 @@ const Modif = () => {
     axios
       .put(`http://localhost:9005/blood-bank/patient/${patient.code}`, {
         code: patient.code,
-        firstNameAr: patient.firstNameAr,
-        lastNameAr: patient.lastNameAr,
-        fatherNameAr: patient.fatherNameAr,
-        grandFatherNameAr: patient.grandFatherNameAr,
-        fullNameAr: patient.fullNameAr,
         firstNameEng: patient.firstNameEng,
         lastNameEng: patient.lastNameEng,
         fatherNameEng: patient.fatherNameEng,
@@ -54,6 +49,8 @@ const Modif = () => {
         adress: Adress,
         email: Email,
         bloodCode: patient.bloodCode,
+        typeIdentity: patient.typeIdentity,
+        numIdentity: patient.numIdentity,
       })
       .then((res) => {
         console.log("udateted");

@@ -203,10 +203,10 @@ const DemandeForm = () => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Login failed!"}</DialogTitle>
+          {/* <DialogTitle id="alert-dialog-title">{"failed to send request!"}</DialogTitle> */}
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Email or Password is incorrect!
+            failed to send request!
             </DialogContentText>
           </DialogContent>
           <DialogActions>
