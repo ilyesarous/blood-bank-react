@@ -72,10 +72,10 @@ const Add = () => {
         <Box sx={{ display: "flex" }}>
           <CancelOutlined
             onClick={showCardHandler}
-            sx={{ marginRight: "25%" }}
+            sx={{ marginRight: "20%" }}
           />
           <Typography variant="h6" color="gray" textAlign="center">
-            Update Patient
+            Add Blood from supplier 
           </Typography>
         </Box>
           <List>

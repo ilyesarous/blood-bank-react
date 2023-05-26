@@ -37,16 +37,6 @@ const columns = [
     align: "center",
   },
   {
-    id: "lastNameEng",
-    label: "Last Name",
-    align: "center",
-  },
-  {
-    id: "firstNameEng",
-    label: "First Name",
-    align: "center",
-  },
-  {
     id: "fullNameEng",
     label: "Full Name",
     align: "center",
@@ -62,13 +52,13 @@ const columns = [
     align: "center",
   },
   {
-    id: "phoneNumber",
-    label: "Phone Number",
+    id: "bloodCode",
+    label: "Blood",
     align: "center",
   },
   {
-    id: "adress",
-    label: "Adress",
+    id: "phoneNumber",
+    label: "Phone Number",
     align: "center",
   },
   {
@@ -76,11 +66,7 @@ const columns = [
     label: "Email",
     align: "center",
   },
-  {
-    id: "bloodCode",
-    label: "Blood",
-    align: "center",
-  },
+ 
   {
     id: "birthDay",
     label: "Birthday",
