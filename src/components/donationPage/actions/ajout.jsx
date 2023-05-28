@@ -35,11 +35,16 @@ const Ajout = () => {
 
   const ajou = useDispatch();
 
-  const [age, setAge] = useState(0);
+  const [diastolicPressure, setDia] = useState(0);
+  const [systolicPressure, setSys] = useState(0);
+
   const [state, setState] = useState("PENDING");
 
-  const handleAge = (e) => {
-    setAge(e.target.value);
+  const handlediastolicPressure = (e) => {
+    setDia(e.target.value);
+  };
+  const handlesystolicPressure = (e) => {
+    setSys(e.target.value);
   };
 
   const submitHandler = (e) => {
@@ -49,7 +54,8 @@ const Ajout = () => {
       .post("http://localhost:9005/blood-bank/donation", {
         fullName: patient.fullNameEng,
         codePatient: patient.code,
-        tension: age,
+        diastolicPressure: diastolicPressure,
+        systolicPressure: systolicPressure,
         adress: patient.adress,
         etat: state,
         blood: "--",
@@ -66,14 +72,16 @@ const Ajout = () => {
         console.log("error");
       });
 
-    setAge("");
+      setDia("");
+      setSys("");
     setState("");
   };
 
   const showCardHandler = () => {
     ajou(AjoutActions.Showme());
 
-    setAge("");
+    setDia("");
+    setSys("");
     setState("");
   };
 
@@ -123,11 +131,20 @@ const Ajout = () => {
               </ListItem>
 
               <ListItem sx={{ display: "flex" }}>
-                <InputLabel sx={{ flex: 2 }}>tension:</InputLabel>
+                <InputLabel sx={{ flex: 2 }}>diastolic Pressure:</InputLabel>
                 <Input
                   sx={{ flex: 2 }}
                   // value={age}
-                  onChange={handleAge}
+                  onChange={handlediastolicPressure}
+                  required
+                />
+              </ListItem>
+              <ListItem sx={{ display: "flex" }}>
+                <InputLabel sx={{ flex: 2 }}>systolic Pressure:</InputLabel>
+                <Input
+                  sx={{ flex: 2 }}
+                  // value={age}
+                  onChange={handlesystolicPressure}
                   required
                 />
               </ListItem>

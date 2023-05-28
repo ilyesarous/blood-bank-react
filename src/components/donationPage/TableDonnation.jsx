@@ -35,8 +35,14 @@ const columns = [
     height: "20px",
   },
   {
-    id: "tension",
-    label: "Tension",
+    id: "diastolicPressure",
+    label: "diastolic Pressure",
+    align: "center",
+    height: "20px",
+  },
+  {
+    id: "systolicPressure",
+    label: "systolic Pressure",
     align: "center",
     height: "20px",
   },
