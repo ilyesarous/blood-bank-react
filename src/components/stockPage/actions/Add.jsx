@@ -75,11 +75,7 @@ const Add = () => {
             sx={{ marginRight: "25%" }}
           />
           <Typography variant="h6" color="gray" textAlign="center">
-<<<<<<< HEAD
-            Add to Stock
-=======
             Add Blood from supplier 
->>>>>>> 07203cc157515b4d59325a0710d58a0f9d45f9b5
           </Typography>
         </Box>
           <List>
