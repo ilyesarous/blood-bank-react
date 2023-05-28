@@ -75,7 +75,7 @@ const Add = () => {
             sx={{ marginRight: "25%" }}
           />
           <Typography variant="h6" color="gray" textAlign="center">
-            Update Patient
+            Add to Stock
           </Typography>
         </Box>
           <List>

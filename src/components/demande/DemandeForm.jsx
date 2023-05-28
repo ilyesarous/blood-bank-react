@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
   FormControl,
   Input,
   List,
@@ -44,7 +43,7 @@ const DemandeForm = () => {
   const [types, setTypes] = useState([]);
   const status = "";
   const dispatch = useDispatch();
-  const disable = useSelector(state => state.addDemande.selected)
+  const disable = useSelector((state) => state.addDemande.selected);
 
   const closeHandler = () => {
     dispatch(addActions.setSelected());
@@ -94,7 +93,7 @@ const DemandeForm = () => {
         // setError("success")
       })
       .catch((e) => {
-        dispatch(addActions.setSelected())
+        dispatch(addActions.setSelected());
         // setError("error")
       });
 
@@ -138,11 +137,15 @@ const DemandeForm = () => {
                     label="blood"
                   >
                     <MenuItem value={""}>NONE</MenuItem>
-                    {types.map((type) => (
-                      <MenuItem key={type} value={type}>
-                        {type}
-                      </MenuItem>
-                    ))}
+                    {types
+                      .filter((item) => {
+                        return item !== "--";
+                      })
+                      .map((type) => (
+                        <MenuItem key={type} value={type}>
+                          {type}
+                        </MenuItem>
+                      ))}
                     {/* <MenuItem value={"minor"}>Minor</MenuItem> */}
                   </Select>
                 </FormControl>
@@ -187,10 +190,7 @@ const DemandeForm = () => {
                 </FormControl>
               </ListItem>
               <ListItem sx={{ justifyContent: "right" }}>
-                <Button
-                  type="submit"
-                  variant="outlined"
-                >
+                <Button type="submit" variant="outlined">
                   Send
                 </Button>
               </ListItem>
@@ -206,7 +206,7 @@ const DemandeForm = () => {
           {/* <DialogTitle id="alert-dialog-title">{"failed to send request!"}</DialogTitle> */}
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-            failed to send request!
+              failed to send request!
             </DialogContentText>
           </DialogContent>
           <DialogActions>
