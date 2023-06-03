@@ -160,7 +160,7 @@ const Tableadd = () => {
             }).map((row) => {
                 return (
                   <StyledTableRow
-                    sx={{ ":focus": { backgroundColor: "#EEEEEE" } }}
+                    sx={{ ":focus": { backgroundColor: "#dedcdc" } }}
                     onClick={() => getlesvaleur(row)}
                     hover
                     role="checkbox"
@@ -183,7 +183,7 @@ const Tableadd = () => {
                               <Select sx={{ height: "20px" }}>
                               <MenuItem>
                                   <Link
-                                    to="/form"
+                                    to="/patients/donation"
                                     style={{
                                       textDecoration: "none",
                                       color: "black",

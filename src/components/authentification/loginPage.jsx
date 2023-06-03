@@ -101,7 +101,7 @@ const Auth = () => {
                 bgcolor: "transparent",
               }}
             >
-              Sign in
+              Login
             </ListSubheader>
           }
         >

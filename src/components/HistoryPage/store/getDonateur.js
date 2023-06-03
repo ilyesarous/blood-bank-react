@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const initialState = { Code:"" }
+const initialState = { Code:"", search: "" }
 
 const GetSlice = createSlice({
     name: "getDonateur",
@@ -10,7 +10,9 @@ const GetSlice = createSlice({
         CodePat(state, action) {
             state.Code = action.payload
         },
-        
+        Search(state, action){
+            state.search = action.payload
+        }
     }}
     )
 

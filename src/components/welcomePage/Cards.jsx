@@ -44,7 +44,7 @@ const Cards = () => {
       id: 3,
       text: "Donations",
       icon: <VolunteerActivism color="primary" sx={{ margin: 1 }} />,
-      link: "/patients/donnation",
+      link: "/patients/donation",
       role: "data responsable"
     },
     {

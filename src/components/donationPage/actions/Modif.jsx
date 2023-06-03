@@ -35,12 +35,14 @@ const Modif = () => {
 
   const showCardHandler = () => {
     mf(modifActions.Showme());
+    mf(modifActions.getDonateur(""))
   };
   const handleObservation = (e) => {
     setObservation(e.target.value);
   };
   const handleBlood = (e) => {
-    setBlood(e.target.value);
+    if(donateur.blood === "--")
+      setBlood(e.target.value);
   };
   const handleState = (e) => {
     setState(e.target.value);
@@ -69,6 +71,7 @@ const Modif = () => {
           mf(modifActions.showBonAfter());
         }
         mf(modifActions.Showme());
+        mf(modifActions.getDonateur(""))
       })
       .catch((e) => {
         console.log("error");

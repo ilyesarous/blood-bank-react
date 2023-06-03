@@ -23,6 +23,9 @@ const ModifSlice = createSlice({
     },
     showBonAfter(state){
       state.showBon =! state.showBon
+    },
+    showUpdateAlert(state){
+      state.selected = false
     }
   },
 });

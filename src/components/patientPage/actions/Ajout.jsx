@@ -48,7 +48,7 @@ const Ajout = () => {
   const [birdhday, setBirthday] = useState(null);
   const [numIdentity, setNumIdentity] = useState("");
 
-  const verif = useSelector(state => state.ajout.showAlert)
+  const verif = useSelector((state) => state.ajout.showAlert);
 
   const addPatient = (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ const Ajout = () => {
         aj(AjoutActions.Showme());
       })
       .catch((e) => {
-        closeHandler()
+        closeHandler();
         console.log("error!");
       });
 
@@ -91,8 +91,8 @@ const Ajout = () => {
   };
 
   const closeHandler = () => {
-    aj(AjoutActions.ShowAlert())
-  }
+    aj(AjoutActions.ShowAlert());
+  };
 
   const handleBirdhday = (e) => {
     setBirthday(e.target.value);
@@ -129,11 +129,7 @@ const Ajout = () => {
     setTypeIdentity(e.target.value);
   };
 
-
-
   const showCardHandler = () => {
-    aj(AjoutActions.Showme());
-
     setLastnameEng("");
     setFirstnameEng("");
     setFathernameEng("");
@@ -144,6 +140,8 @@ const Ajout = () => {
     setNumber("");
     setTypeIdentity("");
     setNumIdentity("");
+
+    aj(AjoutActions.Showme());
   };
 
   return (
@@ -171,21 +169,33 @@ const Ajout = () => {
                 <ListItem sx={{ flex: 1 }}>
                   <FormControl variant="standard">
                     <InputLabel>Last name</InputLabel>
-                    <Input onChange={handleLastnamEng} value={lastNameEng} required />
+                    <Input
+                      onChange={handleLastnamEng}
+                      value={lastNameEng}
+                      required
+                    />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ flex: 1 }}>
                   <FormControl variant="standard">
                     <InputLabel>First name </InputLabel>
-                    <Input onChange={handleFirstnameEng} value={firstNameEng} required />
+                    <Input
+                      onChange={handleFirstnameEng}
+                      value={firstNameEng}
+                      required
+                    />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ flex: 1 }}>
                   <FormControl variant="standard">
                     <InputLabel>Father's name </InputLabel>
-                    <Input onChange={handleFathernameEng} value={fatherNameEng} required />
+                    <Input
+                      onChange={handleFathernameEng}
+                      value={fatherNameEng}
+                      required
+                    />
                   </FormControl>
                 </ListItem>
               </ListItem>
@@ -194,32 +204,48 @@ const Ajout = () => {
                 <ListItem sx={{ flex: 1 }}>
                   <FormControl variant="standard">
                     <InputLabel>Grand father's name</InputLabel>
-                    <Input onChange={handleGrandFathernameEng} value={grandFatherNameEng} required />
+                    <Input
+                      onChange={handleGrandFathernameEng}
+                      value={grandFatherNameEng}
+                      required
+                    />
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ flex: 1 }}>
-                  <FormControl variant="standard">
+                  <FormControl variant="standard" sx={{width: "100%"}}>
                     <InputLabel>Identity type</InputLabel>
-                    <Input onChange={handleIdentityType} value={typeIdentity} required />
+                    <Select
+                      variant="standard"
+                      labelId="demo-select-small"
+                      id="demo-select-small"
+                      value={typeIdentity}
+                      label="Identity type"
+                      onChange={handleIdentityType}
+                    >
+                      <MenuItem value="cin">Cin</MenuItem>
+                      <MenuItem value="passport">Passport</MenuItem>
+                    </Select>
                   </FormControl>
                 </ListItem>
 
                 <ListItem sx={{ flex: 1 }}>
                   <FormControl variant="standard">
                     <InputLabel>Identity number</InputLabel>
-                    <Input onChange={handleNumIdentity} value={numIdentity} required />
+                    <Input
+                      onChange={handleNumIdentity}
+                      value={numIdentity}
+                      required
+                    />
                   </FormControl>
                 </ListItem>
-
               </ListItem>
 
               <ListItem sx={{ display: "flex" }}>
-
-              <ListItem sx={{ flex: 1 }}>
+                <ListItem sx={{ flex: 1 }}>
                   <FormControl variant="standard">
                     <InputLabel>Email</InputLabel>
-                    <Input onChange={handleEmail} value={email} required/>
+                    <Input onChange={handleEmail} value={email} required />
                   </FormControl>
                 </ListItem>
 
@@ -233,14 +259,17 @@ const Ajout = () => {
                 <ListItem sx={{ flex: 1 }}>
                   <FormControl variant="standard">
                     <InputLabel>Phone number</InputLabel>
-                    <Input onChange={handleNumber} value={phoneNumber} required />
+                    <Input
+                      onChange={handleNumber}
+                      value={phoneNumber}
+                      required
+                    />
                   </FormControl>
                 </ListItem>
               </ListItem>
 
               <ListItem>
-
-              <ListItem sx={{ flex: 1 }}>
+                <ListItem sx={{ flex: 1 }}>
                   <TextField
                     onChange={handleBirdhday}
                     id="date"
@@ -273,7 +302,6 @@ const Ajout = () => {
                     </Select>
                   </FormControl>
                 </ListItem>
-
               </ListItem>
 
               <ListItem sx={{ justifyContent: "right", gap: 3 }}>
@@ -285,27 +313,24 @@ const Ajout = () => {
                 </Button>
               </ListItem>
               <Dialog
-                  open={verif}
-                  onClose={closeHandler}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"Error!"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                      This Patient already exists
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={closeHandler} autoFocus>
-                      Ok
-                    </Button>
-                  </DialogActions>
-                </Dialog>
+                open={verif}
+                onClose={closeHandler}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"Error!"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    This Patient already exists
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={closeHandler} autoFocus>
+                    Ok
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </form>
-            
           </List>
         </Box>
       </StyleModal>

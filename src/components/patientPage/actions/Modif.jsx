@@ -53,7 +53,8 @@ const Modif = () => {
         numIdentity: patient.numIdentity,
       })
       .then((res) => {
-        console.log("udateted");
+        console.log("updateted");
+        up(ModifActions.modifPat(""));
         up(ModifActions.modifCounteur());
       })
       .catch((e) => {
@@ -76,7 +77,9 @@ const Modif = () => {
     setNumber(e.target.value);
   };
   const showCardHandler = () => {
+    up(ModifActions.modifPat(""));
     up(ModifActions.ShowAlert());
+    up(ModifActions.getCodePatient(""));
   };
 
   return (

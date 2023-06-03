@@ -1,6 +1,10 @@
 import {
-  Alert,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   IconButton,
   Input,
@@ -61,6 +65,9 @@ const SearchBar = () => {
     setCodePatient("");
     setPhoneNumber("");
   };
+  const closeHandler = () => {
+    aj(ModifActions.hideAlert());
+  };
 
   return (
     <Stack alignItems={"center"}>
@@ -83,9 +90,6 @@ const SearchBar = () => {
 
             <Update />
           </Button>
-          {verif && (
-            <Alert severity="warning">you need to select a patient!</Alert>
-          )}
         </Stack>
 
         <Stack flexDirection={"row"} gap={2}>
@@ -130,6 +134,26 @@ const SearchBar = () => {
           </Icons>
         </Stack>
       </SearchToolBar>
+      <Dialog
+                  open={verif}
+                  onClose={closeHandler}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Error!"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      You need to select a patient!
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={closeHandler} autoFocus>
+                      Ok
+                    </Button>
+                  </DialogActions>
+                </Dialog>
     </Stack>
   );
 };

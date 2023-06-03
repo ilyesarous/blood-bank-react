@@ -50,7 +50,7 @@ const columns = [
 const TableHistory = () => {
   const [donnations, setDeoonations] = useState([]);
   const codepatient = useSelector((state) => state.getDonateur.Code);
-  console.log("el code ", codepatient);
+  const search = useSelector((state) => state.getDonateur.search);
   const getDonnationsHandler = useCallback(async () => {
     try {
       const blood = await fetch(
@@ -88,7 +88,9 @@ const TableHistory = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {donnations.map((row) => {
+            {donnations.filter(item => {
+                return search === "" ? item : item.dateCreate.includes(search);
+              }).map((row) => {
               return (
                 <StyledTableRow
                   hover

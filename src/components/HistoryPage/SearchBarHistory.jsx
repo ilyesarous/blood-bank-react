@@ -1,4 +1,4 @@
-import { AddCircleOutline, SearchOutlined } from "@mui/icons-material";
+import { AddCircleOutline, ArrowBackIosNew, SearchOutlined } from "@mui/icons-material";
 import {
   Button,
   FormControl,
@@ -13,6 +13,9 @@ import {
 
 import { Icons } from "../../theme/styles";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { GetDonateurActions } from "./store/getDonateur";
 
 const SearchToolBar = styled(Toolbar)({
   display: "flex",
@@ -22,14 +25,29 @@ const SearchToolBar = styled(Toolbar)({
 
 const SearchBarHistory = () => {
   const navigator = useNavigate();
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
   
+  const searchHandler = (e)=>{
+    setSearch(e.target.value);
+  }
+  const Search = () => {
+    dispatch(GetDonateurActions.Search(search))
+  }
+
   const addDonation = () => {
     navigator("/form");
   };
+  const goHome = () => {
+    navigator(-1)
+  }
   return (
     <Stack alignItems={"center"}>
       <SearchToolBar>
         <Stack flexDirection={"row"} gap={3} margin={2} height={48}>
+        <IconButton sx={{width:48, color:"#1D95BB"}} onClick={goHome} >
+            <ArrowBackIosNew/>
+          </IconButton>
           <Button
             onClick={addDonation}
             variant="outlined"
@@ -51,7 +69,7 @@ const SearchBarHistory = () => {
             sx={{ m: 1, minWidth: 140 }}
           >
             <InputLabel>Date Create</InputLabel>
-            <Input required />
+            <Input onChange={searchHandler} />
           </FormControl>
           <Icons>
             <IconButton
@@ -59,16 +77,12 @@ const SearchBarHistory = () => {
               color="inherit"
               aria-label="search"
               sx={{ mr: 2, border: ".5px solid #1D95BB" }}
-              // onClick={searchHandler}
+              onClick={Search}
             >
               <SearchOutlined color="primary" />
             </IconButton>
           </Icons>
         </Stack>
-        {/* <Search>
-            <InputBase placeholder="Search..." sx={{ flex: 2 }} />
-            <SearchOutlined color="secondary" />
-          </Search> */}
       </SearchToolBar>
     </Stack>
   );

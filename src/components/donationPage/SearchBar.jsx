@@ -1,5 +1,8 @@
 import {
   AddCircleOutline,
+  ArrowBack,
+  ArrowBackIos,
+  ArrowBackIosNew,
   SearchOutlined,
   UpdateOutlined,
 } from "@mui/icons-material";
@@ -26,6 +29,7 @@ import { Icons } from "../../theme/styles";
 import { AjoutActions } from "./store/ajout";
 import { GetActions } from "./store/get";
 import { modifActions } from "./store/modif";
+import { useNavigate } from "react-router-dom";
 
 const SearchToolBar = styled(Toolbar)({
   display: "flex",
@@ -38,7 +42,7 @@ const SearchBar = () => {
   const [NumIdentity, setNumIdentity] = useState("");
   const selected = useSelector((state) => state.modifDonation.selected);
   const disable = useSelector((state) => state.ajoutDonation.selected);
-
+  const navigator = useNavigate()
   const ajout = useDispatch();
 
   const handlePhoneNumber = (e) => {
@@ -52,7 +56,7 @@ const SearchBar = () => {
   const toggleAjoutDonationHandler = () => {
     ajout(AjoutActions.Showme());
   };
-  const closeHandler=() => {
+  const closeHandlerAdd=() => {
     ajout(AjoutActions.closeAlertHandler())
   }
   const toggleModifDonationHandler = () => {
@@ -66,10 +70,21 @@ const SearchBar = () => {
     setNumIdentity("");
   };
 
+  const closeHandlerUpdate = () => {
+    ajout(modifActions.showUpdateAlert())
+  }
+  
+  const goHome = () =>{
+    navigator(-1)
+  }
+
   return (
     <Stack alignItems={"center"}>
       <SearchToolBar>
         <Stack flexDirection={"row"} gap={3} margin={2} height={48}>
+          <IconButton sx={{width:48, color:"#1D95BB"}} onClick={goHome} >
+            <ArrowBackIosNew/>
+          </IconButton>
           <Button
             onClick={toggleAjoutDonationHandler}
             variant="outlined"
@@ -80,12 +95,12 @@ const SearchBar = () => {
           </Button>
           <Dialog
             open={disable}
-            onClose={closeHandler}
+            onClose={closeHandlerAdd}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
             <DialogTitle id="alert-dialog-title">
-              {"Can't open the add window?"}
+              {"Alert!"}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
@@ -93,7 +108,7 @@ const SearchBar = () => {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={closeHandler} autoFocus>
+              <Button onClick={closeHandlerAdd} autoFocus>
                 Ok
               </Button>
             </DialogActions>
@@ -106,9 +121,29 @@ const SearchBar = () => {
             <Typography>Update</Typography>
             <UpdateOutlined />
           </Button>
-          {selected && (
+          {/* {selected && (
             <Alert severity="warning">you need to select a donation</Alert>
-          )}
+          )} */}
+          <Dialog
+            open={selected}
+            onClose={closeHandlerUpdate}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Alert!"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                You should select a donation!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={closeHandlerUpdate} autoFocus>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Stack>
 
         <Stack flexDirection={"row"} gap={2}>

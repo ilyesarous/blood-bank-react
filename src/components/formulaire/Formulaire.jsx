@@ -80,7 +80,7 @@ const Formulaire = () => {
     } else {
       setAlert(false);
 
-      navigateor("/patients/donnation");
+      navigateor("/patients/donation");
     }
   };
 

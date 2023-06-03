@@ -31,7 +31,7 @@ function App() {
               <Route path="/welcome" element={<Body />} />
               <Route path="/blood" element={<BloodPage />} />
               <Route path="/patients" element={<Patient />} />
-              <Route path="/patients/donnation" element={<DonnationPage />} />
+              <Route path="/patients/donation" element={<DonnationPage />} />
               <Route path="/patients/history" element={<HistoryPage />} />
               <Route path="/form" element={<Formulaire />} />
               <Route path="/stock" element={<Stock />} />

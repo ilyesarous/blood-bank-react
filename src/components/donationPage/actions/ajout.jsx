@@ -34,6 +34,8 @@ const Ajout = () => {
   const verif = useSelector((state) => state.ajoutDonation.showError);
 
   const ajou = useDispatch();
+  
+  const [mesError, setMesError] = useState("")
 
   const [diastolicPressure, setDia] = useState(0);
   const [systolicPressure, setSys] = useState(0);
@@ -63,22 +65,27 @@ const Ajout = () => {
         phoneNumber: patient.phoneNumber,
       })
       .then((res) => {
-        console.log("done");
         ajou(GetActions.modifcounteur());
-        ajou(AjoutActions.showBonBefore());
         ajou(AjoutActions.Showme());
+        ajou(AjoutActions.getPatient(""));
+        ajou(AjoutActions.getcode(""));
+        ajou(AjoutActions.showBonBefore());
+        
       })
       .catch((e) => {
-        console.log("error");
+        setMesError(e.message);
+        ajou(AjoutActions.showError());
       });
 
-      setDia("");
-      setSys("");
+    setDia("");
+    setSys("");
     setState("");
   };
 
   const showCardHandler = () => {
+    ajou(AjoutActions.getPatient(""));
     ajou(AjoutActions.Showme());
+    ajou(AjoutActions.getcode(""));
 
     setDia("");
     setSys("");
@@ -86,8 +93,8 @@ const Ajout = () => {
   };
 
   const closeHandler = () => {
-    ajou(AjoutActions.showError())
-  }
+    ajou(AjoutActions.showError());
+  };
 
   return (
     <Box>
@@ -159,25 +166,23 @@ const Ajout = () => {
               </ListItem>
             </form>
             <Dialog
-                  open={verif}
-                  onClose={closeHandler}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"Error!"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                      There was a problem!
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={closeHandler} autoFocus>
-                      Ok
-                    </Button>
-                  </DialogActions>
-                </Dialog>
+              open={verif}
+              onClose={closeHandler}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{"Error!"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  {mesError}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={closeHandler} autoFocus>
+                  Ok
+                </Button>
+              </DialogActions>
+            </Dialog>
           </List>
         </Box>
       </StyleModal>

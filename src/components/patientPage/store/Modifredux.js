@@ -22,12 +22,15 @@ const ModifSlice = createSlice({
     modif(state, action) {
       state.codeP = action.payload;
     },
+    hideAlert(state) {
+      state.select = false;
+    },
     getCodePatient(state, action){
       state.codeP = action.payload
     },
     modifPat(state, action) {
       state.patient = action.payload;
-      console.log("state.patient: ", state.patient);
+      // console.log("state.patient: ", state.patient);
     },
     modifCounteur(state) {
       state.counteur++;
