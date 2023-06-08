@@ -140,9 +140,6 @@ const Signup = () => {
               >
                 <MenuItem value="admin">Admin</MenuItem>
                 <MenuItem value="doctor">Doctor</MenuItem>
-                <MenuItem value="request responsable">
-                  Request Responsable
-                </MenuItem>
                 <MenuItem value="data responsable">Data Responsable</MenuItem>
                 <MenuItem value="stock responsable">Stock Responsable</MenuItem>
               </Select>

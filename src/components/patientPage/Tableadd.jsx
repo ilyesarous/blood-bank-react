@@ -183,7 +183,7 @@ const Tableadd = () => {
                               <Select sx={{ height: "20px" }}>
                               <MenuItem>
                                   <Link
-                                    to="/patients/donation"
+                                    to="/form"
                                     style={{
                                       textDecoration: "none",
                                       color: "black",

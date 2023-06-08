@@ -44,6 +44,11 @@ const entete = [
 ];
 
 const DemandeTable = () => {
+  const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [quantityInStock, setQteInStock] = useState(0);
+  const [line, setLine] = useState("");
+
   const [table, setTable] = useState([]);
   const [mes, setMes] = useState("");
   const count = useSelector((state) => state.addDemande.count);
@@ -67,38 +72,42 @@ const DemandeTable = () => {
     getDemandeDataHandler();
   }, [getDemandeDataHandler]);
 
-  const [open, setOpen] = useState(false);
-
-  const AcceptedHandler = (tab) => {
-    // e.preventDefault();
-    // dispatch(addActions.addCount());
+  const getBlood = (tab) => {
+    setLine(tab);
     axios
-      .put(`http://localhost:9005/blood-bank/demandeeee/${tab.code}`, {
-        code: tab.code,
-        codeMedecin: tab.doctorCode,
-        blood: tab.bloodGrp,
-        quantiter: tab.quantiter,
-        codeService: tab.serviceCode,
-        state: tab.state,
-        status: tab.status,
-        usercreate: tab.usercreate,
-        createDate: tab.createDate,
-        nameMedecin: tab.nameMedecin,
-        nameService: tab.nameService,
-        id: tab.id,
+      .get(`http://localhost:9005/blood-bank/stock/${tab.blood}`)
+      .then((res) => {
+        setQteInStock(res.data);
+        setAlert(true);
+      });
+  };
+
+  const AcceptedHandler = () => {
+    axios
+      .put(`http://localhost:9005/blood-bank/demandeeee/${line.code}`, {
+        code: line.code,
+        codeMedecin: line.doctorCode,
+        blood: line.bloodGrp,
+        quantiter: line.quantiter,
+        codeService: line.serviceCode,
+        state: line.state,
+        status: line.status,
+        usercreate: line.usercreate,
+        createDate: line.createDate,
+        nameMedecin: line.nameMedecin,
+        nameService: line.nameService,
+        id: line.id,
       })
       .then((res) => {
-        console.log("res.data: ", res.data);
         if (res.data.code === null) {
           setMes("Request has been aproved!");
         } else {
           setMes("quantity has been decreased!");
         }
         dispatch(addActions.addCount());
-        // dispatch(addActions.subtractCount(0));
       })
-      .catch(setMes("Blood does not exist in the stock!"))
       .finally(() => {
+        setAlert(false);
         setOpen(true);
       });
   };
@@ -122,7 +131,6 @@ const DemandeTable = () => {
       .then((res) => {
         setMes("Request has been rejected!");
         dispatch(addActions.addCount());
-        // dispatch(addActions.subtractCount(0));
       })
       .finally(() => {
         setOpen(true);
@@ -134,6 +142,9 @@ const DemandeTable = () => {
     setOpen(false);
   };
 
+  const closeAlertHandler = () => {
+    setAlert(false);
+  };
   return (
     <Stack>
       <PageName>
@@ -180,7 +191,7 @@ const DemandeTable = () => {
                     <Stack flexDirection={"row"}>
                       {role.role !== "doctor" && (
                         <IconButton
-                          onClick={() => AcceptedHandler(tab)}
+                          onClick={() => getBlood(tab)}
                           sx={{
                             ":hover": {
                               backgroundColor: "#1D95BB",
@@ -209,6 +220,29 @@ const DemandeTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <Dialog
+          open={alert}
+          onClose={closeAlertHandler}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Alert!"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              There is {quantityInStock}, would you like to take it?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+           {quantityInStock!== 0 && <Button onClick={AcceptedHandler} autoFocus>
+              Yes
+            </Button>}
+            <Button onClick={closeAlertHandler} autoFocus>
+              No
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         <Dialog
           open={open}
           onClose={handleClose}
